@@ -19,8 +19,10 @@ Require Import UniMath.CategoryTheory.PrecategoryBinProduct.
 Require Import UniMath.CategoryTheory.HorizontalComposition.
 
 Require Import UniMath.CategoryTheory.Bicategories.WkCatEnrichment.prebicategory.
+Require Import UniMath.CategoryTheory.Bicategories.WkCatEnrichment.bicategory.
 Require Import UniMath.CategoryTheory.Bicategories.WkCatEnrichment.Notations.
 
+Require Import UniMath.CategoryTheory.Bicategories.BicatOfBicategory.
 Require Import UniMath.CategoryTheory.Bicategories.Bicategories.Bicat. Import Bicat.Notations.
 
 Local Open Scope cat.
@@ -160,3 +162,14 @@ Proof.
 Defined.
 
 End Build_Bicategory.
+
+Definition bicattegory_iff_bicat
+  : prebicategory <-> bicat.
+Proof.
+  split.
+  - intros C.
+    refine (bcat C ,, _).
+    apply (pr2 C).
+  - intros C.
+    exact (prebicategory_of_prebicat C (pr2 C)).
+Defined.
