@@ -7,6 +7,7 @@ Require Import UniMath.CategoryTheory.PrecategoryBinProduct.
 Require Import UniMath.CategoryTheory.Bicategories.Bicategories.Bicat. Import Bicat.Notations.
 Require Import UniMath.CategoryTheory.Bicategories.Bicategories.Invertible_2cells.
 Require Import UniMath.CategoryTheory.Bicategories.Bicategories.BicategoryLaws.
+Require Import UniMath.CategoryTheory.Bicategories.Bicategories.Adjunctions.
 Require Import UniMath.CategoryTheory.Bicategories.PseudoFunctors.Display.Base.
 Require Import UniMath.CategoryTheory.Bicategories.PseudoFunctors.Display.Map1Cells.
 Require Import UniMath.CategoryTheory.Bicategories.PseudoFunctors.Display.Map2Cells.
@@ -251,3 +252,74 @@ Definition comp_trans
            (σ₁ : pstrans F₁ F₂) (σ₂ : pstrans F₂ F₃)
   : pstrans F₁ F₃
   := σ₁ · σ₂.
+
+Require Import UniMath.CategoryTheory.DisplayedCats.Core.
+Require Import UniMath.CategoryTheory.Bicategories.Bicategories.Univalence.
+Require Import UniMath.CategoryTheory.Bicategories.Bicategories.EquivToAdjequiv.
+Require Import UniMath.CategoryTheory.Bicategories.DisplayedBicats.DispBicat.
+Require Import UniMath.CategoryTheory.Bicategories.DisplayedBicats.Examples.Prod.
+Require Import UniMath.CategoryTheory.Bicategories.DisplayedBicats.Examples.FullSub.
+Require Import UniMath.CategoryTheory.Bicategories.DisplayedBicats.Examples.DisplayedCatToBicat.
+Require Import UniMath.CategoryTheory.Bicategories.DisplayedBicats.DispAdjunctions.
+Require Import UniMath.CategoryTheory.Bicategories.DisplayedBicats.DispUnivalence.
+
+Section PseudoAdjointEquivalence.
+  Context {C D : bicat}
+          {F₁ F₂ : psfunctor C D}.
+  Variable (HD_2_1 : is_univalent_2_1 D)
+           (η : pstrans F₁ F₂)
+           (ηequiv : ∏ X : C, left_adjoint_equivalence (η X)).
+
+  Local Notation "'τobj' X" := (left_adjoint_right_adjoint (ηequiv X)) (at level 0).
+
+  Local Definition pseudo_adjoint_equivalence_help
+    : adjoint_equivalence (pr11 F₁) (pr11 F₂).
+  Proof.
+    apply adjoint_equivalence_total_disp_weq.
+    use tpair.
+    - apply adjequiv_ps_base_weq.
+      intros X.
+      use tpair.
+      + exact (η X).
+      + exact (ηequiv X).
+    - simpl.
+      apply all_invertible_2cell_is_disp_adjoint_equivalence.
+      { exact HD_2_1. }
+      exact (λ X Y f, psnaturality_of η f).
+  Defined.
+
+  Definition pseudo_adjoint_equivalence
+    : adjoint_equivalence F₁ F₂.
+  Proof.
+    apply bicat_adjoint_equivalence_is_fullsub_adjoint_equivalence.
+    apply adjoint_equivalence_total_disp_weq.
+    use tpair.
+    - exact pseudo_adjoint_equivalence_help.
+    - use pair_adjoint_equivalence_weq.
+      { apply map1cells_is_univalent_2_1 ; exact HD_2_1. }
+      { apply map2cells_is_disp_univalent_2_1. }
+      { apply is_univalent_2_1_dirprod_bicat.
+        * apply identitor_is_disp_univalent_2_1.
+        * apply compositor_is_disp_univalent_2_1.
+      }
+      split.
+      + apply disp_cell_unit_bicat_adjoint_equivalent.
+        split.
+        * exact (psnaturality_natural η).
+        * intros X Y f g α.
+          unfold pseudo_adjoint_equivalence_help.
+          simpl.
+      + use pair_adjoint_equivalence_weq.
+        { apply map1cells_is_univalent_2_1 ; exact HD_2_1. }
+        { apply identitor_is_disp_univalent_2_1. }
+        { apply compositor_is_disp_univalent_2_1. }
+        split.
+        * apply disp_cell_unit_bicat_adjoint_equivalent.
+          split.
+          ** exact (pstrans_id η).
+          ** admit.
+        * apply disp_cell_unit_bicat_adjoint_equivalent.
+          split.
+          ** exact (@pstrans_comp _ _ _ _ η).
+          ** admit.
+  Admitted.

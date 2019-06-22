@@ -143,5 +143,4 @@ Section Identitor.
     - apply identitor_is_disp_univalent_2_0; assumption.
     - exact identitor_is_disp_univalent_2_1.
   Defined.
-
 End Identitor.
