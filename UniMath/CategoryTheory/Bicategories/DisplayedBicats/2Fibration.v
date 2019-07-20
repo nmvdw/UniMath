@@ -89,9 +89,9 @@ Section BicatFibration.
                (Pδ : (δ ▹ f) • α' = α • σ)
       : UU
       := ∃! (δδ : pr1 Lh ==>[ δ ] pr1 Lh'),
-         transportb
+         transportf
            (λ z, _ ==>[ z ] _)
-           (!Pδ)
+           Pδ
            (δδ ▹▹ ff •• disp_cell_lift_1cell Lh')
          =
          disp_cell_lift_1cell Lh •• σσ.
@@ -134,11 +134,10 @@ Section BicatFibration.
     := ∏ (h : x --> y)
          (hh : xx -->[ h ] yy)
          (β : h ==> g)
-         (ββ : hh ==>[ β ] gg)
          (γ : h ==> f)
-         (p : β = γ • α),
+         (ββ : hh ==>[ γ • α ] gg),
        ∃! (γγ : hh ==>[ γ ] ff),
-       transportb (λ z, _ ==>[ z ] _) p (γγ •• αα) = ββ.
+        (γγ •• αα) = ββ.
 
   Definition locally_fibered
     : UU
