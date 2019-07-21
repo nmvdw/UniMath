@@ -133,7 +133,6 @@ Section BicatFibration.
     : UU
     := ∏ (h : x --> y)
          (hh : xx -->[ h ] yy)
-         (β : h ==> g)
          (γ : h ==> f)
          (ββ : hh ==>[ γ • α ] gg),
        ∃! (γγ : hh ==>[ γ ] ff),
