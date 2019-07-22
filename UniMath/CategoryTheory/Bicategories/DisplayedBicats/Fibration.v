@@ -18,6 +18,7 @@ Require Import UniMath.CategoryTheory.Bicategories.Bicategories.Invertible_2cell
 Require Import UniMath.CategoryTheory.Bicategories.Bicategories.Unitors.
 Require Import UniMath.CategoryTheory.Bicategories.Bicategories.Adjunctions.
 Require Import UniMath.CategoryTheory.Bicategories.Bicategories.Univalence.
+Require Import UniMath.CategoryTheory.Bicategories.Bicategories.EquivToAdjequiv.
 Require Import UniMath.CategoryTheory.DisplayedCats.Core.
 Require Import UniMath.CategoryTheory.Bicategories.DisplayedBicats.DispBicat.
 Import DispBicat.Notations.
@@ -27,7 +28,80 @@ Require Import UniMath.CategoryTheory.Bicategories.DisplayedBicats.DispUnivalenc
 Require Import UniMath.CategoryTheory.Bicategories.DisplayedBicats.Examples.DisplayedCatToBicat.
 
 Local Open Scope cat.
+(*
+Definition disp_equivalence
+           {B : bicat}
+           {D : disp_bicat B}
+           {x y : B}
+           (f : adjoint_equivalence x y)
+           (xx : D x) (yy : D y)
+  : UU
+  := ∑ (ff : xx -->[ f ] yy)
+       (Hf : disp_left_adjoint_data f ff),
+     disp_left_equivalence_axioms f Hf.
 
+Section DispEquivToDispAdjequiv.
+  Context {B : bicat}
+          {D : disp_bicat B}
+          {x y : B}
+          {xx : D x} {yy : D y}
+          (f : adjoint_equivalence x y)
+          (Hf : disp_equivalence f xx yy).
+
+  Local Definition Ef_help
+    : @left_adjoint_equivalence (total_bicat D) (x ,, xx) (y ,, yy) (pr1 f,, pr1 Hf).
+  Proof.
+    apply equiv_to_isadjequiv.
+    use tpair.
+    - use tpair.
+      + exact (left_adjoint_right_adjoint f ,, pr112 Hf).
+      + split.
+        * exact (left_adjoint_unit f ,, pr121 (pr2 Hf)).
+        * exact (left_adjoint_counit f ,, pr221 (pr2 Hf)).
+    - simpl.
+      apply left_equivalence_axioms_disp_to_total.
+      use tpair.
+      + exact (pr222 f).
+      + exact (pr22 Hf).
+  Qed.
+
+  Local Definition Ef : @adjoint_equivalence (total_bicat D) (x ,, xx) (y ,, yy)
+    := (pr1 f ,, pr1 Hf) ,, Ef_help.
+
+  Definition disp_equiv_to_disp_adjequiv
+    : disp_adjoint_equivalence f xx yy.
+  Proof.
+    exact (pr2 (adjoint_equivalence_total_disp_weq _ _ Ef)).
+    use tpair.
+
+    - exact (pr1 Hf).
+    - simpl.
+      apply left_adjoint_equivalence_total_disp_weq.
+      apply Ef_help.
+      pose (pr2 (adjoint_equivalence_total_disp_weq _ _ Ef)) as d.
+      pose (pr2 d) as e.
+
+      exact e.
+      cbn in e.
+
+
+Print disp_adjoint_equivalence.
+Definition disp_equiv_to_disp_adjequiv
+           {B : bicat}
+           {D : disp_bicat B}
+           {x y : B}
+           {xx : D x} {yy : D y}
+           (f : adjoint_equivalence x y)
+           (ff : xx -->[ f ] yy)
+  : disp_left_adjoint_equivalence f ff.
+Proof.
+  Check (pr2 (@adjoint_equivalence_total_disp_weq B D x y xx yy _)).
+  Check (pr2 (adjoint_equivalence_total_disp_weq (x ,, xx) (y ,, yy) _)).
+  apply (pr2
+
+
+Definition disp_equiv_to_disp_adjequiv
+*)
 Definition TODO {A : UU} : A.
 Admitted.
 
@@ -50,6 +124,126 @@ Section DisplayedUnivalenceFromFiberUnivalence.
            (h : local_iso_cleaving D).
 
   Local Notation "'F' x" := (discrete_fiber_bicat D h x) (at level 40).
+(*
+  Definition help_test₂
+             {x : B}
+             {xx : D x} {yy : D x}
+             (f : @adjoint_equivalence (F x) xx yy)
+    : @adjoint_equivalence (total_bicat D) (x ,, xx) (x ,, yy).
+  Proof.
+    use tpair.
+    - exact (id₁ x ,, pr1 f).
+    - apply equiv_to_isadjequiv.
+      use tpair.
+      + use tpair.
+        * exact (id₁ x ,, left_adjoint_right_adjoint f).
+        * split.
+          ** simple refine (linvunitor _ ,, _) ; simpl.
+             refine (transportf
+                       (λ p, _ ==>[ p ] _)
+                       (id2_left _)
+                       (left_adjoint_unit f •• _)).
+             apply (disp_local_iso_cleaving_invertible_2cell
+                      h (pr1 f;; pr112 f) (idempunitor x)).
+          ** simple refine (lunitor _ ,, _) ; simpl.
+             refine (transportf
+                      (λ p, _ ==>[ p ] _)
+                      (id2_right _)
+                      (_ •• left_adjoint_counit f)).
+             apply (disp_local_iso_cleaving_invertible_2cell
+                      h (pr112 f;; pr1 f) (idempunitor x)).
+      + split ; cbn.
+        * use (@disp_iso_to_invetible_2cell_weq B D _ _ _ _ (linvunitor (id₁ x) ,, _)).
+          ** cbn.
+             is_iso.
+          ** apply TODO.
+        * use (@disp_iso_to_invetible_2cell_weq B D _ _ _ _ (lunitor (id₁ x) ,, _)).
+          ** cbn.
+             is_iso.
+          ** apply TODO.
+  Defined.
+
+  Definition help_test
+             {x y : B}
+             {xx : D x} {yy : D y}
+             (p : x = y)
+             (f : @adjoint_equivalence (F x) xx (transportb D p yy))
+    : @adjoint_equivalence (total_bicat D) (x ,, xx) (y ,, yy).
+  Proof.
+    induction p.
+    cbn in *.
+    apply help_test₂.
+    exact f.
+  Defined.
+ *)
+
+  Definition help_test
+             {x y : B}
+             {xx : D x} {yy : D y}
+    : (∑ p : x = y, @adjoint_equivalence (F x) xx (transportb D p yy))
+        →
+        @adjoint_equivalence (total_bicat D) (x ,, xx) (y,, yy).
+  Proof.
+    intros p.
+    induction p as [p f].
+    induction p ; cbn in * ; unfold idfun in *.
+    use equiv_to_adjequiv.
+    - exact (id₁ x ,, pr1 f).
+    - use tpair.
+      + use tpair.
+        * exact (id₁ x ,, left_adjoint_right_adjoint f).
+        * split.
+          ** simple refine (linvunitor _ ,, _) ; cbn.
+             refine (transportf
+                       (λ p, _ ==>[ p ] _)
+                       (id2_left _)
+                       (left_adjoint_unit f •• _)).
+             apply (disp_local_iso_cleaving_invertible_2cell
+                      h (pr1 f;; pr112 f) (idempunitor x)).
+          ** simple refine (lunitor _ ,, _) ; cbn.
+             refine (transportf
+                  (λ p, _ ==>[ p ] _)
+                  (id2_right _)
+                  (_ •• left_adjoint_counit f)).
+             apply (disp_local_iso_cleaving_invertible_2cell
+                      h (pr112 f;; pr1 f) (idempunitor x)).
+      + split ; cbn.
+        * apply TODO.
+        * apply TODO.
+  Defined.
+
+  Definition help_test_weq
+             {x y : B}
+             {xx : D x} {yy : D y}
+    : (∑ p : x = y, @adjoint_equivalence (F x) xx (transportb D p yy))
+      ≃
+      @adjoint_equivalence (total_bicat D) (x ,, xx) (y,, yy).
+  Proof.
+    use make_weq.
+    - exact help_test.
+    - use gradth.
+      + apply TODO.
+      + apply TODO.
+      + apply TODO.
+  Defined.
+
+  Definition factor_test
+             (HB : is_univalent_2_0 B)
+             (HF : ∏ (x : B), is_univalent_2_0 (F x))
+             (Ex Ey : total_bicat D)
+    : Ex = Ey ≃ adjoint_equivalence Ex Ey.
+  Proof.
+    induction Ex as [x xx].
+    induction Ey as [y yy].
+    refine (_ ∘ total2_paths_equiv _ _ _)%weq.
+    unfold PathPair.
+    cbn.
+    refine (help_test_weq ∘ _)%weq.
+    apply weqfibtototal.
+    intros p.
+    induction p ; cbn ; unfold idfun.
+    exact (make_weq (@idtoiso_2_0 (F x) xx yy) (HF x xx yy)).
+  Defined.
 
   Section DispGlobalUnivalenceViaFiber.
     Context {x : B}
@@ -79,22 +273,66 @@ Section DisplayedUnivalenceFromFiberUnivalence.
                      h (pr112 f;; pr1 f) (idempunitor x)).
       Defined.
 
+      Local Arguments transportf {_} {_} {_} {_} {_} _.
+      Local Arguments transportb {_} {_} {_} {_} {_} _.
+
+      Definition fiber_adjequiv_to_disp_adjequiv_adjoint_axioms
+        : disp_left_adjoint_axioms
+            (internal_adjoint_equivalence_identity x)
+            fiber_adjequiv_to_disp_adjequiv_data.
+       Proof.
+        split.
+        - cbn.
+          refine (!(_ @ _)).
+          {
+            apply maponpaths.
+            exact (!(pr112 (pr2 f))).
+          }
+          unfold transportb.
+          refine (!_).
+          rewrite disp_rwhisker_transport_right.
+          rewrite disp_mor_transportf_prewhisker.
+          rewrite disp_mor_transportf_postwhisker.
+          rewrite disp_rwhisker_transport_left_new.
+          rewrite disp_mor_transportf_prewhisker.
+          do 3 rewrite disp_mor_transportf_postwhisker.
+          rewrite transport_f_f.
+          refine (!_).
+          etrans.
+          {
+            cbn.
+            rewrite !transport_f_f.
+            rewrite !disp_mor_transportf_prewhisker.
+            rewrite !disp_mor_transportf_postwhisker.
+            rewrite !transport_f_f.
+            apply idpath.
+          }
+          cbn.
+          apply idpath.
+          rewrite disp_mor_transportf_prewhisker.
+
+          apply TODO.
+        - apply TODO.
+      Qed.
+
+      disp_mor_transportf_prewhisker
+        disp_mor_transportf_postwhisker
+        disp_rwhisker_transport_left_new
+
       Definition fiber_adjequiv_to_disp_adjequiv
         : disp_adjoint_equivalence (internal_adjoint_equivalence_identity x) xx yy.
       Proof.
         use tpair.
         - apply f.
-        - Print disp_left_adjoint_equivalence.
-          cbn.
+        - cbn.
           use tpair.
           + exact fiber_adjequiv_to_disp_adjequiv_data.
           + split.
+            * exact fiber_adjequiv_to_disp_adjequiv_adjoint_axioms.
             * split.
               ** cbn.
-                 apply TODO.
-              ** apply TODO.
-            * split.
-              ** cbn.
+                 pose (pr122 (pr2 f)).
+                 cbn in i.
                  apply TODO.
               ** apply TODO.
       Defined.
@@ -188,7 +426,6 @@ Section DisplayedUnivalenceFromFiberUnivalence.
   Local Arguments transportf {_} {_} {_} {_} {_} _.
   Local Arguments transportb {_} {_} {_} {_} {_} _.
 
-
   Definition disp_idtoiso_2_0_alt_weq_disp_idtoiso_2_0
              (HF : ∏ (x : B), is_univalent_2_0 (F x))
              {x : B}
@@ -266,7 +503,3 @@ Section DisplayedUnivalenceFromFiberUnivalence.
     - intro p ; cbn in p ; unfold idfun in p.
       apply disp_idtoiso_2_0_alt_weq_disp_idtoiso_2_0.
   Defined.
-
-
-  disp_mor_transportf_prewhisker
-    disp_mor_transportf_postwhisker
