@@ -173,3 +173,375 @@ Definition isaset_cells (C : two_precat) : UU
 
 Definition two_cat : UU
   := ∑ C : two_precat, isaset_cells C.
+
+(**
+Identities to isomorphisms
+ *)
+Definition two_cat_idtoiso
+           {C : two_precat}
+           {a b : C}
+           {f g : a --> b}
+           (p : f = g)
+  : f ==> g.
+Proof.
+  induction p.
+  apply id2.
+Defined.
+
+Definition two_cat_idtoiso_comp
+           {C : two_precat}
+           {a b : C}
+           {f g h : a --> b}
+           (p : f = g) (q : g = h)
+  : two_cat_idtoiso p • two_cat_idtoiso q = two_cat_idtoiso (p @ q).
+Proof.
+  induction p.
+  induction q.
+  apply id2_left.
+Defined.
+
+Definition two_cat_idtoiso_lwhisker
+           {C : two_precat}
+           {a b c : C}
+           (h : a --> b)
+           {f g : b --> c}
+           (p : f = g)
+  : h ◃ two_cat_idtoiso p
+    =
+    two_cat_idtoiso (maponpaths (λ z, h · z) p).
+Proof.
+  induction p.
+  apply lwhisker_id2.
+Defined.
+
+Definition two_cat_idtoiso_rwhisker
+           {C : two_precat}
+           {a b c : C}
+           {f g : a --> b}
+           (h : b --> c)
+           (p : f = g)
+  : two_cat_idtoiso p ▹ h
+    =
+    two_cat_idtoiso (maponpaths (λ z, z · h) p).
+Proof.
+  induction p.
+  apply id2_rwhisker.
+Defined.
+
+(**
+Unitors and associators
+ *)
+Definition two_cat_lunitor
+           {C : two_precat}
+           {a b : C}
+           (f : a --> b)
+  : identity a · f ==> f.
+Proof.
+  apply two_cat_idtoiso.
+  apply id_left.
+Defined.
+
+Definition two_cat_linvunitor
+           {C : two_precat}
+           {a b : C}
+           (f : a --> b)
+  : f ==> identity a · f.
+Proof.
+  apply two_cat_idtoiso.
+  exact (!(id_left f)).
+Defined.
+
+Definition two_cat_runitor
+           {C : two_precat}
+           {a b : C}
+           (f : a --> b)
+  : f · identity b ==> f.
+Proof.
+  apply two_cat_idtoiso.
+  apply id_right.
+Defined.
+
+Definition two_cat_rinvunitor
+           {C : two_precat}
+           {a b : C}
+           (f : a --> b)
+  : f ==> f · identity b.
+Proof.
+  apply two_cat_idtoiso.
+  exact (!(id_right f)).
+Defined.
+
+Definition two_cat_lassociator
+           {C : two_precat}
+           {a b c d : C}
+           (f : a --> b) (g : b --> c) (h : c --> d)
+  : f · (g · h) ==> (f · g) · h.
+Proof.
+  apply two_cat_idtoiso.
+  exact (assoc f g h).
+Defined.
+
+Definition two_cat_rassociator
+           {C : two_precat}
+           {a b c d : C}
+           (f : a --> b) (g : b --> c) (h : c --> d)
+  : (f · g) · h ==> f · (g · h).
+Proof.
+  apply two_cat_idtoiso.
+  exact (!(assoc f g h)).
+Defined.
+
+(** Laws of unitors and associators *)
+
+(** Naturality laws *)
+Definition two_cat_vcomp_lunitor
+           {C : two_precat}
+           {a b : C}
+           {f g : a --> b}
+           (x : f ==> g)
+  : (identity a ◃ x) • two_cat_lunitor g = two_cat_lunitor f • x.
+Proof.
+  apply test.
+  unfold two_cat_lunitor.
+  simpl. cbn in *.
+  induction (id_left g).
+Admitted.
+
+Definition two_cat_vcomp_runitor
+           {C : two_precat}
+           {a b : C}
+           {f g : a --> b}
+           (x : f ==> g)
+  : (x ▹ identity b) • two_cat_runitor g = two_cat_runitor f • x.
+Proof.
+Admitted.
+
+Definition two_cat_lwhisker_lwhisker
+           {C : two_precat}
+           {a b c d : C}
+           (f : a --> b) (g : b --> c)
+           {h i : c --> d}
+           (x : h ==> i)
+  : f ◃ (g ◃ x) • two_cat_lassociator _ _ _
+    =
+    two_cat_lassociator _ _ _ • (f · g ◃ x).
+Proof.
+Admitted.
+
+Definition two_cat_rwhisker_lwhisker
+           {C : two_precat}
+           {a b c d : C}
+           (f : a --> b)
+           {g h : b --> c}
+           (i : c --> d)
+           (x : g ==> h)
+  : (f ◃ (x ▹ i)) • two_cat_lassociator _ _ _
+    =
+    two_cat_lassociator _ _ _ • ((f ◃ x) ▹ i).
+Proof.
+Admitted.
+
+Definition two_cat_rwhisker_rwhisker
+           {C : two_precat}
+           {a b c d : C}
+           {f g : a --> b}
+           (h : b --> c)
+           (i : c --> d)
+           (x : f ==> g)
+  : two_cat_lassociator _ _ _ • ((x ▹ h) ▹ i)
+    =
+    (x ▹ h · i) • two_cat_lassociator _ _ _.
+Proof.
+Admitted.
+
+(** Inverse laws *)
+Definition two_cat_lunitor_linvunitor
+           {C : two_precat}
+           {a b : C}
+           (f : a --> b)
+  : two_cat_lunitor f • two_cat_linvunitor f = id2 _.
+Proof.
+  etrans.
+  {
+    apply two_cat_idtoiso_comp.
+  }
+  etrans.
+  {
+    apply maponpaths.
+    apply pathsinv0r.
+  }
+  apply idpath.
+Qed.
+
+Definition two_cat_linvunitor_lunitor
+           {C : two_precat}
+           {a b : C}
+           (f : a --> b)
+  : two_cat_linvunitor f • two_cat_lunitor f = id2 _.
+Proof.
+  etrans.
+  {
+    apply two_cat_idtoiso_comp.
+  }
+  etrans.
+  {
+    apply maponpaths.
+    apply pathsinv0l.
+  }
+  apply idpath.
+Qed.
+
+Definition two_cat_runitor_rinvunitor
+           {C : two_precat}
+           {a b : C}
+           (f : a --> b)
+  : two_cat_runitor f • two_cat_rinvunitor f = id2 _.
+Proof.
+  etrans.
+  {
+    apply two_cat_idtoiso_comp.
+  }
+  etrans.
+  {
+    apply maponpaths.
+    apply pathsinv0r.
+  }
+  apply idpath.
+Qed.
+
+Definition two_cat_rinvunitor_runitor
+           {C : two_precat}
+           {a b : C}
+           (f : a --> b)
+  : two_cat_rinvunitor f • two_cat_runitor f = id2 _.
+Proof.
+  etrans.
+  {
+    apply two_cat_idtoiso_comp.
+  }
+  etrans.
+  {
+    apply maponpaths.
+    apply pathsinv0l.
+  }
+  apply idpath.
+Qed.
+
+Definition two_cat_lassociator_rassociator
+           {C : two_precat}
+           {a b c d : C}
+           (f : a --> b) (g : b --> c) (h : c --> d)
+  : two_cat_lassociator f g h • two_cat_rassociator f g h
+    =
+    id2 _.
+Proof.
+  etrans.
+  {
+    apply two_cat_idtoiso_comp.
+  }
+  etrans.
+  {
+    apply maponpaths.
+    apply pathsinv0r.
+  }
+  apply idpath.
+Qed.
+
+Definition two_cat_rassociator_lassociator
+           {C : two_precat}
+           {a b c d : C}
+           (f : a --> b) (g : b --> c) (h : c --> d)
+  : two_cat_rassociator f g h • two_cat_lassociator f g h
+    =
+    id2 _.
+Proof.
+  etrans.
+  {
+    apply two_cat_idtoiso_comp.
+  }
+  etrans.
+  {
+    apply maponpaths.
+    apply pathsinv0l.
+  }
+  apply idpath.
+Qed.
+
+(** Coherencies *)
+Definition two_cat_runitor_rwhisker
+           {C : two_precat}
+           {a b c : C}
+           (f : a --> b) (g : b --> c)
+  : two_cat_lassociator _ _ _ • ((two_cat_runitor f) ▹ g)
+    =
+    f ◃ two_cat_lunitor g.
+Proof.
+  etrans.
+  {
+    apply maponpaths.
+    apply two_cat_idtoiso_rwhisker.
+  }
+  etrans.
+  {
+    apply two_cat_idtoiso_comp.
+  }
+  refine (!_).
+  etrans.
+  {
+    apply two_cat_idtoiso_lwhisker.
+  }
+  apply maponpaths.
+  apply (pr11 C).
+Qed.
+
+Definition two_cat_lassociator_lassociator
+           {C : two_precat}
+           {a b c d e : C}
+           (f : a --> b) (g : b --> c)
+           (h : c --> d) (i : d --> e)
+  : (f ◃ two_cat_lassociator g h i)
+      • two_cat_lassociator _ _ _
+      • (two_cat_lassociator _ _ _ ▹ i)
+    =
+    two_cat_lassociator f g _  • two_cat_lassociator _ _ _.
+Proof.
+  etrans.
+  {
+    apply maponpaths_2.
+    etrans.
+    {
+      apply maponpaths_2.
+      apply two_cat_idtoiso_lwhisker.
+    }
+    apply two_cat_idtoiso_comp.
+  }
+  etrans.
+  {
+    etrans.
+    {
+      apply maponpaths.
+      apply two_cat_idtoiso_rwhisker.
+    }
+    apply two_cat_idtoiso_comp.
+  }
+  refine (!_).
+  etrans.
+  {
+    apply two_cat_idtoiso_comp.
+  }
+  apply maponpaths.
+  apply (pr11 C).
+Qed.
+
+Module Notations.
+
+Notation "f '==>' g" := (two_cat_cells _ f g) (at level 60).
+Notation "f '<==' g" := (two_cat_cells _ g f) (at level 60, only parsing).
+Notation "x • y" := (vcomp2 x y) (at level 60).
+Notation "f ◃ x" := (lwhisker f x) (at level 60). (* \tw *)
+Notation "y ▹ g" := (rwhisker g y) (at level 60). (* \tw nr 2 *)
+Notation "x ⋆ y" := (hcomp x y) (at level 50, left associativity).
+Notation "'id₁'" := identity.
+Notation "'id₂'" := id2.
+
+End Notations.
