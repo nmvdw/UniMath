@@ -572,3 +572,71 @@ Definition left_adjequiv_invertible_2cell
           (λ a b f g α, left_adjoint_equivalence f → left_adjoint_equivalence g)
           (λ _ _ _ p, p)
           α.
+
+(** In univalent bicategories, isos are the same as equivalences*)
+Definition is_iso_1_cell
+           {B : bicat}
+           {x y : B}
+           (f : x --> y)
+  : UU
+  := ∑ (g : y --> x), id₁ x = f · g × g · f = id₁ y.
+
+Definition iso_1_cell
+           {B : bicat}
+           (x y : B)
+  : UU
+  := ∑ (f : x --> y), is_iso_1_cell f.
+
+Definition equiv_to_iso
+           {B : bicat}
+           (HB : is_univalent_2_1 B)
+           {x y : B}
+           (f : x --> y)
+  : left_equivalence f → is_iso_1_cell f
+  := λ e,
+     left_adjoint_right_adjoint e
+     ,, isotoid_2_1 HB (make_invertible_2cell (left_equivalence_unit_iso e))
+     ,, isotoid_2_1 HB (make_invertible_2cell (left_equivalence_counit_iso e)).
+
+Definition iso_to_equiv
+           {B : bicat}
+           {x y : B}
+           (f : x --> y)
+  : is_iso_1_cell f → left_equivalence f
+  := λ e,
+     (pr1 e
+      ,, (pr1 (idtoiso_2_1 _ _ (pr12 e))
+          ,,
+          pr1 (idtoiso_2_1 _ _ (pr22 e))))
+      ,,
+      (pr2 (idtoiso_2_1 _ _ (pr12 e))
+       ,,
+       pr2 (idtoiso_2_1 _ _ (pr22 e))).
+
+Definition equiv_is_iso
+           {B : bicat}
+           (HB : is_univalent_2_1 B)
+           {x y : B}
+           (f : x --> y)
+  : left_equivalence f ≃ is_iso_1_cell f.
+Proof.
+  use make_weq.
+  - exact (equiv_to_iso HB f).
+  - use gradth.
+    + exact (iso_to_equiv f).
+    + intros e.
+      use subtypePath.
+      { intro ; apply isapropdirprod ; apply isaprop_is_invertible_2cell. }
+      use total2_paths_b.
+      * apply idpath.
+      * abstract
+          (simpl ;
+           rewrite !idtoiso_2_1_isotoid_2_1 ;
+           apply idpath).
+    + intros e.
+      use total2_paths_b.
+      * apply idpath.
+      * exact (pathsdirprod
+                 (isotoid_2_1_idtoiso_2_1 HB _)
+                 (isotoid_2_1_idtoiso_2_1 HB _)).
+Defined.
