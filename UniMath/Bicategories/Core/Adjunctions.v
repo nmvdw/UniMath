@@ -35,13 +35,29 @@ Section Internal_Adjunction.
     left_adjoint_right_adjoint αd · f ==> identity b
     := pr22 αd.
 
-  Definition left_adjoint_axioms {a b : C} {f : C⟦a,b⟧}
-             (αd : left_adjoint_data f) : UU
+  Definition left_adjoint_left_triangle
+             {a b : C}
+             {f : C⟦a,b⟧}
+             (αd : left_adjoint_data f)
+    : UU
     := let g := left_adjoint_right_adjoint αd in
        let η := left_adjoint_unit αd in
        let ε := left_adjoint_counit αd in
-         ( linvunitor f • (η ▹ f) • rassociator _ _ _ • (f ◃ ε) • runitor f = id2 f )
-       × ( rinvunitor g • (g ◃ η) • lassociator _ _ _ • (ε ▹ g) • lunitor g = id2 g ).
+       linvunitor f • (η ▹ f) • rassociator _ _ _ • (f ◃ ε) • runitor f = id2 f.
+
+  Definition left_adjoint_right_triangle
+             {a b : C}
+             {f : C⟦a,b⟧}
+             (αd : left_adjoint_data f)
+    : UU
+    := let g := left_adjoint_right_adjoint αd in
+       let η := left_adjoint_unit αd in
+       let ε := left_adjoint_counit αd in
+       rinvunitor g • (g ◃ η) • lassociator _ _ _ • (ε ▹ g) • lunitor g = id2 g.
+
+  Definition left_adjoint_axioms {a b : C} {f : C⟦a,b⟧}
+             (αd : left_adjoint_data f) : UU
+    := left_adjoint_left_triangle αd × left_adjoint_right_triangle αd.
 
   Definition left_adjoint {a b : C} (f : C⟦a,b⟧) : UU
     := ∑ (αd : left_adjoint_data f), left_adjoint_axioms αd.

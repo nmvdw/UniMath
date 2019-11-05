@@ -11,6 +11,7 @@ Require Import UniMath.MoreFoundations.All.
 Require Import UniMath.CategoryTheory.Core.Categories.
 Local Open Scope cat.
 Require Import UniMath.Bicategories.Core.Bicat. Import Bicat.Notations.
+Require Import UniMath.Bicategories.Core.Examples.OpMorBicat.
 Require Import UniMath.Bicategories.Core.Unitors.
 Require Import UniMath.Bicategories.Core.Invertible_2cells.
 Require Import UniMath.Bicategories.Core.BicategoryLaws.
@@ -22,7 +23,7 @@ Definition representable_faithful
            {C : bicat}
            {X Y Z : C}
            {f : C⟦X,Y⟧} {g : C⟦Y,X⟧}
-           (η : id₁ X ==> g ∘ f)
+           (η : id₁ X ==> f · g)
            (k₁ k₂ : C⟦Z,X⟧)
            (α β : k₁ ==> k₂)
            (Hη : is_invertible_2cell η)
@@ -32,18 +33,18 @@ Proof.
   rewrite (whisker_l_iso_id₁ η _ _ α Hη).
   rewrite (whisker_l_iso_id₁ η _ _ β Hη).
   rewrite (whisker_l_eq k₁ k₂ α β Hαβ).
-  reflexivity.
+  apply idpath.
 Qed.
 
 Definition representable_full
            {C : bicat}
            {X Y Z : C}
            {f : C⟦X,Y⟧} {g : C⟦Y,X⟧}
-           (η : id₁ X ==> g ∘ f)
-           (θ : f ∘ g ==> id₁ Y)
+           (η : id₁ X ==> f · g)
+           (θ : g · f ==> id₁ Y)
            (Hη : is_invertible_2cell η)
            (k₁ k₂ : C⟦Z,X⟧)
-           (α : f ∘ k₁ ==> f ∘ k₂)
+           (α : k₁ · f ==> k₂ · f)
   : k₁ ==> k₂.
 Proof.
   refine (_ o rinvunitor _).
@@ -59,15 +60,15 @@ Definition full_spec
            {C : bicat}
            {X Y Z : C}
            {f : C⟦X,Y⟧} {g : C⟦Y,X⟧}
-           (η : id₁ X ==> g ∘ f)
-           (θ : f ∘ g ==> id₁ Y)
+           (η : id₁ X ==> f · g)
+           (θ : g · f ==> id₁ Y)
            (Hη : is_invertible_2cell η)
            (Hθ : is_invertible_2cell θ)
            (k₁ k₂ : C⟦Z,X⟧)
-           (α : f ∘ k₁ ==> f ∘ k₂)
-  : f ◅ (representable_full η θ Hη k₁ k₂ α) = α.
+           (α : k₁ · f ==> k₂ · f)
+  : (representable_full η θ Hη k₁ k₂ α) ▹ f = α.
 Proof.
-  refine (representable_faithful (Hθ^-1) (f ∘ k₁) (f ∘ k₂) _ α _ _).
+  refine (representable_faithful (Hθ^-1) (k₁ · f) (k₂ · f) _ α _ _).
   { is_iso. }
   apply (vcomp_lcancel (lassociator _ _ _)).
   { is_iso. }
@@ -76,18 +77,218 @@ Proof.
   { is_iso. }
   rewrite <- !vassocr.
   rewrite lassociator_rassociator, id2_right.
-  apply (vcomp_rcancel (Hη^-1 ▻ k₂)).
+  apply (vcomp_rcancel (k₂ ◃ Hη^-1)).
   { is_iso. }
   apply (vcomp_rcancel (runitor k₂)).
   { is_iso. }
-  apply (vcomp_lcancel (η ▻ k₁)).
+  apply (vcomp_lcancel (k₁ ◃ η)).
   { is_iso. }
   apply (vcomp_lcancel (rinvunitor k₁)).
   { is_iso. }
   rewrite <- !vassocr.
   rewrite <- (whisker_l_iso_id₁ η k₁ k₂ (representable_full η θ Hη k₁ k₂ α) Hη).
-  reflexivity.
+  apply idpath.
 Qed.
+
+Section MoveTriangleRightToLeft.
+  Context {C : bicat}
+          {X Y : C}
+          (f : C⟦X,Y⟧)
+          {g : C⟦Y,X⟧}
+          {η : id₁ X ==> f · g}
+          {ε : g · f ==> id₁ Y}
+          (ηiso : is_invertible_2cell η)
+          (εiso : is_invertible_2cell ε).
+
+  Local Notation pack_f_equiv
+    := ((g ,, (η ,, ε)) ,, (ηiso ,, εiso) : left_equivalence f).
+
+  Variable (H : left_adjoint_right_triangle pack_f_equiv).
+
+  Local Definition whisker_ηg_type
+    : UU.
+  Proof.
+    refine (g ◃ η = runitor g • linvunitor g • inv_cell (η := ε ▹ g) _ • rassociator _ _ _).
+    unfold representable_full.
+    is_iso.
+  Defined.
+
+  Local Definition whisker_ηg
+    : whisker_ηg_type.
+  Proof.
+    unfold whisker_ηg_type.
+    cbn.
+    rewrite !vassocl.
+    use vcomp_move_L_Mp.
+    { is_iso ; apply Hf. }
+    cbn.
+    refine (_ @ id2_right _).
+    use vcomp_move_L_pM.
+    { is_iso. }
+    cbn.
+    refine (_ @ H) ; cbn.
+    rewrite !vassocl.
+    apply idpath.
+  Qed.
+
+  Local Definition η_natural
+    : η • (rinvunitor _ • (f · g ◃ η))
+      =
+      η • (linvunitor _ • (η ▹ f · g)).
+  Proof.
+    rewrite !vassocr.
+    rewrite rinvunitor_natural.
+    rewrite linvunitor_natural.
+    rewrite <- !vassocr.
+    rewrite lwhisker_hcomp, rwhisker_hcomp.
+    rewrite <- !interchange.
+    rewrite !id2_left, !id2_right.
+    rewrite lunitor_V_id_is_left_unit_V_id.
+    apply idpath.
+  Qed.
+
+  Local Definition η_natural_help
+    : rinvunitor _ • (f · g ◃ η)
+      =
+      linvunitor _ • (η ▹ f · g)
+    := vcomp_lcancel η ηiso η_natural.
+
+  Local Definition η_whisker_l_hcomp
+    : η ▹ (f · g)
+      =
+      lassociator _ _ _ • ((η ▹ f ▹ g) • rassociator _ _ _).
+  Proof.
+    rewrite !vassocr.
+    use vcomp_move_L_Mp.
+    { is_iso. }
+    cbn.
+    rewrite rwhisker_rwhisker.
+    apply idpath.
+  Qed.
+
+  Local Definition η_whisker_r_hcomp
+    : η ▻ (g ∘ f)
+      =
+      lassociator f g (g ∘ f) o η ▻ g ▻ f o rassociator f g (id₁ X).
+  Proof.
+    use vcomp_move_L_pM.
+    { is_iso. }
+    cbn.
+    rewrite lwhisker_lwhisker.
+    apply idpath.
+  Qed.
+
+  Local Definition help1
+    : f ◃ (rinvunitor _ • (g ◃ η)) • lassociator _ _ _
+      =
+      linvunitor _ • (lassociator _ _ _ • (((η ▹ f) ▹ g) • rassociator _ _ _)).
+  Proof.
+    cbn.
+    rewrite <- η_whisker_l_hcomp.
+    rewrite <- lwhisker_vcomp.
+    rewrite left_unit_inv_assoc.
+    rewrite <- !vassocr.
+    rewrite lwhisker_lwhisker.
+    rewrite !vassocr.
+    rewrite !(maponpaths (fun z => _ o z) (!(vassocr _ _ _))).
+    rewrite rassociator_lassociator, id2_right.
+    exact η_natural_help.
+  Qed.
+
+  Local Definition help2
+    : (rinvunitor f • ((f ◃ εiso ^-1) • lassociator f g f)) ▹ g
+      =
+      (linvunitor f • (η ▹ f)) ▹ g.
+  Proof.
+    rewrite <- !rwhisker_vcomp.
+    rewrite !vassocr.
+    rewrite lwhisker_hcomp, rwhisker_hcomp.
+    rewrite <- triangle_l_inv.
+    rewrite !(maponpaths (λ z, z • _) (!(vassocr _ _ _))).
+    unfold assoc.
+    rewrite <- !lwhisker_hcomp.
+    rewrite <- rwhisker_lwhisker.
+    pose help1 as p.
+    rewrite whisker_ηg in p.
+    cbn in p.
+    rewrite !vassocr in p.
+    rewrite rinvunitor_runitor, id2_left in p.
+    rewrite <- !lwhisker_vcomp in p.
+    rewrite linvunitor_assoc in p.
+    rewrite <- !vassocr in p.
+    rewrite !vassocr in p.
+    rewrite !(maponpaths (λ z, (z • _) • _) (!(vassocr _ _ _))) in p.
+    rewrite rassociator_lassociator, id2_right in p.
+    rewrite rwhisker_vcomp in p.
+    rewrite <- !vassocr in p.
+    pose @inverse_pentagon_5 as q.
+    rewrite !lwhisker_hcomp in p.
+    rewrite q in p ; clear q.
+    rewrite !vassocr in p.
+    use vcomp_rcancel. 2: exact (rassociator (f · g) f g).
+    { is_iso. }
+    rewrite rwhisker_vcomp.
+    refine (_ @ p) ; clear p.
+    cbn.
+    rewrite !vassocr, !lwhisker_hcomp, !rwhisker_hcomp.
+    apply idpath.
+  Qed.
+
+  Local Definition help3
+    : rinvunitor f • ((f ◃ εiso ^-1) • lassociator f g f)
+      =
+      linvunitor f • (η ▹ f).
+  Proof.
+    use (representable_faithful _ _ _ _ _ _ help2).
+    - exact f.
+    - exact (εiso^-1).
+    - is_iso.
+  Qed.
+
+  Local Definition left_triangle_from_right
+    : left_adjoint_left_triangle pack_f_equiv.
+  Proof.
+    refine (maponpaths (λ z, ((z • _) • _) • _) (!help3) @ _).
+    rewrite !vassocr.
+    rewrite !(maponpaths (λ z, (z • _) • _) (!(vassocr _ _ _))).
+    rewrite lassociator_rassociator, id2_right.
+    rewrite !(maponpaths (λ z, z • _) (!(vassocr _ _ _))).
+    rewrite lwhisker_vcomp.
+    rewrite vcomp_linv.
+    rewrite lwhisker_id2.
+    rewrite id2_right.
+    rewrite rinvunitor_runitor.
+    apply idpath.
+  Qed.
+End MoveTriangleRightToLeft.
+
+Section MoveTriangleLeftToRight.
+  Context {C : bicat}
+          {X Y : C}
+          (f : C⟦X,Y⟧)
+          {g : C⟦Y,X⟧}
+          {η : id₁ X ==> f · g}
+          {ε : g · f ==> id₁ Y}
+          (ηiso : is_invertible_2cell η)
+          (εiso : is_invertible_2cell ε).
+
+  Local Notation pack_f_equiv
+    := ((g ,, (η ,, ε)) ,, (ηiso ,, εiso) : left_equivalence f).
+
+  Variable (H : left_adjoint_left_triangle pack_f_equiv).
+
+  Definition right_triangle_from_left
+    : left_adjoint_right_triangle pack_f_equiv.
+  Proof.
+    exact (@left_triangle_from_right
+             (op1_bicat C)
+             X Y
+             g f
+             η ε
+             ηiso εiso
+             H).
+  Qed.
+End MoveTriangleLeftToRight.
 
 Section EquivToAdjEquiv.
   Context {C : bicat}
@@ -96,19 +297,19 @@ Section EquivToAdjEquiv.
            (Hf : left_equivalence f).
 
   Local Definition g : C⟦Y,X⟧ := left_adjoint_right_adjoint Hf.
-  Local Definition η : id₁ X ==> g ∘ f := left_adjoint_unit Hf.
-  Local Definition θ : f ∘ g ==> id₁ Y := left_adjoint_counit Hf.
+  Local Definition η : id₁ X ==> f · g := left_adjoint_unit Hf.
+  Local Definition θ : g · f ==> id₁ Y := left_adjoint_counit Hf.
   Local Definition ηiso := left_equivalence_unit_iso Hf.
   Local Definition θiso := left_equivalence_counit_iso Hf.
 
-  Local Definition ε : f ∘ g ==> id₁ Y.
+  Local Definition ε : g · f ==> id₁ Y.
   Proof.
-    refine (representable_full (θiso^-1) (ηiso^-1) _ (f ∘ g) (id₁ Y) _).
+    refine (representable_full (θiso^-1) (ηiso^-1) _ (g · f) (id₁ Y) _).
     { is_iso. }
-    exact ((linvunitor g)
-             o runitor g
-             o ηiso^-1 ▻ g
-             o rassociator _ _ _).
+    exact (rassociator _ _ _
+           • (g ◃ ηiso^-1)
+           • runitor _
+           • linvunitor _).
   Defined.
 
   Definition εiso : is_invertible_2cell ε.
@@ -125,17 +326,13 @@ Section EquivToAdjEquiv.
     - exact ε.
   Defined.
 
-  Local Definition first_triangle_law
-    : (lunitor g)
-        o g ◅ ε
-        o lassociator g f g
-        o η ▻ g
-        o rinvunitor _
-      = id₂ g.
+  Local Definition equiv_to_adjequiv_right_triangle
+    : left_adjoint_right_triangle equiv_to_adjequiv_d.
   Proof.
-    rewrite !vassocr.
-    unfold ε.
-    rewrite (full_spec (θiso^-1) (ηiso^-1) _ (is_invertible_2cell_inv _) (f ∘ g) (id₁ Y) _).
+    unfold left_adjoint_right_triangle.
+    cbn ; unfold ε.
+    rewrite !vassocl.
+    rewrite (full_spec (θiso^-1) (ηiso^-1) _ (is_invertible_2cell_inv _) (g · f) (id₁ Y) _).
     rewrite <- !vassocr.
     rewrite linvunitor_lunitor, id2_right.
     rewrite !vassocr.
@@ -147,162 +344,15 @@ Section EquivToAdjEquiv.
     rewrite lwhisker_id2.
     rewrite id2_right.
     rewrite rinvunitor_runitor.
-    reflexivity.
-  Qed.
-
-  Local Definition whisker_ηg_type
-    : Type.
-  Proof.
-    refine (η ▻ g = inv_cell (η := (lunitor g o g ◅ ε o lassociator g f g)) _ o runitor g).
-    unfold ε, representable_full.
-    is_iso.
-  Defined.
-
-  Local Definition whisker_ηg
-    : whisker_ηg_type.
-  Proof.
-    use vcomp_move_L_Mp.
-    { cbn.
-      is_iso.
-      - apply Hf.
-      - apply Hf.
-    }
-    cbn.
-    refine (_ @ id2_right _).
-    use vcomp_move_L_pM.
-    { is_iso. }
-    cbn.
-    apply first_triangle_law.
-  Qed.
-
-  Local Definition η_natural
-    : η ▻ (g ∘ f) o rinvunitor (g ∘ f) o η
-      =
-      (g ∘ f) ◅ η o linvunitor (g ∘ f) o η.
-  Proof.
-    rewrite !vassocr.
-    rewrite rinvunitor_natural.
-    rewrite linvunitor_natural.
-    rewrite <- !vassocr.
-    rewrite lwhisker_hcomp, rwhisker_hcomp.
-    rewrite <- !interchange.
-    rewrite !id2_left, !id2_right.
-    rewrite lunitor_V_id_is_left_unit_V_id.
-    reflexivity.
-  Qed.
-
-  Local Definition η_natural_help
-    : η ▻ (g ∘ f) o rinvunitor (g ∘ f)
-      =
-      (g ∘ f) ◅ η o linvunitor (g ∘ f)
-    := vcomp_lcancel η ηiso η_natural.
-
-  Local Definition η_whisker_l_hcomp
-    : (g ∘ f) ◅ η = rassociator (g ∘ f) f g o g ◅ (f ◅ η) o lassociator (id₁ X) f g.
-  Proof.
-    rewrite !vassocr.
-    use vcomp_move_L_Mp.
-    { is_iso. }
-    cbn.
-    rewrite rwhisker_rwhisker.
-    reflexivity.
-  Qed.
-
-  Local Definition η_whisker_r_hcomp
-    : η ▻ (g ∘ f) = lassociator f g(g ∘ f) o η ▻ g ▻ f o rassociator f g (id₁ X).
-  Proof.
-    use vcomp_move_L_pM.
-    { is_iso. }
-    cbn.
-    rewrite lwhisker_lwhisker.
-    reflexivity.
-  Qed.
-
-  Local Definition help1
-    : lassociator f g (g ∘ f) o (η ▻ g o rinvunitor _) ▻ f
-      =
-      (rassociator (g ∘ f) f g)
-        o g ◅ (f ◅ η)
-        o lassociator (id₁ X) f g
-        o linvunitor (g ∘ f).
-  Proof.
-    rewrite <- η_whisker_l_hcomp.
-    rewrite <- lwhisker_vcomp.
-    rewrite left_unit_inv_assoc.
-    rewrite <- !vassocr.
-    rewrite lwhisker_lwhisker.
-    rewrite !vassocr.
-    rewrite !(maponpaths (fun z => _ o z) (!(vassocr _ _ _))).
-    rewrite rassociator_lassociator, id2_right.
-    exact η_natural_help.
-  Qed.
-
-  Local Definition help2
-    : g ◅ (lassociator f g f o εiso^-1 ▻ f o rinvunitor _)
-      =
-      g ◅ (f ◅ η o linvunitor f).
-  Proof.
-    rewrite <- !rwhisker_vcomp.
-    rewrite !vassocr.
-    rewrite lwhisker_hcomp, rwhisker_hcomp.
-    rewrite <- triangle_l_inv.
-    rewrite !(maponpaths (fun z => _ o z) (!(vassocr _ _ _))).
-    unfold assoc.
-    rewrite <- !lwhisker_hcomp.
-    rewrite <- rwhisker_lwhisker.
-    pose help1 as p.
-    rewrite whisker_ηg in p.
-    cbn in p.
-    rewrite !vassocr in p.
-    rewrite rinvunitor_runitor, id2_left in p.
-    rewrite <- !lwhisker_vcomp in p.
-    rewrite linvunitor_assoc in p.
-    rewrite <- !vassocr in p.
-    rewrite !vassocr in p.
-    rewrite !(maponpaths (fun z => _ o (_ o z)) (!(vassocr _ _ _))) in p.
-    rewrite rassociator_lassociator, id2_right in p.
-    rewrite rwhisker_vcomp in p.
-    rewrite <- !vassocr in p.
-    pose @inverse_pentagon_5 as q.
-    rewrite !lwhisker_hcomp in p.
-    rewrite q in p ; clear q.
-    rewrite !vassocr in p.
-    use vcomp_rcancel. 2: exact (rassociator (f · g) f g).
-    { is_iso. }
-    rewrite rwhisker_vcomp.
-    refine (_ @ p) ; clear p.
-    cbn.
-    rewrite !vassocr, !lwhisker_hcomp, !rwhisker_hcomp.
-    reflexivity.
-  Qed.
-
-  Local Definition help3
-    : lassociator f g f o εiso^-1 ▻ f o rinvunitor f
-      =
-      f ◅ η o linvunitor f.
-  Proof.
-    use (representable_faithful _ _ _ _ _ _ help2).
-    - exact f.
-    - exact (εiso^-1).
-    - is_iso.
+    apply idpath.
   Qed.
 
   Definition equiv_to_adjequiv_isadj : left_adjoint_axioms equiv_to_adjequiv_d.
   Proof.
     split ; cbn.
-    - refine (maponpaths (fun z => ((z • _) • _) • _) (!help3) @ _).
-      rewrite !vassocr.
-      rewrite !(maponpaths (fun z => _ o (_ o z)) (!(vassocr _ _ _))).
-      rewrite lassociator_rassociator, id2_right.
-      rewrite !(maponpaths (fun z => _ o z) (!(vassocr _ _ _))).
-      rewrite lwhisker_vcomp.
-      rewrite vcomp_linv.
-      rewrite lwhisker_id2.
-      rewrite id2_right.
-      rewrite rinvunitor_runitor.
-      reflexivity.
-    - rewrite <- !vassocr.
-      exact first_triangle_law.
+    - apply (left_triangle_from_right f ηiso εiso).
+      exact equiv_to_adjequiv_right_triangle.
+    - exact equiv_to_adjequiv_right_triangle.
   Defined.
 
   Definition equiv_to_isadjequiv : left_adjoint_equivalence f.
