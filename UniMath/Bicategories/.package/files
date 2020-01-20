@@ -24,6 +24,7 @@ DisplayedBicats/DispBicat.v
 DisplayedBicats/DispInvertibles.v
 DisplayedBicats/DispAdjunctions.v
 DisplayedBicats/DispUnivalence.v
+DisplayedBicats/Fibrations.v
 DisplayedBicats/Fibration.v
 DisplayedBicats/FiberCategory.v
 DisplayedBicats/FiberBicategory/FiberBicategory1.v
@@ -80,6 +81,12 @@ DisplayedBicats/Examples/KleisliTriple.v
 DisplayedBicats/DispTransformation.v
 DisplayedBicats/DispModification.v
 DisplayedBicats/DispBiequivalence.v
+
+DisplayedBicats/Fib_of_DispCats.v
+
+DisplayedBicats/Examples/Codomain.v
+DisplayedBicats/Examples/CodomainFibration/Pullback.v
+DisplayedBicats/Examples/CodomainFibration/CodomainCleaving.v
 
 Core/Examples/Image.v
 PseudoFunctors/Examples/RestrictImage.v
