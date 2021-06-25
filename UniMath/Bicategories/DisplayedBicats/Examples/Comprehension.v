@@ -1088,6 +1088,23 @@ Definition pullback_from_sub
              _ _ _ _ _ _
              (disp_cat_of_cleaving C _ _ s A))).
 
+Definition sub_Tm_help
+           {C : comprehension_category}
+           {Γ₂ : Con C}
+           {A : Ty Γ₂}
+           (t : Tm Γ₂ A)
+           {Γ₁ : Con C}
+           (s : Sub Γ₁ Γ₂)
+  : s · pr1 t · pr2 (comprehension_of C Γ₂ A)
+    =
+    id₁ (functor_identity (base_category_of C) Γ₁) · s.
+Proof.
+  rewrite id_left.
+  rewrite assoc'.
+  refine (maponpaths (λ z, s · z) (pr2 t) @ _).
+  apply id_right.
+Qed.
+
 Definition sub_Tm
            {C : comprehension_category}
            {Γ₂ : Con C}
@@ -1101,11 +1118,7 @@ Proof.
   - use (PullbackArrow (pullback_from_sub A s)).
     + exact (s · pr1 t).
     + exact (identity _).
-    + abstract
-        (rewrite id_left ;
-         rewrite assoc' ;
-         refine (maponpaths (λ z, s · z) (pr2 t) @ _) ;
-         apply id_right).
+    + exact (sub_Tm_help t s).
   - abstract
       (apply (PullbackArrow_PullbackPr2 (pullback_from_sub A s))).
 Defined.
@@ -1466,10 +1479,8 @@ Proof.
          (sub_Ty (sub_Ty A s₂) s₁ ,, _)).
   simpl.
   simple refine (_ ,, _).
-  - pose (mor_disp_of_cartesian_lift _ _ (disp_cat_of_cleaving C _ _ s₂ A)) as m.
-    pose (mor_disp_of_cartesian_lift
-            _ _
-            (disp_cat_of_cleaving C _ _ s₁ (sub_Ty A s₂))) as m'.
+  - pose (sub_Ty_mor A s₂) as m.
+    pose (sub_Ty_mor (sub_Ty A s₂) s₁) as m'.
     exact (m' ;; m).
   - simpl.
     apply is_cartesian_comp_disp.
@@ -1510,7 +1521,7 @@ Proof.
                _
                (idSub _ · pr1 t)
                (idSub _)
-               (sub_Tm_subproof C Γ A t Γ (idSub Γ))).
+               (sub_Tm_help t (idSub Γ))).
   cbn in p.
   rewrite id_left in p.
   refine (_ @ p).
@@ -1546,13 +1557,13 @@ Proof.
   - pose (PullbackArrow_PullbackPr1
             (pullback_from_sub (sub_Ty A s₂) s₁)
             _ _ _
-            (sub_Tm_subproof C Γ₂ (sub_Ty A s₂) (sub_Tm t s₂) Γ₁ s₁))
+            (sub_Tm_help (sub_Tm t s₂) s₁))
       as p.
     cbn in p.
     pose (PullbackArrow_PullbackPr1
             (pullback_from_sub A s₂)
             _ _ _
-            (sub_Tm_subproof C Γ₃ A t Γ₂ s₂)) as q.
+            (sub_Tm_help t s₂)) as q.
     cbn in q.
     unfold compSub.
     rewrite !assoc'.
@@ -1602,13 +1613,15 @@ Proof.
   - pose (PullbackArrow_PullbackPr2
             (pullback_from_sub (sub_Ty A s₂) s₁)
             _ _ _
-            (sub_Tm_subproof C Γ₂ (sub_Ty A s₂) (sub_Tm t s₂) Γ₁ s₁))
+            (sub_Tm_help (sub_Tm t s₂) s₁))
       as p.
     cbn in p.
     refine (_ @ p).
     rewrite !assoc'.
     apply maponpaths.
-    refine (pr2 (# (comprehension_of C) (inv_mor_disp_from_iso (sub_Ty_comp_iso s₁ s₂ A))) @ _).
+    refine (pr2 (# (comprehension_of C)
+                   (inv_mor_disp_from_iso (sub_Ty_comp_iso s₁ s₂ A)))
+            @ _).
     apply id_right.
 Qed.
 
@@ -1623,8 +1636,7 @@ Definition extend_pr_pair
     =
     s.
 Proof.
-  pose (pr2 (# (comprehension_of C)
-               (sub_Ty_mor A s)))
+  pose (pr2 (# (comprehension_of C) (sub_Ty_mor A s)))
     as p.
   cbn in p.
   unfold extend_pair, extend_pr, compSub.
@@ -1643,6 +1655,25 @@ Proof.
   apply id_left.
 Qed.
 
+Definition TODO {A : UU} : A.
+Admitted.
+
+Definition sub_Ty_path_sub
+           {C : comprehension_category}
+           {Γ₁ Γ₂ : Con C}
+           (A : Ty Γ₂)
+           {s₁ s₂ : Sub Γ₁ Γ₂}
+           (p : s₁ = s₂)
+  : iso_disp (identity_iso _) (sub_Ty A s₁) (sub_Ty A s₂).
+Proof.
+  use (cartesian_lifts_iso (sub_Ty A s₁ ,, _) (sub_Ty A s₂ ,, _)).
+  simpl.
+  simple refine (_ ,, _).
+  - exact (transportb (λ z, _ -->[ z ] _) p (sub_Ty_mor A s₂)).
+  - induction p ; cbn.
+    apply cartesian_lift_is_cartesian.
+Defined.
+
 Definition extend_pair_iso
            {C : comprehension_category}
            {Γ₁ Γ₂ : Con C}
@@ -1654,6 +1685,25 @@ Definition extend_pair_iso
       (sub_Ty (sub_Ty A (extend_pr Γ₂ A)) (extend_pair s t))
       (sub_Ty A s).
 Proof.
+  pose (iso_inv_from_iso_disp
+          (sub_Ty_comp_iso (extend_pair s t) (extend_pr Γ₂ A) A))
+    as i1.
+  simpl in i1.
+  pose (sub_Ty_path_sub A (extend_pr_pair s t)) as i2.
+
+
+  (*
+  refine (transportf
+            (λ z, iso_disp z _ _)
+            _
+            (iso_disp_comp
+               (iso_inv_from_iso_disp
+                  (sub_Ty_comp_iso (extend_pair s t) (extend_pr Γ₂ A) A))
+               _)).
+  - admit.
+  - simpl.
+    admit.
+   *)
 Admitted.
 
 Definition extend_pair_path
@@ -1686,8 +1736,82 @@ Definition extend_pair_var
     t.
 Proof.
   refine (path_transportf_Tm _ _ @ _).
-  use path_Tm ; cbn.
+  apply path_Tm.
 
+  pose (PB := pullback_from_sub A s).
+  assert (pr1 t
+          =
+          PullbackArrow
+            PB
+            _
+            (pr1 t · pr1 (# (comprehension_of C) (sub_Ty_mor A s)))
+            (identity _)
+            TODO).
+  {
+    admit.
+  }
+  simpl.
+  refine (_ @ !X) ; clear X.
+  use (PullbackArrowUnique' _ _ PB).
+  - admit.
+  - simpl.
+    refine (_ @ pr2 t).
+
+
+
+
+
+  assert UU.
+  {
+    pose (PB := pullback_from_sub A s).
+    simple refine (pr1 t
+                   =
+                   PullbackArrow
+                     PB
+                     _
+                     (pr1 t · pr1 (# (comprehension_of C) (sub_Ty_mor A s)))
+                     (identity _)
+                     TODO).
+    simpl.
+    rewrite id_left.
+    rewrite assoc'.
+    etrans.
+    {
+      apply maponpaths.
+      apply (pr2 (# (comprehension_of C) (sub_Ty_mor A s))).
+    }
+    simpl.
+    rewrite assoc.
+    etrans.
+    {
+      apply maponpaths_2.
+      exact (pr2 t).
+    }
+    apply id_left.
+    Check (pr2 t).
+    rewrite (pr2 t).
+    cbn.
+
+
+  use transportf_transpose_left.
+  refine (_ @ !(path_transportb_Tm _ _)).
+  use path_Tm ; cbn.
+  refine (!_).
+  use (@PullbackArrowUnique'
+           _ _ _ _ _ _
+           (pullback_from_sub (sub_Ty A (extend_pr Γ₂ A)) (extend_pair s t))).
+  - simpl.
+    unfold extend_pair.
+    rewrite !assoc'.
+    apply maponpaths.
+    simpl.
+    cbn.
+    admit.
+  - cbn.
+    refine (_ @ pr2 t).
+    rewrite !assoc'.
+    apply maponpaths.
+    unfold extend_pr.
 Admitted.
 
 Definition extend_pair_comp
