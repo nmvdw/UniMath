@@ -373,6 +373,7 @@ The packages and files are listed here in logical order: each file depends only 
    - [DisplayedBicats/Examples/DispDepProd.v](Bicategories/DisplayedBicats/Examples/DispDepProd.v)
    - [DisplayedBicats/Examples/FullSub.v](Bicategories/DisplayedBicats/Examples/FullSub.v)
    - [DisplayedBicats/Examples/Trivial.v](Bicategories/DisplayedBicats/Examples/Trivial.v)
+   - [DisplayedBicats/Examples/FiniteLimits.v](Bicategories/DisplayedBicats/Examples/FiniteLimits.v)
    - [Core/Examples/Groupoids.v](Bicategories/Core/Examples/Groupoids.v)
    - [PseudoFunctors/Display/Base.v](Bicategories/PseudoFunctors/Display/Base.v)
    - [PseudoFunctors/Display/Map1Cells.v](Bicategories/PseudoFunctors/Display/Map1Cells.v)

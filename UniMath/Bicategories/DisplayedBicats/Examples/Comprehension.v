@@ -12,6 +12,8 @@ Require Import UniMath.CategoryTheory.DisplayedCats.Auxiliary.
 Require Import UniMath.CategoryTheory.DisplayedCats.Core.
 Require Import UniMath.CategoryTheory.DisplayedCats.Constructions.
 Require Import UniMath.CategoryTheory.DisplayedCats.Codomain.
+Require Import UniMath.CategoryTheory.limits.terminal.
+Require Import UniMath.CategoryTheory.limits.pullbacks.
 Require Import UniMath.Bicategories.Core.Bicat.
 Import Bicat.Notations.
 Require Import UniMath.Bicategories.DisplayedBicats.DispBicat.
@@ -19,10 +21,132 @@ Import DispBicat.Notations.
 Require Import UniMath.Bicategories.DisplayedBicats.Examples.DispBicatOfDispCats.
 Require Import UniMath.Bicategories.Core.Examples.BicatOfCats.
 Require Import UniMath.Bicategories.DisplayedBicats.Examples.FullSub.
+Require Import UniMath.Bicategories.DisplayedBicats.Examples.FiniteLimits.
+Require Import UniMath.Bicategories.DisplayedBicats.Examples.Prod.
 Require Import UniMath.Bicategories.DisplayedBicats.Examples.Sigma.
 Require Import UniMath.Bicategories.DisplayedBicats.DispUnivalence.
 
 Local Open Scope cat.
+
+Definition section
+           {C : precategory}
+           {a b : C}
+           (r : a --> b)
+  : UU
+  := ∑ (s : b --> a), s · r = identity b.
+
+Definition make_section
+           {C : precategory}
+           {a b : C}
+           {r : a --> b}
+           (s : b --> a)
+           (p : s · r = identity b)
+  : section r
+  := (s ,, p).
+
+Definition is_cartesian_id_disp
+           {C : category}
+           {D : disp_cat C}
+           {x : C}
+           (xx : D x)
+  : is_cartesian (id_disp xx).
+Proof.
+  intros z g zz hh.
+  use iscontraprop1.
+  - use invproofirrelevance.
+    intros f₁ f₂.
+    use subtypePath.
+    {
+      intro ; intros.
+      apply D.
+    }
+    refine (id_right_disp_var _ @ _ @ !(id_right_disp_var _)).
+    rewrite (pr2 f₁), (pr2 f₂).
+    apply idpath.
+  - use tpair.
+    + exact (transportf _ (id_right _) hh).
+    + simpl.
+      rewrite id_right_disp.
+      unfold transportb.
+      rewrite transport_f_f.
+      rewrite pathsinv0r.
+      apply idpath.
+Qed.
+
+Definition is_cartesian_comp_disp
+           {C : category}
+           {D : disp_cat C}
+           {x : C}
+           (xx : D x)
+           {y : C}
+           {yy : D y}
+           {z : C}
+           {zz : D z}
+           {f : x --> y} {g : y --> z}
+           {ff : xx -->[ f ] yy} {gg : yy -->[ g ] zz}
+           (Hff : is_cartesian ff) (Hgg : is_cartesian gg)
+  : is_cartesian (ff ;; gg)%mor_disp.
+Proof.
+  intros w h ww hh'.
+  use iscontraprop1.
+  - use invproofirrelevance.
+    intros f₁ f₂.
+    use subtypePath.
+    {
+      intro ; intros.
+      apply D.
+    }
+    pose (hh'' := transportf _ (assoc _ _ _) hh').
+    specialize (Hgg _ _ _ hh'').
+    pose (pr1 Hgg) as t.
+    specialize (Hff w h ww (pr1 t)).
+    pose (isapropifcontr Hff) as i.
+    refine (maponpaths pr1 (proofirrelevance _ i (_ ,, _) (_ ,, _))).
+    + pose (isapropifcontr Hgg) as j.
+      refine (maponpaths pr1 (proofirrelevance _ j (_ ,, _) (_ ,, _))).
+      etrans.
+      {
+        apply assoc_disp_var.
+      }
+      unfold hh''.
+      apply maponpaths.
+      exact (pr2 f₁).
+    + pose (isapropifcontr Hgg) as j.
+      refine (maponpaths pr1 (proofirrelevance _ j (_ ,, _) (_ ,, _))).
+      etrans.
+      {
+        apply assoc_disp_var.
+      }
+      unfold hh''.
+      apply maponpaths.
+      exact (pr2 f₂).
+  - pose (transportf _ (assoc _ _ _) hh') as hh''.
+    pose (Hgg _ _ _ hh'') as φ.
+    pose (pr1 φ) as φar.
+    pose (Hff _ _ _ (pr1 φar)) as ψ.
+    use tpair.
+    + exact (pr11 ψ).
+    + simpl.
+      rewrite assoc_disp.
+      etrans.
+      {
+        apply maponpaths.
+        apply maponpaths_2.
+        exact (pr21 ψ).
+      }
+      etrans.
+      {
+        apply maponpaths.
+        exact (pr21 φ).
+      }
+      unfold hh''.
+      etrans.
+      {
+        apply transport_f_f.
+      }
+      rewrite pathsinv0r.
+      apply idpath.
+Qed.
 
 Definition disp_nat_trans_eq_pointwise
            {C₁ C₂ : category}
@@ -749,16 +873,18 @@ Defined.
 
 Definition disp_bicat_comprehensions
   : disp_bicat bicat_of_cats
-  := sigma_bicat
-       bicat_of_cats
-       DispBicatOfFibs
-       disp_bicat_comprehensions_help.
+  := disp_dirprod_bicat
+       disp_bicat_terminal_obj
+       (sigma_bicat
+          bicat_of_cats
+          DispBicatOfFibs
+          disp_bicat_comprehensions_help).
 
 Definition disp_bicat_is_comprehension_category
   : disp_bicat (total_bicat disp_bicat_comprehensions)
   := disp_fullsubbicat
        (total_bicat disp_bicat_comprehensions)
-       (λ C, is_cartesian_disp_functor (pr22 C)).
+       (λ C, is_cartesian_disp_functor (pr222 C)).
 
 Definition disp_bicat_comprehension_category
   : disp_bicat bicat_of_cats
@@ -771,7 +897,885 @@ Definition comprehension_category
   : bicat
   := total_bicat disp_bicat_comprehension_category.
 
-(* Accessors and builders for the bicategory of comprehension categories *)
+(** Builder for comprehension categories *)
+Definition make_comprehension_category
+           (C : univalent_category)
+           (D : disp_cat C)
+           (HD : is_univalent_disp D)
+           (CD : cleaving D)
+           (T : Terminal C)
+           (χ : disp_functor
+                  (functor_identity _)
+                  D
+                  (disp_codomain C))
+           (Hχ : is_cartesian_disp_functor χ)
+  : comprehension_category.
+Proof.
+  simple refine (_ ,, ((_ ,, ((_ ,, (_ ,, _)) ,, _)) ,, _)).
+  - exact C.
+  - exact T.
+  - exact D.
+  - exact HD.
+  - exact CD.
+  - exact χ.
+  - exact Hχ.
+Defined.
+
+(** Accessors for comprehension categories *)
+Section Accessors.
+  Variable (C : comprehension_category).
+
+  Definition base_category_of
+    : univalent_category.
+  Proof.
+    exact (pr1 C).
+  Defined.
+
+  Definition disp_cat_of
+    : disp_cat base_category_of.
+  Proof.
+    exact (pr11 (pr212 C)).
+  Defined.
+
+  Definition disp_cat_of_is_univalent
+    : is_univalent_disp disp_cat_of.
+  Proof.
+    exact (pr121 (pr212 C)).
+  Defined.
+
+  Definition disp_cat_of_cleaving
+    : cleaving disp_cat_of.
+  Proof.
+    exact (pr221 (pr212 C)).
+  Defined.
+
+  Definition terminal_of
+    : Terminal base_category_of.
+  Proof.
+    exact (pr112 C).
+  Defined.
+
+  Definition comprehension_of
+    : disp_functor
+        (functor_identity _)
+        disp_cat_of
+        (disp_codomain _).
+  Proof.
+    exact (pr2 (pr212 C)).
+  Defined.
+
+  Definition comprehension_is_cartesian
+    : is_cartesian_disp_functor comprehension_of.
+  Proof.
+    exact (pr22 C).
+  Defined.
+End Accessors.
+
+(** Shallow embedding of type theory in a comprehension category *)
+Local Open Scope mor_disp.
+
+(** The sorts *)
+Definition Con
+           (C : comprehension_category)
+  : UU
+  := base_category_of C.
+
+Definition Sub
+           {C : comprehension_category}
+           (Γ₁ Γ₂ : Con C)
+  : UU
+  := Γ₁ --> Γ₂.
+
+Definition Ty
+           {C : comprehension_category}
+           (Γ : Con C)
+  : UU
+  := disp_cat_of C Γ.
+
+Definition Tm
+           {C : comprehension_category}
+           (Γ : Con C)
+           (A : Ty Γ)
+  : UU
+  := section (pr2 (comprehension_of C Γ A)).
+
+(** Constructors for contexts *)
+Definition emptyCon
+           (C : comprehension_category)
+  : Con C
+  := pr1 (terminal_of C).
+
+Definition extendCon
+           {C : comprehension_category}
+           (Γ : Con C)
+           (A : Ty Γ)
+  : Con C
+  := pr1 (comprehension_of C Γ A).
+
+(** Constructors for types *)
+Definition sub_Ty
+           {C : comprehension_category}
+           {Γ₂ : Con C}
+           (A : Ty Γ₂)
+           {Γ₁ : Con C}
+           (s : Sub Γ₁ Γ₂)
+  : Ty Γ₁
+  := object_of_cartesian_lift _ _ (disp_cat_of_cleaving C _ _ s A).
+
+Definition sub_Ty_mor
+           {C : comprehension_category}
+           {Γ₂ : Con C}
+           (A : Ty Γ₂)
+           {Γ₁ : Con C}
+           (s : Sub Γ₁ Γ₂)
+  : sub_Ty A s -->[ s ] A
+  := mor_disp_of_cartesian_lift _ _ (disp_cat_of_cleaving C _ _ s A).
+
+(** Constructors for substitutions *)
+Definition extend_pr
+           {C : comprehension_category}
+           (Γ : Con C)
+           (A : Ty Γ)
+  : Sub (extendCon Γ A) Γ
+  := pr2 (comprehension_of C Γ A).
+
+Definition emptySub
+           {C : comprehension_category}
+           (Γ : Con C)
+  : Sub Γ (emptyCon C)
+  := TerminalArrow _ Γ.
+
+Definition idSub
+           {C : comprehension_category}
+           (Γ : Con C)
+  : Sub Γ Γ
+  := identity Γ.
+
+Definition compSub
+           {C : comprehension_category}
+           {Γ₁ Γ₂ Γ₃ : Con C}
+           (s₁ : Sub Γ₁ Γ₂)
+           (s₂ : Sub Γ₂ Γ₃)
+  : Sub Γ₁ Γ₃
+  := s₁ · s₂.
+
+Definition extend_pair
+           {C : comprehension_category}
+           {Γ₁ Γ₂ : Con C}
+           {A : Ty Γ₂}
+           (s : Sub Γ₁ Γ₂)
+           (t : Tm Γ₁ (sub_Ty A s))
+  : Sub Γ₁ (extendCon Γ₂ A)
+  := pr1 t · pr1 (# (comprehension_of C) (sub_Ty_mor A s)).
+
+Definition pullback_from_sub
+           {C : comprehension_category}
+           {Γ₂ : Con C}
+           (A : Ty Γ₂)
+           {Γ₁ : Con C}
+           (s : Sub Γ₁ Γ₂)
+  : Pullback (pr2 (comprehension_of C Γ₂ A)) s
+  := make_Pullback
+       (extend_pr Γ₂ A) s
+       (extendCon Γ₁ (sub_Ty A s))
+       (pr1 (# (comprehension_of C) (sub_Ty_mor A s)))
+       (extend_pr Γ₁ (sub_Ty A s))
+       _
+       (cartesian_isPullback_in_cod_disp
+          _
+          (comprehension_is_cartesian
+             C
+             _ _ _ _ _ _
+             (disp_cat_of_cleaving C _ _ s A))).
+
+Definition sub_Tm
+           {C : comprehension_category}
+           {Γ₂ : Con C}
+           {A : Ty Γ₂}
+           (t : Tm Γ₂ A)
+           {Γ₁ : Con C}
+           (s : Sub Γ₁ Γ₂)
+  : Tm Γ₁ (sub_Ty A s).
+Proof.
+  use make_section.
+  - use (PullbackArrow (pullback_from_sub A s)).
+    + exact (s · pr1 t).
+    + exact (identity _).
+    + abstract
+        (rewrite id_left ;
+         rewrite assoc' ;
+         refine (maponpaths (λ z, s · z) (pr2 t) @ _) ;
+         apply id_right).
+  - abstract
+      (apply (PullbackArrow_PullbackPr2 (pullback_from_sub A s))).
+Defined.
+
+(** Operations on substitutions *)
+Definition extend_var
+           {C : comprehension_category}
+           (Γ : Con C)
+           (A : Ty Γ)
+  : Tm (extendCon Γ A) (sub_Ty A (extend_pr Γ A)).
+Proof.
+  use make_section.
+  - use (PullbackArrow (pullback_from_sub A _)).
+    + exact (identity _).
+    + exact (identity _).
+    + abstract (apply idpath).
+  - abstract
+      (apply (PullbackArrow_PullbackPr2 (pullback_from_sub A _))).
+Defined.
+
+(** Equations *)
+
+(* Equality of contexts, types, and terms *)
+Definition path_Con
+           {C : comprehension_category}
+           {Γ₁ Γ₂ : Con C}
+           (f : iso Γ₁ Γ₂)
+  : Γ₁ = Γ₂.
+Proof.
+  apply isotoid.
+  - apply (base_category_of C).
+  - exact f.
+Defined.
+
+Definition path_Ty_over
+           {C : comprehension_category}
+           {Γ₁ Γ₂ : Con C}
+           (f : iso Γ₁ Γ₂)
+           {A₁ : Ty Γ₁}
+           {A₂ : Ty Γ₂}
+           (ff : iso_disp f A₁ A₂)
+  : transportf Ty (path_Con f) A₁ = A₂.
+Proof.
+  apply isotoid_disp.
+  - apply disp_cat_of_is_univalent.
+  - unfold path_Con.
+    rewrite idtoiso_isotoid.
+    exact ff.
+Qed.
+
+Definition path_Ty
+           {C : comprehension_category}
+           {Γ : Con C}
+           {A₁ A₂ : Ty Γ}
+           (ff : iso_disp (identity_iso Γ) A₁ A₂)
+  : A₁ = A₂.
+Proof.
+  refine (isotoid_disp _ (idpath _) ff).
+  apply disp_cat_of_is_univalent.
+Defined.
+
+Definition path_Tm
+           {C : comprehension_category}
+           {Γ : Con C}
+           {A : Ty Γ}
+           {t₁ t₂ : Tm Γ A}
+           (p : pr1 t₁ = pr1 t₂)
+  : t₁ = t₂.
+Proof.
+  use subtypePath.
+  {
+    intro.
+    apply base_category_of.
+  }
+  exact p.
+Qed.
+
+Definition transportf_Tm
+           {C : comprehension_category}
+           {Γ : Con C}
+           {A₁ A₂ : Ty Γ}
+           (ff : iso_disp (identity_iso Γ) A₁ A₂)
+           (t : Tm Γ A₁)
+  : Tm Γ A₂.
+Proof.
+  use make_section.
+  - exact (pr1 t · pr1 (# (comprehension_of C) ff)).
+  - abstract
+      (simpl ;
+       rewrite assoc' ;
+       refine (maponpaths
+                 (λ z, _ · z)
+                 (pr2 (# (comprehension_of C) ff))
+               @ _) ;
+       rewrite assoc ;
+       simpl ;
+       rewrite id_right ;
+       apply (pr2 t)).
+Defined.
+
+Definition transportb_Tm
+           {C : comprehension_category}
+           {Γ : Con C}
+           {A₁ A₂ : Ty Γ}
+           (ff : iso_disp (identity_iso Γ) A₁ A₂)
+           (t : Tm Γ A₂)
+  : Tm Γ A₁.
+Proof.
+  use make_section.
+  - exact (pr1 t · pr1 (# (comprehension_of C) (inv_mor_disp_from_iso ff))).
+  - abstract
+      (rewrite assoc' ;
+       refine (_ @ pr2 t) ;
+       apply maponpaths ;
+       refine (pr2 (# (comprehension_of C) _) @ _) ;
+       apply id_right).
+Defined.
+
+Definition transportf_Tm_path
+           {C : comprehension_category}
+           {Γ : Con C}
+           {A₁ A₂ : Ty Γ}
+           (p : A₁ = A₂)
+           (t : Tm Γ A₁)
+  : Tm Γ A₂.
+Proof.
+  use make_section ; simpl.
+  - refine (pr1 t · _).
+    exact (pr1 (# (comprehension_of C) (idtoiso_disp (idpath _) p))).
+  - abstract
+      (rewrite assoc' ;
+       refine (maponpaths
+                 (λ z, _ · z)
+                 (pr2 (# (comprehension_of C) _))
+               @ _) ;
+       rewrite assoc ;
+       simpl ;
+       rewrite id_right ;
+       apply (pr2 t)).
+Defined.
+
+Definition transportb_Tm_path
+           {C : comprehension_category}
+           {Γ : Con C}
+           {A₁ A₂ : Ty Γ}
+           (p : A₁ = A₂)
+           (t : Tm Γ A₂)
+  : Tm Γ A₁.
+Proof.
+  use make_section ; simpl.
+  - refine (pr1 t · _).
+    exact (pr1 (# (comprehension_of C) (idtoiso_disp (idpath _) (!p)))).
+  - abstract
+      (rewrite assoc' ;
+       refine (maponpaths
+                 (λ z, _ · z)
+                 (pr2 (# (comprehension_of C) _))
+               @ _) ;
+       rewrite assoc ;
+       simpl ;
+       rewrite id_right ;
+       apply (pr2 t)).
+Defined.
+
+Definition path_transportf_path_Tm
+           {C : comprehension_category}
+           {Γ : Con C}
+           {A₁ A₂ : Ty Γ}
+           (p : A₁ = A₂)
+           (t : Tm Γ A₁)
+  : transportf (Tm Γ) p t
+    =
+    transportf_Tm_path p t.
+Proof.
+  apply path_Tm.
+  induction p ; cbn.
+  refine (!_).
+  refine (_ @ id_right _).
+  apply maponpaths.
+  exact (maponpaths pr1 (disp_functor_id (comprehension_of C) _)).
+Qed.
+
+Definition path_transportf_Tm
+           {C : comprehension_category}
+           {Γ : Con C}
+           {A₁ A₂ : Ty Γ}
+           (ff : iso_disp (identity_iso Γ) A₁ A₂)
+           (t : Tm Γ A₁)
+  : transportf
+      (Tm Γ)
+      (path_Ty ff)
+      t
+    =
+    transportf_Tm ff t.
+Proof.
+  pose (path_transportf_path_Tm
+          (isotoid_disp (disp_cat_of_is_univalent C) (idpath _) ff)
+          t)
+    as p.
+  refine (p @ _) ; clear p.
+  use path_Tm.
+  cbn -[idtoiso_disp].
+  rewrite idtoiso_isotoid_disp.
+  apply idpath.
+Qed.
+
+Definition path_comprehension
+           {C : comprehension_category}
+           {Γ₁ Γ₂ : Con C}
+           {A₁ : Ty Γ₁}
+           {A₂ : Ty Γ₂}
+           {s₁ s₂ : Sub Γ₁ Γ₂}
+           (χs₁ : A₁ -->[ s₁ ] A₂)
+           (χs₂ : A₁ -->[ s₂ ] A₂)
+           (p : s₁ = s₂)
+           (q : transportf _ p χs₁ = χs₂)
+  : pr1 (# (comprehension_of C) χs₁)
+    =
+    pr1 (# (comprehension_of C) χs₂).
+Proof.
+  induction p, q.
+  apply idpath.
+Qed.
+
+Definition path_transportb_Tm
+           {C : comprehension_category}
+           {Γ : Con C}
+           {A₁ A₂ : Ty Γ}
+           (ff : iso_disp (identity_iso Γ) A₁ A₂)
+           (t : Tm Γ A₂)
+  : transportb
+      (Tm Γ)
+      (path_Ty ff)
+      t
+    =
+    transportb_Tm ff t.
+Proof.
+  use transportb_transpose_left.
+  refine (!_).
+  refine (path_transportf_Tm _ _ @ _).
+  use path_Tm ; cbn.
+  refine (_ @ id_right _).
+  rewrite assoc'.
+  apply maponpaths.
+  pose (p := maponpaths
+               pr1
+               (disp_functor_comp
+                  (comprehension_of C)
+                  (inv_mor_disp_from_iso ff)
+                  ff)).
+  simpl in p.
+  refine (!p @ _) ; clear p.
+  pose (p := maponpaths
+               pr1
+               (disp_functor_id
+                  (comprehension_of C)
+                  A₂)).
+  simpl in p.
+  refine (_ @ p) ; clear p.
+  use path_comprehension.
+  - apply id_left.
+  - etrans.
+    {
+      apply maponpaths.
+      exact (iso_disp_after_inv_mor ff).
+    }
+    refine (transport_f_f _ _ _ _ @ _).
+    apply transportf_set.
+    apply (base_category_of C).
+Qed.
+
+(** Laws of the category *)
+Definition compSub_id_left
+           {C : comprehension_category}
+           {Γ₁ Γ₂ : Con C}
+           (s : Sub Γ₁ Γ₂)
+  : compSub (idSub _) s = s.
+Proof.
+  apply id_left.
+Qed.
+
+Definition compSub_id_right
+           {C : comprehension_category}
+           {Γ₁ Γ₂ : Con C}
+           (s : Sub Γ₁ Γ₂)
+  : compSub s (idSub _) = s.
+Proof.
+  apply id_right.
+Qed.
+
+Definition compSub_assoc
+           {C : comprehension_category}
+           {Γ₁ Γ₂ Γ₃ Γ₄ : Con C}
+           (s₁ : Sub Γ₁ Γ₂)
+           (s₂ : Sub Γ₂ Γ₃)
+           (s₃ : Sub Γ₃ Γ₄)
+  : compSub s₁ (compSub s₂ s₃)
+    =
+    compSub (compSub s₁ s₂) s₃.
+Proof.
+  apply assoc.
+Qed.
+
+(* Laws for empty substitution *)
+Definition postcomp_emptySub
+           {C : comprehension_category}
+           {Γ₁ Γ₂ : Con C}
+           (s : Sub Γ₁ Γ₂)
+  : compSub s (emptySub _)
+    =
+    emptySub _.
+Proof.
+  apply TerminalArrowEq.
+Qed.
+
+Definition id_emptySub
+           (C : comprehension_category)
+  : emptySub (emptyCon C) = identity _.
+Proof.
+  apply TerminalArrowEq.
+Qed.
+
+(* Substitution laws *)
+Definition sub_Ty_id_iso
+           {C : comprehension_category}
+           {Γ : Con C}
+           (A : Ty Γ)
+  : iso_disp (identity_iso Γ) (sub_Ty A (idSub Γ)) A.
+Proof.
+  use (cartesian_lifts_iso (sub_Ty A (idSub Γ) ,, _) (A ,, _)).
+  simpl.
+  refine (id_disp _ ,, _).
+  apply is_cartesian_id_disp.
+Defined.
+
+Definition sub_Ty_id
+           {C : comprehension_category}
+           {Γ : Con C}
+           (A : Ty Γ)
+  : sub_Ty A (idSub Γ) = A.
+Proof.
+  apply path_Ty.
+  exact (sub_Ty_id_iso A).
+Defined.
+
+Definition sub_Ty_comp_iso
+           {C : comprehension_category}
+           {Γ₁ Γ₂ Γ₃ : Con C}
+           (s₁ : Sub Γ₁ Γ₂) (s₂ : Sub Γ₂ Γ₃)
+           (A : Ty Γ₃)
+  : iso_disp
+      (identity_iso Γ₁)
+      (sub_Ty A (compSub s₁ s₂))
+      (sub_Ty (sub_Ty A s₂) s₁).
+Proof.
+  use (cartesian_lifts_iso
+         (sub_Ty A (compSub s₁ s₂) ,, _)
+         (sub_Ty (sub_Ty A s₂) s₁ ,, _)).
+  simpl.
+  simple refine (_ ,, _).
+  - pose (mor_disp_of_cartesian_lift _ _ (disp_cat_of_cleaving C _ _ s₂ A)) as m.
+    pose (mor_disp_of_cartesian_lift
+            _ _
+            (disp_cat_of_cleaving C _ _ s₁ (sub_Ty A s₂))) as m'.
+    exact (m' ;; m).
+  - simpl.
+    apply is_cartesian_comp_disp.
+    + apply cartesian_lift_is_cartesian.
+    + apply cartesian_lift_is_cartesian.
+Defined.
+
+Definition sub_Ty_comp
+           {C : comprehension_category}
+           {Γ₁ Γ₂ Γ₃ : Con C}
+           (s₁ : Sub Γ₁ Γ₂) (s₂ : Sub Γ₂ Γ₃)
+           (A : Ty Γ₃)
+  : sub_Ty A (compSub s₁ s₂)
+    =
+    sub_Ty (sub_Ty A s₂) s₁.
+Proof.
+  apply path_Ty.
+  exact (sub_Ty_comp_iso s₁ s₂ A).
+Defined.
+
+Definition sub_Tm_id
+           {C : comprehension_category}
+           {Γ : Con C}
+           {A : Ty Γ}
+           (t : Tm Γ A)
+  : transportf
+      (Tm Γ)
+      (sub_Ty_id A)
+      (sub_Tm t (idSub Γ))
+    =
+    t.
+Proof.
+  refine (path_transportf_Tm _ _ @ _).
+  apply path_Tm.
+  cbn -[sub_Ty_id_iso].
+  pose (p := PullbackArrow_PullbackPr1
+               (pullback_from_sub A (idSub _))
+               _
+               (idSub _ · pr1 t)
+               (idSub _)
+               (sub_Tm_subproof C Γ A t Γ (idSub Γ))).
+  cbn in p.
+  rewrite id_left in p.
+  refine (_ @ p).
+  do 3 apply maponpaths.
+  use (cartesian_factorisation_unique (is_cartesian_id_disp A)).
+  refine (cartesian_factorisation_commutes _ _ _ @ _).
+  rewrite id_right_disp.
+  use transportf_paths.
+  apply (base_category_of C).
+Qed.
+
+Definition sub_Tm_comp
+           {C : comprehension_category}
+           {Γ₁ Γ₂ Γ₃ : Con C}
+           (s₁ : Sub Γ₁ Γ₂) (s₂ : Sub Γ₂ Γ₃)
+           {A : Ty Γ₃}
+           (t : Tm Γ₃ A)
+  : transportf
+      (Tm Γ₁)
+      (sub_Ty_comp s₁ s₂ A)
+      (sub_Tm t (compSub s₁ s₂))
+    =
+    sub_Tm (sub_Tm t s₂) s₁.
+Proof.
+  use transportf_transpose_left.
+  refine (_ @ !(path_transportb_Tm _ _)).
+  apply path_Tm.
+  cbn -[sub_Ty_comp_iso].
+  refine (!_).
+  use (@PullbackArrowUnique'
+         _ _ _ _ _ _
+         (pullback_from_sub A (compSub s₁ s₂))).
+  - pose (PullbackArrow_PullbackPr1
+            (pullback_from_sub (sub_Ty A s₂) s₁)
+            _ _ _
+            (sub_Tm_subproof C Γ₂ (sub_Ty A s₂) (sub_Tm t s₂) Γ₁ s₁))
+      as p.
+    cbn in p.
+    pose (PullbackArrow_PullbackPr1
+            (pullback_from_sub A s₂)
+            _ _ _
+            (sub_Tm_subproof C Γ₃ A t Γ₂ s₂)) as q.
+    cbn in q.
+    unfold compSub.
+    rewrite !assoc'.
+    refine (!_).
+    etrans.
+    {
+      apply maponpaths.
+      exact (!q).
+    }
+    rewrite !assoc.
+    etrans.
+    {
+      apply maponpaths_2.
+      exact (!p).
+    }
+    clear p q.
+    rewrite !assoc'.
+    apply maponpaths.
+    cbn -[sub_Ty_comp_iso].
+    etrans.
+    {
+      exact (!(maponpaths
+                 pr1
+                 (disp_functor_comp (comprehension_of C) _ _))).
+    }
+    refine (!_).
+    etrans.
+    {
+      exact (!(maponpaths
+                 pr1
+                 (disp_functor_comp (comprehension_of C) _ _))).
+    }
+    etrans.
+    {
+      do 2 apply maponpaths.
+      apply (cartesian_factorisation_commutes (disp_cat_of_cleaving C _ _ (s₁ · s₂) A)).
+    }
+    cbn.
+    use path_comprehension.
+    + apply id_left.
+    + etrans.
+      {
+        apply transport_f_f.
+      }
+      rewrite pathsinv0l.
+      apply idpath.
+  - pose (PullbackArrow_PullbackPr2
+            (pullback_from_sub (sub_Ty A s₂) s₁)
+            _ _ _
+            (sub_Tm_subproof C Γ₂ (sub_Ty A s₂) (sub_Tm t s₂) Γ₁ s₁))
+      as p.
+    cbn in p.
+    refine (_ @ p).
+    rewrite !assoc'.
+    apply maponpaths.
+    refine (pr2 (# (comprehension_of C) (inv_mor_disp_from_iso (sub_Ty_comp_iso s₁ s₂ A))) @ _).
+    apply id_right.
+Qed.
+
+(* Laws related to comprehension *)
+Definition extend_pr_pair
+           {C : comprehension_category}
+           {Γ₁ Γ₂ : Con C}
+           {A : Ty Γ₂}
+           (s : Sub Γ₁ Γ₂)
+           (t : Tm Γ₁ (sub_Ty A s))
+  : compSub (extend_pair s t) (extend_pr Γ₂ A)
+    =
+    s.
+Proof.
+  pose (pr2 (# (comprehension_of C)
+               (sub_Ty_mor A s)))
+    as p.
+  cbn in p.
+  unfold extend_pair, extend_pr, compSub.
+  rewrite assoc'.
+  etrans.
+  {
+    apply maponpaths.
+    exact p.
+  }
+  rewrite assoc.
+  etrans.
+  {
+    apply maponpaths_2.
+    apply (pr2 t).
+  }
+  apply id_left.
+Qed.
+
+Definition extend_pair_iso
+           {C : comprehension_category}
+           {Γ₁ Γ₂ : Con C}
+           {A : Ty Γ₂}
+           (s : Sub Γ₁ Γ₂)
+           (t : Tm Γ₁ (sub_Ty A s))
+  : iso_disp
+      (identity_iso Γ₁)
+      (sub_Ty (sub_Ty A (extend_pr Γ₂ A)) (extend_pair s t))
+      (sub_Ty A s).
+Proof.
+Admitted.
+
+Definition extend_pair_path
+           {C : comprehension_category}
+           {Γ₁ Γ₂ : Con C}
+           {A : Ty Γ₂}
+           (s : Sub Γ₁ Γ₂)
+           (t : Tm Γ₁ (sub_Ty A s))
+  : sub_Ty (sub_Ty A (extend_pr Γ₂ A)) (extend_pair s t)
+    =
+    sub_Ty A s.
+Proof.
+  use path_Ty.
+  exact (extend_pair_iso s t).
+Defined.
+
+Definition extend_pair_var
+           {C : comprehension_category}
+           {Γ₁ Γ₂ : Con C}
+           {A : Ty Γ₂}
+           (s : Sub Γ₁ Γ₂)
+           (t : Tm Γ₁ (sub_Ty A s))
+  : transportf
+      (Tm Γ₁)
+      (extend_pair_path s t)
+      (sub_Tm
+         (extend_var Γ₂ A)
+         (extend_pair s t))
+    =
+    t.
+Proof.
+  refine (path_transportf_Tm _ _ @ _).
+  use path_Tm ; cbn.
+
+Admitted.
+
+Definition extend_pair_comp
+           {C : comprehension_category}
+           {Γ₁ Γ₂ Γ₃ : Con C}
+           {A : Ty Γ₃}
+           (s₁ : Sub Γ₁ Γ₂)
+           (s₂ : Sub Γ₂ Γ₃)
+           (t : Tm Γ₂ (sub_Ty A s₂))
+  : compSub s₁ (extend_pair s₂ t)
+    =
+    extend_pair
+      (compSub s₁ s₂)
+      (transportf
+         _
+         (!sub_Ty_comp _ _ _)
+         (sub_Tm t s₁)).
+Proof.
+  unfold extend_pair, compSub.
+  refine (!_).
+  etrans.
+  {
+    apply maponpaths_2.
+    unfold sub_Ty_comp.
+    exact (maponpaths
+             pr1
+             (path_transportb_Tm
+                (sub_Ty_comp_iso s₁ s₂ A)
+                (sub_Tm t s₁))).
+  }
+  cbn -[sub_Ty_comp_iso].
+  pose (p := PullbackArrow_PullbackPr1
+               (pullback_from_sub (sub_Ty A s₂) s₁)
+               _ _ _
+               (sub_Tm_subproof C Γ₂ (sub_Ty A s₂) t Γ₁ s₁)).
+  simpl in p.
+  rewrite assoc.
+  refine (!_).
+  etrans.
+  {
+    apply maponpaths_2.
+    exact (!p).
+  }
+  clear p.
+  rewrite !assoc'.
+  apply maponpaths.
+  cbn -[sub_Ty_comp_iso].
+  etrans.
+  {
+    exact (!(maponpaths
+               pr1
+               (disp_functor_comp (comprehension_of C) _ _))).
+  }
+  refine (!_).
+  etrans.
+  {
+    exact (!(maponpaths
+               pr1
+               (disp_functor_comp (comprehension_of C) _ _))).
+  }
+  etrans.
+  {
+    do 2 apply maponpaths.
+    apply (cartesian_factorisation_commutes (disp_cat_of_cleaving C _ _ (s₁ · s₂) A)).
+  }
+  cbn.
+  use path_comprehension.
+  - apply id_left.
+  - etrans.
+    {
+      apply transport_f_f.
+    }
+    rewrite pathsinv0l.
+    apply idpath.
+Qed.
+
+Definition extend_pair_id
+           {C : comprehension_category}
+           {Γ : Con C}
+           {A : Ty Γ}
+  : extend_pair
+      (extend_pr Γ A)
+      (extend_var Γ A)
+    =
+    idSub _.
+Proof.
+  apply (PullbackArrow_PullbackPr1 (pullback_from_sub A (extend_pr Γ A))).
+Qed.
 
 (*
 We also need
