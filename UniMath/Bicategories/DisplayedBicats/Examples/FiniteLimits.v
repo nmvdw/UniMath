@@ -15,6 +15,7 @@ Require Import UniMath.Bicategories.Core.Bicat. Import Bicat.Notations.
 Require Import UniMath.Bicategories.DisplayedBicats.DispBicat.
 Require Import UniMath.Bicategories.Core.Examples.BicatOfCats.
 Require Import UniMath.Bicategories.DisplayedBicats.Examples.DisplayedCatToBicat.
+Require Import UniMath.Bicategories.DisplayedBicats.Examples.Prod.
 Require Import UniMath.Bicategories.DisplayedBicats.DispUnivalence.
 
 Local Open Scope cat.
@@ -330,3 +331,9 @@ Proof.
   - intros C ? ? ?.
     apply isaprop_Pullbacks ; apply C.
 Defined.
+
+(** Finite limits *)
+Definition disp_bicat_fin_lim : disp_bicat bicat_of_cats
+  := disp_dirprod_bicat
+       disp_bicat_terminal_obj
+       disp_bicat_pullbacks.

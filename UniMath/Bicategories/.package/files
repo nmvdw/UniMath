@@ -38,6 +38,7 @@ DisplayedBicats/Examples/DispDepProd.v
 DisplayedBicats/Examples/FullSub.v
 DisplayedBicats/Examples/Trivial.v
 DisplayedBicats/Examples/FiniteLimits.v
+DisplayedBicats/Examples/Comprehension.v
 Core/Examples/Groupoids.v
 PseudoFunctors/Display/Base.v
 PseudoFunctors/Display/Map1Cells.v
