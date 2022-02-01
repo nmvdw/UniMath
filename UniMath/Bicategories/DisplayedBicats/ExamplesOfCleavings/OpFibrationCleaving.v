@@ -177,7 +177,7 @@ Section OpCleavingOfOpFibsPointwiseCartesian.
         as p.
       cbn in p.
       rewrite pr1_transportf in p.
-      exact (p @ (@disp_nat_trans_transportf _ _ _ _ _ _ _ _ _ _ _ _ _ _)).
+      exact (p @ (disp_nat_trans_transportf _ _ _ _ _ _ _ _ _ _)).
     Qed.
 
     Definition opcleaving_of_opfibs_opcartesian_2cell_is_pointwise_opcartesian
@@ -435,11 +435,8 @@ Section Lift2CellOpFibs.
       cbn in p₁.
       rewrite pr1_transportf in p₁.
       unfold disp_cell_lift_1cell_factor in p₁.
-      pose (@disp_nat_trans_transportf
-              _ _
-              _ _
-              (H₁ ∙ F) (H₂ ∙ F)
-              _ _
+      pose (disp_nat_trans_transportf
+              _ _ _ _
               (id2_right (α ▹ F) @ ! id2_left (α ▹ F))
               (disp_functor_composite
                  (pr11 Lh)
@@ -457,11 +454,8 @@ Section Lift2CellOpFibs.
       cbn in p₂.
       rewrite pr1_transportf in p₂.
       unfold disp_cell_lift_1cell_factor in p₂.
-      pose (@disp_nat_trans_transportf
-              _ _
-              _ _
-              (H₁ ∙ F) (H₂ ∙ F)
-              _ _
+      pose (disp_nat_trans_transportf
+              _ _ _ _
               (id2_right (α ▹ F) @ ! id2_left (α ▹ F))
               (disp_functor_composite
                  (pr11 Lh)
@@ -546,11 +540,8 @@ Section Lift2CellOpFibs.
            cbn ;
            rewrite pr1_transportf ;
            unfold disp_cell_lift_1cell_factor ;
-           refine (@disp_nat_trans_transportf
-                     _ _
-                     _ _
-                     (H₁ ∙ F) (H₂ ∙ F)
-                     _ _
+           refine (disp_nat_trans_transportf
+                     _ _ _ _
                      (id2_right (α ▹ F) @ ! id2_left (α ▹ F))
                      (disp_functor_composite
                         (pr11 Lh)
@@ -563,7 +554,7 @@ Section Lift2CellOpFibs.
                         (pr112 Lh'))
                      x
                      xx
-                     @ _) ;
+                   @ _) ;
            cbn ;
            unfold cleaving_of_opfibs_lift_2cell_data ;
            rewrite !mor_disp_transportf_postwhisker ;

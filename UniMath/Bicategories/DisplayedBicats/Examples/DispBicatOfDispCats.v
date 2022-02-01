@@ -223,9 +223,7 @@ Proof.
   - exact disp_prebicat_of_univ_disp_cats.
   - abstract
       (intros C₁ C₂ F₁ F₂ n D₁ D₂ FF₁ FF₂ ;
-       simpl in * ;
-       cbn ;
-       exact (@isaset_disp_nat_trans C₁ C₂ D₁ D₂ F₁ F₂ n FF₁ FF₂)).
+       exact (isaset_disp_nat_trans F₁ F₂ n FF₁ FF₂)).
 Defined.
 
 (** Condition for displayed invertible 2-cells in this bicategory *)
@@ -252,12 +250,11 @@ Proof.
          intros x xx ; cbn ;
          refine (inv_mor_after_iso_disp (Hαα x xx) @ _) ;
          refine (!_) ;
-         refine (@disp_nat_trans_transportf
-                   _ _ _ _ _ _
-                   _ _
+         refine (disp_nat_trans_transportf
+                   _ _ _ _
                    (!(@id2_left bicat_of_univ_cats _ _ _ _ (nat_trans_id F)))
                    _ _ _ _ _
-                   @ _) ;
+                 @ _) ;
          apply transportf_paths ;
          apply homset_property).
     + abstract
@@ -267,12 +264,11 @@ Proof.
          intros x xx ; cbn ;
          refine (iso_disp_after_inv_mor (Hαα x xx) @ _) ;
          refine (!_) ;
-         refine (@disp_nat_trans_transportf
-                   _ _ _ _ _ _
-                   _ _
+         refine (disp_nat_trans_transportf
+                   _ _ _ _
                    (!(@id2_left bicat_of_univ_cats _ _ _ _ (nat_trans_id F)))
                    _ _ _ _ _
-                   @ _) ;
+                 @ _) ;
          apply transportf_paths ;
          apply homset_property).
 Defined.
@@ -339,15 +335,14 @@ Proof.
         (cbn ;
          simpl in * ;
          use subtypePath ; [intro ; apply isapropunit | ];
-         use (@disp_nat_trans_eq C C') ;
+         use disp_nat_trans_eq ;
          intros x xx ; cbn ;
          refine (inv_mor_after_iso_disp (Hαα x xx) @ _) ;
          refine (!_) ;
          unfold transportb ;
          rewrite pr1_transportf ;
-         refine (@disp_nat_trans_transportf
-                   _ _ _ _ _ _
-                   _ _
+         refine (disp_nat_trans_transportf
+                   _ _ _ _
                    (!(@id2_left bicat_of_univ_cats _ _ _ _ (nat_trans_id F)))
                    _ _ _ _ _
                    @ _) ;
@@ -357,15 +352,14 @@ Proof.
         (cbn ;
          simpl in * ;
          use subtypePath ; [intro ; apply isapropunit | ];
-         use (@disp_nat_trans_eq C C') ;
+         use disp_nat_trans_eq ;
          intros x xx ; cbn ;
          refine (iso_disp_after_inv_mor (Hαα x xx) @ _) ;
          refine (!_) ;
          unfold transportb ;
          rewrite pr1_transportf ;
-         refine (@disp_nat_trans_transportf
-                   _ _ _ _ _ _
-                   _ _
+         refine (disp_nat_trans_transportf
+                   _ _ _ _
                    (!(@id2_left bicat_of_univ_cats _ _ _ _ (nat_trans_id F)))
                    _ _ _ _ _
                    @ _) ;
@@ -410,8 +404,8 @@ Proof.
          | ];
          etrans ;
          [ apply maponpaths ;
-           exact (@disp_nat_trans_transportf
-                    _ _ _ _ _ _ _ _
+           exact (disp_nat_trans_transportf
+                    _ _ _ _
                     (!(vcomp_linv Hα))
                     _ _
                     (disp_nat_trans_id (pr11 GG))
@@ -434,8 +428,8 @@ Proof.
          | ] ;
          etrans ;
          [ apply maponpaths ;
-           exact (@disp_nat_trans_transportf
-                    _ _ _ _ _ _ _ _
+           exact (disp_nat_trans_transportf
+                    _ _ _ _
                     (!(vcomp_rinv Hα))
                     _ _
                     (disp_nat_trans_id (pr11 FF))
@@ -508,36 +502,34 @@ Proof.
         (cbn ;
          simpl in * ;
          use subtypePath ; [intro ; apply isapropunit | ];
-         use (@disp_nat_trans_eq C C') ;
+         use disp_nat_trans_eq ;
          intros x xx ; cbn ;
          refine (inv_mor_after_iso_disp (Hαα x xx) @ _) ;
          refine (!_) ;
          unfold transportb ;
          rewrite pr1_transportf ;
-         refine (@disp_nat_trans_transportf
-                   _ _ _ _ _ _
-                   _ _
+         refine (disp_nat_trans_transportf
+                   _ _ _ _
                    (!(@id2_left bicat_of_univ_cats _ _ _ _ (nat_trans_id F)))
                    _ _ _ _ _
-                   @ _) ;
+                 @ _) ;
          apply transportf_paths ;
          apply homset_property).
     + abstract
         (cbn ;
          simpl in * ;
          use subtypePath ; [intro ; apply isapropunit | ];
-         use (@disp_nat_trans_eq C C') ;
+         use disp_nat_trans_eq ;
          intros x xx ; cbn ;
          refine (iso_disp_after_inv_mor (Hαα x xx) @ _) ;
          refine (!_) ;
          unfold transportb ;
          rewrite pr1_transportf ;
-         refine (@disp_nat_trans_transportf
-                   _ _ _ _ _ _
-                   _ _
+         refine (disp_nat_trans_transportf
+                   _ _ _ _
                    (!(@id2_left bicat_of_univ_cats _ _ _ _ (nat_trans_id F)))
                    _ _ _ _ _
-                   @ _) ;
+                 @ _) ;
          apply transportf_paths ;
          apply homset_property).
 Defined.
@@ -579,8 +571,8 @@ Proof.
          | ];
          etrans ;
          [ apply maponpaths ;
-           exact (@disp_nat_trans_transportf
-                    _ _ _ _ _ _ _ _
+           exact (disp_nat_trans_transportf
+                    _ _ _ _
                     (!(vcomp_linv Hα))
                     _ _
                     (disp_nat_trans_id (pr11 GG))
@@ -603,8 +595,8 @@ Proof.
          | ] ;
          etrans ;
          [ apply maponpaths ;
-           exact (@disp_nat_trans_transportf
-                    _ _ _ _ _ _ _ _
+           exact (disp_nat_trans_transportf
+                    _ _ _ _
                     (!(vcomp_rinv Hα))
                     _ _
                     (disp_nat_trans_id (pr11 FF))

@@ -171,7 +171,7 @@ Section CleavingOfFibsPointwiseCartesian.
         as p.
       cbn in p.
       rewrite pr1_transportf in p.
-      exact (p @ (@disp_nat_trans_transportf _ _ _ _ _ _ _ _ _ _ _ _ _ _)).
+      exact (p @ (disp_nat_trans_transportf _ _ _ _ _ _ _ _ _ _)).
     Qed.
 
     Definition cleaving_of_fibs_cartesian_2cell_is_pointwise_cartesian
@@ -429,11 +429,8 @@ Section Lift2CellFibs.
       cbn in p₁.
       rewrite pr1_transportf in p₁.
       unfold disp_cell_lift_1cell_factor in p₁.
-      pose (@disp_nat_trans_transportf
-              _ _
-              _ _
-              (H₁ ∙ F) (H₂ ∙ F)
-              _ _
+      pose (disp_nat_trans_transportf
+              _ _ _ _
               (id2_right (α ▹ F) @ ! id2_left (α ▹ F))
               (disp_functor_composite
                  (pr11 Lh)
@@ -451,11 +448,8 @@ Section Lift2CellFibs.
       cbn in p₂.
       rewrite pr1_transportf in p₂.
       unfold disp_cell_lift_1cell_factor in p₂.
-      pose (@disp_nat_trans_transportf
-              _ _
-              _ _
-              (H₁ ∙ F) (H₂ ∙ F)
-              _ _
+      pose (disp_nat_trans_transportf
+              _ _ _ _
               (id2_right (α ▹ F) @ ! id2_left (α ▹ F))
               (disp_functor_composite
                  (pr11 Lh)
@@ -540,11 +534,8 @@ Section Lift2CellFibs.
            cbn ;
            rewrite pr1_transportf ;
            unfold disp_cell_lift_1cell_factor ;
-           refine (@disp_nat_trans_transportf
-                     _ _
-                     _ _
-                     (H₁ ∙ F) (H₂ ∙ F)
-                     _ _
+           refine (disp_nat_trans_transportf
+                     _ _ _ _
                      (id2_right (α ▹ F) @ ! id2_left (α ▹ F))
                      (disp_functor_composite
                         (pr11 Lh)
@@ -557,7 +548,7 @@ Section Lift2CellFibs.
                         (pr112 Lh'))
                      x
                      xx
-                     @ _) ;
+                   @ _) ;
            cbn ;
            unfold cleaving_of_fibs_lift_2cell_data ;
            rewrite !mor_disp_transportf_postwhisker ;
