@@ -83,7 +83,7 @@ Require Export UniMath.Foundations.Propositions.
 Definition hSet : UU := total2 (λ X : UU, isaset X).
 Definition make_hSet (X : UU) (i : isaset X) := tpair isaset X i : hSet.
 Definition pr1hSet : hSet -> UU := @pr1 UU (λ X : UU, isaset X).
-Coercion pr1hSet: hSet >-> UU.
+#[reversible] Coercion pr1hSet: hSet >-> UU.
 
 Definition eqset {X : hSet} (x x' : X) : hProp
   := make_hProp (x = x') (pr2 X x x').
@@ -277,7 +277,7 @@ Defined.
 Definition hsubtype (X : UU) : UU := X -> hProp.
 Identity Coercion id_hsubtype :  hsubtype >-> Funclass.
 Definition carrier {X : UU} (A : hsubtype X) := total2 A.
-Coercion carrier : hsubtype >-> Sortclass.
+#[reversible] Coercion carrier : hsubtype >-> Sortclass.
 Definition make_carrier {X : UU} (A : hsubtype X) :
    ∏ t : X, A t → ∑ x : X, A x := tpair A.
 Definition pr1carrier {X : UU} (A : hsubtype X) := @pr1 _ _  : carrier A -> X.
@@ -771,13 +771,13 @@ Definition po (X : UU) : UU := ∑ R : hrel X, ispreorder R.
 Definition make_po {X : UU} (R : hrel X) (is : ispreorder R) : po X
   := tpair ispreorder R is.
 Definition carrierofpo (X : UU) : po X -> (X -> X -> hProp) := @pr1 _ ispreorder.
-Coercion carrierofpo : po >-> Funclass.
+#[reversible] Coercion carrierofpo : po >-> Funclass.
 
 Definition PreorderedSet : UU := ∑ X : hSet, po X.
 Definition PreorderedSetPair (X : hSet) (R :po X) : PreorderedSet
   := tpair _ X R.
 Definition carrierofPreorderedSet : PreorderedSet -> hSet := pr1.
-Coercion carrierofPreorderedSet : PreorderedSet >-> hSet.
+#[reversible] Coercion carrierofPreorderedSet : PreorderedSet >-> hSet.
 Definition PreorderedSetRelation (X : PreorderedSet) : hrel X := pr1 (pr2 X).
 
 (* partial orderings *)
@@ -786,13 +786,13 @@ Definition make_PartialOrder {X : hSet} (R : hrel X) (is : isPartialOrder R) :
   PartialOrder X
   := tpair isPartialOrder R is.
 Definition carrierofPartialOrder {X : hSet} : PartialOrder X -> hrel X := pr1.
-Coercion carrierofPartialOrder : PartialOrder >-> hrel.
+#[reversible] Coercion carrierofPartialOrder : PartialOrder >-> hrel.
 
 Definition Poset : UU := ∑ X, PartialOrder X.
 Definition make_Poset (X : hSet) (R : PartialOrder X) : Poset
   := tpair PartialOrder X R.
 Definition carrierofposet : Poset -> hSet := pr1.
-Coercion carrierofposet : Poset >-> hSet.
+#[reversible] Coercion carrierofposet : Poset >-> hSet.
 Definition posetRelation (X : Poset) : hrel X := pr1 (pr2 X).
 
 Lemma isrefl_posetRelation (X : Poset) : isrefl (posetRelation X).
@@ -823,7 +823,7 @@ Definition make_posetmorphism (X Y : Poset) :
   := tpair (fun f : X -> Y => isaposetmorphism f).
 Definition carrierofposetmorphism (X Y : Poset) : posetmorphism X Y -> (X -> Y)
   := @pr1 _ _.
-Coercion carrierofposetmorphism : posetmorphism >-> Funclass.
+#[reversible] Coercion carrierofposetmorphism : posetmorphism >-> Funclass.
 
 Definition isdec_ordering (X : Poset) : UU
   := ∏ (x y : X), decidable (x ≤ y)%poset.
@@ -882,7 +882,7 @@ Notation "X ≅ Y" := (PosetEquivalence X Y) (at level 60, no associativity) :
 (* written \cong in Agda input method *)
 
 Definition posetUnderlyingEquivalence {X Y : Poset} : X ≅ Y -> X ≃ Y := pr1.
-Coercion posetUnderlyingEquivalence : PosetEquivalence >-> weq.
+#[reversible] Coercion posetUnderlyingEquivalence : PosetEquivalence >-> weq.
 
 Definition identityPosetEquivalence (X : Poset) : PosetEquivalence X X.
 Proof.
@@ -934,7 +934,7 @@ Definition eqrelconstr {X : UU} (R : hrel X)
            (is1 : istrans R) (is2 : isrefl R) (is3 : issymm R) : eqrel X
   := make_eqrel R (make_dirprod (make_dirprod is1 is2) is3).
 Definition pr1eqrel (X : UU) : eqrel X -> (X -> (X -> hProp)) := @pr1 _ _.
-Coercion pr1eqrel : eqrel >-> Funclass.
+#[reversible] Coercion pr1eqrel : eqrel >-> Funclass.
 
 Definition eqreltrans {X : UU} (R : eqrel X) : istrans R := pr1 (pr1 (pr2 R)).
 Definition eqrelrefl {X : UU} (R : eqrel X) : isrefl R := pr2 (pr1 (pr2 R)).
@@ -1079,7 +1079,7 @@ Definition decrel (X : UU) : UU := total2 (λ R : hrel X, isdecrel R).
 Definition pr1decrel (X : UU) : decrel X -> hrel X := @pr1 _ _.
 Definition make_decrel {X : UU} {R : hrel X} (is : isdecrel R) : decrel X
   := tpair _ R is.
-Coercion pr1decrel : decrel >-> hrel.
+#[reversible] Coercion pr1decrel : decrel >-> hrel.
 
 Definition decreltobrel {X : UU} (R : decrel X) : brel X.
 Proof.
@@ -1587,7 +1587,7 @@ Definition make_setquot {X : UU} (R : hrel X) (A : hsubtype X)
            (is : iseqclass R A) : setquot R := tpair _ A is.
 Definition pr1setquot {X : UU} (R : hrel X) : setquot R -> (hsubtype X)
   := @pr1 _ (λ A : _, iseqclass R A).
-Coercion pr1setquot : setquot >-> hsubtype.
+#[reversible] Coercion pr1setquot : setquot >-> hsubtype.
 
 Lemma isinclpr1setquot {X : UU} (R : hrel X) : isincl (pr1setquot R).
 Proof.
@@ -2722,7 +2722,7 @@ Definition make_compfun {X : UU} (R : hrel X) {S : UU} (f : X -> S)
            (is : iscomprelfun R f) : compfun R S := tpair _ f is.
 Definition pr1compfun (X : UU) (R : hrel X) (S : UU) :
   @compfun X R S -> (X -> S) := @pr1 _ _.
-Coercion pr1compfun : compfun >-> Funclass.
+#[reversible] Coercion pr1compfun : compfun >-> Funclass.
 
 Definition compevmapset {X : UU} (R : hrel X) :
   X -> ∏ S : hSet, (compfun R S) -> S

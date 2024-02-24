@@ -79,7 +79,7 @@ Definition hasPullbacks : UU :=
 
 Definition PullbackObject {a b c : C} {f : b --> a} {g : c --> a}:
    Pullback f g -> C := λ H, pr1 (pr1 H).
-Coercion PullbackObject : Pullback >-> ob.
+#[reversible] Coercion PullbackObject : Pullback >-> ob.
 
 Definition PullbackPr1 {a b c : C} {f : b --> a} {g : c --> a}
    (Pb : Pullback f g) : Pb --> b := pr1 (pr2 (pr1 Pb)).

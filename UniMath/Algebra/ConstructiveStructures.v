@@ -24,7 +24,7 @@ Definition ConstructiveDivisionRig :=
       × isapbinop (X := (pr1 (pr1 X)) ,, R) BinaryOperations.op2
       × isConstrDivRig X R.
 Definition ConstructiveDivisionRig_rig : ConstructiveDivisionRig -> rig := pr1.
-Coercion ConstructiveDivisionRig_rig : ConstructiveDivisionRig >-> rig.
+#[reversible] Coercion ConstructiveDivisionRig_rig : ConstructiveDivisionRig >-> rig.
 Definition ConstructiveDivisionRig_apsetwith2binop : ConstructiveDivisionRig -> apsetwith2binop.
 Proof.
   intros X.
@@ -231,13 +231,13 @@ Definition ConstructiveCommutativeDivisionRig :=
       × isConstrDivRig X R.
 Definition ConstructiveCommutativeDivisionRig_commrig :
   ConstructiveCommutativeDivisionRig -> commrig := pr1.
-Coercion ConstructiveCommutativeDivisionRig_commrig :
+#[reversible] Coercion ConstructiveCommutativeDivisionRig_commrig :
   ConstructiveCommutativeDivisionRig >-> commrig.
 
 Definition ConstructiveCommutativeDivisionRig_ConstructiveDivisionRig :
   ConstructiveCommutativeDivisionRig -> ConstructiveDivisionRig :=
   λ X, (pr1 (pr1 X),,pr1 (pr2 (pr1 X))) ,, (pr2 X).
-Coercion ConstructiveCommutativeDivisionRig_ConstructiveDivisionRig :
+#[reversible] Coercion ConstructiveCommutativeDivisionRig_ConstructiveDivisionRig :
   ConstructiveCommutativeDivisionRig >-> ConstructiveDivisionRig.
 
 Definition CCDRap {X : ConstructiveCommutativeDivisionRig} : hrel X := λ x y : X, CDRap (X := ConstructiveCommutativeDivisionRig_ConstructiveDivisionRig X) x y.
@@ -432,12 +432,12 @@ Definition ConstructiveField :=
       × isConstrDivRig X R.
 Definition ConstructiveField_commring :
   ConstructiveField -> commring := pr1.
-Coercion ConstructiveField_commring :
+#[reversible] Coercion ConstructiveField_commring :
   ConstructiveField >-> commring.
 Definition ConstructiveField_ConstructiveCommutativeDivisionRig :
   ConstructiveField -> ConstructiveCommutativeDivisionRig :=
   λ X, (commringtocommrig (pr1 X)) ,, (pr2 X).
-Coercion ConstructiveField_ConstructiveCommutativeDivisionRig :
+#[reversible] Coercion ConstructiveField_ConstructiveCommutativeDivisionRig :
   ConstructiveField >-> ConstructiveCommutativeDivisionRig.
 
 Definition CFap {X : ConstructiveField} : hrel X := λ x y : X, CCDRap (X := ConstructiveField_ConstructiveCommutativeDivisionRig X) x y.

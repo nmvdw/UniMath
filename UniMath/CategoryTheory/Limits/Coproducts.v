@@ -46,7 +46,7 @@ Definition Coproducts := ∏ (a : I -> C), Coproduct a.
 Definition hasCoproducts :=  ∏ (a : I -> C), ∥ Coproduct a ∥.
 
 Definition CoproductObject {a : I -> C} (CC : Coproduct a) : C := pr1 (pr1 CC).
-Coercion CoproductObject : Coproduct >-> ob.
+#[reversible] Coercion CoproductObject : Coproduct >-> ob.
 
 Definition CoproductIn {a : I -> C} (CC : Coproduct a): ∏ i, a i --> CoproductObject CC :=
   pr2 (pr1 CC).
@@ -440,7 +440,7 @@ Section DistributionThroughFunctor.
   Definition coprod_distributor : UU := ∑ δ : coprod_distributor_data, coprod_distributor_iso_law δ.
 
   Definition coprod_distributor_to_data (δ : coprod_distributor) : coprod_distributor_data := pr1 δ.
-  Coercion coprod_distributor_to_data : coprod_distributor >-> coprod_distributor_data.
+  #[reversible] Coercion coprod_distributor_to_data : coprod_distributor >-> coprod_distributor_data.
 
 End DistributionThroughFunctor.
 

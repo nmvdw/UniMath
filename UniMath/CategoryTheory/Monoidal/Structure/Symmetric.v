@@ -119,7 +119,7 @@ Section BraidedSymmetricMonoidalCategories.
     - exact (pr122 Hyp).
   Defined.
 
-  Coercion braiding_laws_to_braiding_laws_one_hexagon : braiding_laws >-> braiding_laws_one_hexagon.
+  #[reversible] Coercion braiding_laws_to_braiding_laws_one_hexagon : braiding_laws >-> braiding_laws_one_hexagon.
    *)
 
   Definition braiding_laws_one_hexagon_braiding_z_iso
@@ -212,7 +212,7 @@ Section BraidedSymmetricMonoidalCategories.
     : braiding_data M
     := pr1 B.
 
-  Coercion monoidal_braiding_data : braiding >-> braiding_data.
+  #[reversible] Coercion monoidal_braiding_data : braiding >-> braiding_data.
 
   Definition monoidal_braiding_data_inv
              {C : category} {M : monoidal C}
@@ -266,7 +266,7 @@ Section BraidedSymmetricMonoidalCategories.
     exact (pr2 B).
   Defined.
 
-  Coercion symmetric_to_braiding : symmetric >-> braiding.
+  #[reversible] Coercion symmetric_to_braiding : symmetric >-> braiding.
 
   Definition symmetric_whiskers_swap_nat_trans_data
         {C : category} {M : monoidal C} (B : symmetric M) (x : C)
@@ -312,12 +312,12 @@ Definition sym_monoidal_cat
   : UU
   := ∑ (V : monoidal_cat), symmetric V.
 
-Coercion sym_monoidal_cat_to_monoidal_cat
+#[reversible] Coercion sym_monoidal_cat_to_monoidal_cat
          (V : sym_monoidal_cat)
   : monoidal_cat
   := pr1 V.
 
-Coercion sym_monoidal_cat_to_symmetric
+#[reversible] Coercion sym_monoidal_cat_to_symmetric
          (V : sym_monoidal_cat)
   : symmetric V
   := pr2 V.

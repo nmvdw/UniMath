@@ -128,7 +128,7 @@ Definition twosided_disp_cat_ob_mor_to_ob
   : UU
   := pr1 D x y.
 
-Coercion twosided_disp_cat_ob_mor_to_ob : twosided_disp_cat_ob_mor >-> Funclass.
+#[reversible] Coercion twosided_disp_cat_ob_mor_to_ob : twosided_disp_cat_ob_mor >-> Funclass.
 
 Definition twosided_disp_cat_ob_mor_to_mor
            {C₁ C₂ : precategory_ob_mor}
@@ -186,7 +186,7 @@ Definition twosided_disp_cat_data
   := ∑ (D : twosided_disp_cat_ob_mor C₁ C₂),
      twosided_disp_cat_id_comp D.
 
-Coercion twosided_disp_cat_data_to_twosided_disp_cat_ob_mor
+#[reversible] Coercion twosided_disp_cat_data_to_twosided_disp_cat_ob_mor
          {C₁ C₂ : precategory_data}
          (D : twosided_disp_cat_data)
   : twosided_disp_cat_ob_mor C₁ C₂
@@ -446,7 +446,7 @@ Section TwoSidedDispCat.
     := ∑ (D : twosided_disp_cat_data),
        twosided_disp_cat_axioms D.
 
-  Coercion twosided_disp_cat_to_twosided_disp_cat_data
+  #[reversible] Coercion twosided_disp_cat_to_twosided_disp_cat_data
            (D : twosided_disp_cat)
     : twosided_disp_cat_data
     := pr1 D.

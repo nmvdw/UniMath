@@ -112,7 +112,7 @@ Definition preserve_underlying_to_data
   : I_{V₂} --> F v → I_{V₁} --> v
   := pr1 Fv v.
 
-Coercion preserve_underlying_to_data : preserve_underlying >-> Funclass.
+#[reversible] Coercion preserve_underlying_to_data : preserve_underlying >-> Funclass.
 
 Section Laws.
   Context {V₁ V₂ : monoidal_cat}

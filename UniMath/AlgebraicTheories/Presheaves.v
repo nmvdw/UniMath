@@ -36,7 +36,7 @@ Definition presheaf_data_to_function {T : algebraic_theory} (P : presheaf_data T
   : nat → hSet
   := pr1 P.
 
-Coercion presheaf_data_to_function : presheaf_data >-> Funclass.
+#[reversible] Coercion presheaf_data_to_function : presheaf_data >-> Funclass.
 
 Definition op
   {T : algebraic_theory}
@@ -68,7 +68,7 @@ Definition make_is_presheaf
 
 Definition presheaf (T : algebraic_theory) : UU := presheaf_cat T.
 
-Coercion presheaf_to_presheaf_data {T : algebraic_theory} (P : presheaf T)
+#[reversible] Coercion presheaf_to_presheaf_data {T : algebraic_theory} (P : presheaf T)
   : presheaf_data T
   := make_presheaf_data (pr1 P) (pr12 P).
 

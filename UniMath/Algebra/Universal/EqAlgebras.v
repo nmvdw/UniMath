@@ -25,7 +25,7 @@ Section Varieties.
   Definition algebra_of_eqalgebra {σ : eqspec}
     : eqalgebra σ -> algebra σ
     := pr1.
-  Coercion algebra_of_eqalgebra : eqalgebra >-> algebra.
+  #[reversible] Coercion algebra_of_eqalgebra : eqalgebra >-> algebra.
 
   Definition eqalgebra_proof {σ : eqspec} (a : eqalgebra σ)
     : is_eqalgebra a := pr2 a.

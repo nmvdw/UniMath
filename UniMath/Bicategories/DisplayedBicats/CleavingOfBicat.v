@@ -60,7 +60,7 @@ Section BicatCleaving.
            (hh ;; ff)
            gg.
 
-    Coercion disp_mor_lift_1cell_factor
+    #[reversible] Coercion disp_mor_lift_1cell_factor
              {c : B}
              {cc : D c}
              {h : c --> a}
@@ -110,7 +110,7 @@ Section BicatCleaving.
       : UU
       := iscontr (lift_2cell_factor_type σσ Lh Lh').
 
-    Coercion disp_cell_lift_2cell_factor
+    #[reversible] Coercion disp_cell_lift_2cell_factor
              {c : B}
              {cc : D c}
              {h h' : c --> a}
@@ -333,7 +333,7 @@ Section BicatCleaving.
          (αα : ff ==>[ α ] gg),
        is_cartesian_2cell αα.
 
-  Coercion mor_of_cartesian_lift_2cell
+  #[reversible] Coercion mor_of_cartesian_lift_2cell
            {x y : B}
            {xx : D x}
            {yy : D y}
@@ -858,7 +858,7 @@ Section LocalOpcleaving.
     : UU
     := ∑ (gg : xx -->[ g ] yy) (αα : ff ==>[ α ] gg), is_opcartesian_2cell αα.
 
-  Coercion mor_of_opcartesian_lift_2cell
+  #[reversible] Coercion mor_of_opcartesian_lift_2cell
            {x y : B}
            {xx : D x}
            {yy : D y}

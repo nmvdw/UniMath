@@ -142,7 +142,7 @@ Definition make_cat_with_terminal_disp_cat
   : cat_with_terminal_disp_cat
   := C ,, (T ,, tt) ,, D.
 
-Coercion cat_of_cat_with_terminal_disp_cat
+#[reversible] Coercion cat_of_cat_with_terminal_disp_cat
          (C : cat_with_terminal_disp_cat)
   : univalent_category
   := pr1 C.
@@ -170,7 +170,7 @@ Definition make_functor_with_terminal_disp_cat
   : functor_with_terminal_disp_cat C₁ C₂
   := F ,, (tt ,, HF) ,, FF.
 
-Coercion functor_of_functor_with_terminal_disp_cat
+#[reversible] Coercion functor_of_functor_with_terminal_disp_cat
          {C₁ C₂ : cat_with_terminal_disp_cat}
          (F : functor_with_terminal_disp_cat C₁ C₂)
   : C₁ ⟶ C₂
@@ -205,7 +205,7 @@ Definition make_nat_trans_with_terminal_disp_cat
   : nat_trans_with_terminal_disp_cat F G
   := τ ,, (tt ,, tt) ,, ττ.
 
-Coercion nat_trans_of_nat_trans_with_terminal_disp_cat
+#[reversible] Coercion nat_trans_of_nat_trans_with_terminal_disp_cat
          {C₁ C₂ : cat_with_terminal_disp_cat}
          {F G : functor_with_terminal_disp_cat C₁ C₂}
          (τ : nat_trans_with_terminal_disp_cat F G)
@@ -292,7 +292,7 @@ Definition make_cat_with_terminal_cleaving
   : cat_with_terminal_cleaving
   := C ,, DC ,, tt.
 
-Coercion cat_terminal_disp_cat_of_cat_with_terminal_disp_cat
+#[reversible] Coercion cat_terminal_disp_cat_of_cat_with_terminal_disp_cat
          (C : cat_with_terminal_cleaving)
   : cat_with_terminal_disp_cat
   := pr1 C.
@@ -314,7 +314,7 @@ Definition make_functor_with_terminal_cleaving
   : functor_with_terminal_cleaving C₁ C₂
   := F ,, tt ,, HF.
 
-Coercion functor_terminal_disp_cat_of_functor_with_terminal_cleaving
+#[reversible] Coercion functor_terminal_disp_cat_of_functor_with_terminal_cleaving
          {C₁ C₂ : cat_with_terminal_cleaving}
          (F : functor_with_terminal_cleaving C₁ C₂)
   : functor_with_terminal_disp_cat C₁ C₂
@@ -339,7 +339,7 @@ Definition make_nat_trans_with_terminal_cleaving
   : nat_trans_with_terminal_cleaving F G
   := τ ,, tt ,, tt.
 
-Coercion nat_trans_with_terminal_disp_cat_of_nat_trans_with_terminal_cleaving
+#[reversible] Coercion nat_trans_with_terminal_disp_cat_of_nat_trans_with_terminal_cleaving
          {C₁ C₂ : cat_with_terminal_cleaving}
          {F G : functor_with_terminal_cleaving C₁ C₂}
          (τ : nat_trans_with_terminal_cleaving F G)
@@ -1072,7 +1072,7 @@ Definition make_cat_with_terminal_cleaving_functor
   : cat_with_terminal_cleaving_functor
   := C ,, χ.
 
-Coercion cat_terminal_cleaving_functor_to_cat_terminal_cleaving
+#[reversible] Coercion cat_terminal_cleaving_functor_to_cat_terminal_cleaving
          (C : cat_with_terminal_cleaving_functor)
   : cat_with_terminal_cleaving
   := pr1 C.
@@ -1097,7 +1097,7 @@ Definition make_functor_with_terminal_cleaving_functor
   : functor_with_terminal_cleaving_functor C₁ C₂
   := F ,, Fχ.
 
-Coercion functor_with_terminal_cleaving_functor_to_functor_with_terminal_cleaving
+#[reversible] Coercion functor_with_terminal_cleaving_functor_to_functor_with_terminal_cleaving
          {C₁ C₂ : cat_with_terminal_cleaving_functor}
          (F : functor_with_terminal_cleaving_functor C₁ C₂)
   : functor_with_terminal_cleaving C₁ C₂
@@ -1129,7 +1129,7 @@ Definition make_nat_trans_with_terminal_cleaving_functor
   : nat_trans_with_terminal_cleaving_functor F G
   := τ ,, Hτ.
 
-Coercion nat_trans_with_terminal_cleaving_functor_to_nat_trans_with_terminal_cleaving
+#[reversible] Coercion nat_trans_with_terminal_cleaving_functor_to_nat_trans_with_terminal_cleaving
          {C₁ C₂ : cat_with_terminal_cleaving_functor}
          {F G : functor_with_terminal_cleaving_functor C₁ C₂}
          (τ : nat_trans_with_terminal_cleaving_functor F G)
@@ -1251,7 +1251,7 @@ Definition make_full_comp_cat
   : full_comp_cat
   := C ,, (H₁ ,, H₂) ,, tt.
 
-Coercion full_comp_cat_to_cat_with_terminal_cleaving
+#[reversible] Coercion full_comp_cat_to_cat_with_terminal_cleaving
          (C : full_comp_cat)
   : cat_with_terminal_cleaving_functor
   := pr1 C.
@@ -1281,7 +1281,7 @@ Definition make_full_comp_cat_functor
   : full_comp_cat_functor C₁ C₂
   := F ,, tt ,, HF.
 
-Coercion full_comp_cat_functor_to_functor_with_terminal_cleaving_functor
+#[reversible] Coercion full_comp_cat_functor_to_functor_with_terminal_cleaving_functor
          {C₁ C₂ : full_comp_cat}
          (F : full_comp_cat_functor C₁ C₂)
   : functor_with_terminal_cleaving_functor C₁ C₂
@@ -1302,7 +1302,7 @@ Definition full_comp_cat_nat_trans
   : UU
   := F ==> G.
 
-Coercion full_comp_cat_nat_trans_to_nat_trans_with_terminal_cleaving_functor
+#[reversible] Coercion full_comp_cat_nat_trans_to_nat_trans_with_terminal_cleaving_functor
          {C₁ C₂ : full_comp_cat}
          {F G : full_comp_cat_functor C₁ C₂}
          (τ : full_comp_cat_nat_trans F G)

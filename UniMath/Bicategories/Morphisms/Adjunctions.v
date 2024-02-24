@@ -65,14 +65,14 @@ Section Internal_Adjunction.
     : UU
     := ∑ (αd : left_adjoint_data f), left_adjoint_axioms αd.
 
-  Coercion data_of_left_adjoint
+  #[reversible] Coercion data_of_left_adjoint
            {a b : B}
            {f : a --> b}
            (α : left_adjoint f)
     : left_adjoint_data f
     := pr1 α.
 
-  Coercion axioms_of_left_adjoint
+  #[reversible] Coercion axioms_of_left_adjoint
            {a b : B}
            {f : a --> b}
            (α : left_adjoint f)
@@ -128,14 +128,14 @@ Section Internal_Adjunction.
     : UU
     := ∑ (αd : internal_right_adj_data g), internal_right_adj_axioms αd.
 
-  Coercion data_of_internal_right_adj
+  #[reversible] Coercion data_of_internal_right_adj
            {a b : B}
            {g : b --> a}
            (α : internal_right_adj g)
     : internal_right_adj_data g
     := pr1 α.
 
-  Coercion axioms_of_internal_right_adj
+  #[reversible] Coercion axioms_of_internal_right_adj
            {a b : B}
            {g : b --> a}
            (α : internal_right_adj g)
@@ -159,14 +159,14 @@ Section Internal_Adjunction.
     := ∑ (αd : left_adjoint_data f),
        left_equivalence_axioms αd.
 
-  Coercion data_of_left_equivalence
+  #[reversible] Coercion data_of_left_equivalence
            {a b : B}
            {f : a --> b}
            (αe : left_equivalence f)
     : left_adjoint_data f
     := pr1 αe.
 
-  Coercion axioms_of_left_equivalence
+  #[reversible] Coercion axioms_of_left_equivalence
            {a b : B}
            {f : a --> b}
            (αe : left_equivalence f)
@@ -183,14 +183,14 @@ Section Internal_Adjunction.
        left_equivalence_axioms αd.
 
   (* the coercion to the axioms will be induced *)
-  Coercion left_adjoint_of_left_adjoint_equivalence
+  #[reversible] Coercion left_adjoint_of_left_adjoint_equivalence
            {a b : B}
            {f : a --> b}
            (αe : left_adjoint_equivalence f)
     : left_adjoint f
     := (pr1 αe,, pr12 αe).
 
-  Coercion left_equivalence_of_left_adjoint_equivalence
+  #[reversible] Coercion left_equivalence_of_left_adjoint_equivalence
            {a b : B}
            {f : a --> b}
            (αe : left_adjoint_equivalence f)
@@ -221,13 +221,13 @@ Section Internal_Adjunction.
   Definition adjunction (a b : B) : UU
     := ∑ (f : a --> b), left_adjoint f.
 
-  Coercion arrow_of_adjunction
+  #[reversible] Coercion arrow_of_adjunction
            {a b : B}
            (f : adjunction a b)
     : a --> b
     := pr1 f.
 
-  Coercion left_adjoint_of_adjunction
+  #[reversible] Coercion left_adjoint_of_adjunction
            {a b : B}
            (f : adjunction a b)
     : left_adjoint f
@@ -238,13 +238,13 @@ Section Internal_Adjunction.
     : UU
     := ∑ (f : a --> b), left_adjoint_equivalence f.
 
-  Coercion adjunction_of_adjoint_equivalence
+  #[reversible] Coercion adjunction_of_adjoint_equivalence
            {a b : B}
            (f : adjoint_equivalence a b)
     : adjunction a b
     := (pr1 f,,left_adjoint_of_left_adjoint_equivalence (pr2 f)).
 
-  Coercion left_adjoint_equivalence_of_adjoint_equivalence
+  #[reversible] Coercion left_adjoint_equivalence_of_adjoint_equivalence
            {a b : B}
            (f : adjoint_equivalence a b)
     : left_adjoint_equivalence f

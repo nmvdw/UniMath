@@ -86,7 +86,7 @@ Section MixedDistributiveLaw.
     : mixed_distr_law
     := τ ,, Hτ.
 
-  Coercion mixed_distr_law_to_cell
+  #[reversible] Coercion mixed_distr_law_to_cell
            (τ : mixed_distr_law)
     : e · f ==> f · e
     := pr1 τ.

@@ -424,18 +424,18 @@ Definition PrestrengthForSignature : UU := θ_source ⟹ θ_target.
 
 Definition nat_trans_data_from_PrestrengthForSignature_funclass (θ: PrestrengthForSignature) :
   ∏ x, θ_source x --> θ_target x := pr1 θ.
-Coercion nat_trans_data_from_PrestrengthForSignature_funclass: PrestrengthForSignature >-> Funclass.
+#[reversible] Coercion nat_trans_data_from_PrestrengthForSignature_funclass: PrestrengthForSignature >-> Funclass.
 
 Definition nat_trans_data_from_PrestrengthForSignatureAtPoint_funclass (Z: Ptd)(θ: PrestrengthForSignatureAtPoint Z) :
   ∏ x, functor_fix_snd_arg [C, D'] Ptd [C, D] θ_source Z x -->
        functor_fix_snd_arg [C, D'] Ptd [C, D] θ_target Z x := pr1 θ.
-Coercion nat_trans_data_from_PrestrengthForSignatureAtPoint_funclass: PrestrengthForSignatureAtPoint >-> Funclass.
+#[reversible] Coercion nat_trans_data_from_PrestrengthForSignatureAtPoint_funclass: PrestrengthForSignatureAtPoint >-> Funclass.
 
 
 Definition StrengthForSignature : UU :=
   ∑ θ : PrestrengthForSignature, θ_Strength1_int θ × θ_Strength2_int θ.
 
-Coercion Strength_Prestrength (θwithlaws: StrengthForSignature) : PrestrengthForSignature := pr1 θwithlaws.
+#[reversible] Coercion Strength_Prestrength (θwithlaws: StrengthForSignature) : PrestrengthForSignature := pr1 θwithlaws.
 
 
 End about_signatures.
@@ -446,9 +446,9 @@ Definition Presignature : UU
 Definition Signature : UU
   := ∑ H : [C, D'] ⟶ [C, D] , StrengthForSignature H.
 
-Coercion Presignature_Functor (S : Presignature) : functor _ _ := pr1 S.
-Coercion Signature_Functor (S : Signature) : functor _ _ := pr1 S.
-Coercion Presignature_Signature (S : Signature) : Presignature := Signature_Functor S ,, Strength_Prestrength _ (pr2 S).
+#[reversible] Coercion Presignature_Functor (S : Presignature) : functor _ _ := pr1 S.
+#[reversible] Coercion Signature_Functor (S : Signature) : functor _ _ := pr1 S.
+#[reversible] Coercion Presignature_Signature (S : Signature) : Presignature := Signature_Functor S ,, Strength_Prestrength _ (pr2 S).
 
 Definition theta (H : Presignature) : PrestrengthForSignature H := pr2 H.
 

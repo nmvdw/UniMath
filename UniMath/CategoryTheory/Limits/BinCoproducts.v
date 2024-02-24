@@ -67,7 +67,7 @@ Definition BinCoproducts := ∏ (a b : C), BinCoproduct a b.
 Definition hasBinCoproducts := ∏ (a b : C), ∥ BinCoproduct a b ∥.
 
 Definition BinCoproductObject {a b : C} (CC : BinCoproduct a b) : C := pr1 (pr1 CC).
-Coercion BinCoproductObject : BinCoproduct >-> ob.
+#[reversible] Coercion BinCoproductObject : BinCoproduct >-> ob.
 Definition BinCoproductIn1 {a b : C} (CC : BinCoproduct a b): a --> BinCoproductObject CC :=
   pr1 (pr2 (pr1 CC)).
 Definition BinCoproductIn2 {a b : C} (CC : BinCoproduct a b) : b --> BinCoproductObject CC :=
@@ -1449,7 +1449,7 @@ Section DistributionThroughFunctor.
   Definition bincoprod_distributor : UU := ∑ δ : bincoprod_distributor_data, bincoprod_distributor_iso_law δ.
 
   Definition bincoprod_distributor_to_data (δ : bincoprod_distributor) : bincoprod_distributor_data := pr1 δ.
-  Coercion bincoprod_distributor_to_data : bincoprod_distributor >-> bincoprod_distributor_data.
+  #[reversible] Coercion bincoprod_distributor_to_data : bincoprod_distributor >-> bincoprod_distributor_data.
 
 End DistributionThroughFunctor.
 

@@ -57,7 +57,7 @@ Definition modcomponent_of
   : ∏ (X : B), σ X ==> τ X
   := pr111 m.
 
-Coercion modcomponent_of : modification >-> Funclass.
+#[reversible] Coercion modcomponent_of : modification >-> Funclass.
 
 Definition modnaturality_of
            {B B' : bicat}
@@ -173,7 +173,7 @@ Definition invertible_modification_data
   : UU
   := ∏ (X : B), invertible_2cell (σ X) (τ X).
 
-Coercion invertible_modification_data_to_modification_data
+#[reversible] Coercion invertible_modification_data_to_modification_data
            {B B' : bicat}
            {F G : psfunctor B B'}
            {σ τ : pstrans F G}

@@ -208,16 +208,16 @@ Section five_lemma_data.
              (FRE : FiveRowExacts FRDE) : FiveRow := (FRO,,(FRD,,(FRDE,,FRE))).
 
   Definition FiveRow_Obs (FR : FiveRow) : FiveRowObs := pr1 FR.
-  Coercion FiveRow_Obs : FiveRow >-> FiveRowObs.
+  #[reversible] Coercion FiveRow_Obs : FiveRow >-> FiveRowObs.
 
   Definition FiveRow_Diffs (FR : FiveRow) : FiveRowDiffs FR := pr1 (pr2 FR).
-  Coercion FiveRow_Diffs : FiveRow >-> FiveRowDiffs.
+  #[reversible] Coercion FiveRow_Diffs : FiveRow >-> FiveRowDiffs.
 
   Definition FiveRow_DiffsEq (FR : FiveRow) : FiveRowDiffsEq FR := pr1 (pr2 (pr2 FR)).
-  Coercion FiveRow_DiffsEq : FiveRow >-> FiveRowDiffsEq.
+  #[reversible] Coercion FiveRow_DiffsEq : FiveRow >-> FiveRowDiffsEq.
 
   Definition FiveRow_Exacts (FR : FiveRow) : FiveRowExacts FR := pr2 (pr2 (pr2 FR)).
-  Coercion FiveRow_Exacts : FiveRow >-> FiveRowExacts.
+  #[reversible] Coercion FiveRow_Exacts : FiveRow >-> FiveRowExacts.
 
 
   (** ** Morphism of [FiveRows] *)
@@ -287,11 +287,11 @@ Section five_lemma_data.
 
   Definition FiveRowMorphism_Mors {FR1 FR2 : FiveRow} (FRM : FiveRowMorphism FR1 FR2) :
     FiveRowMors FR1 FR2 := pr1 FRM.
-  Coercion FiveRowMorphism_Mors : FiveRowMorphism >-> FiveRowMors.
+  #[reversible] Coercion FiveRowMorphism_Mors : FiveRowMorphism >-> FiveRowMors.
 
   Definition FiveRowMorphism_Comms {FR1 FR2 : FiveRow} (FRM : FiveRowMorphism FR1 FR2) :
     FiveRowMorsComm FRM := pr2 FRM.
-  Coercion FiveRowMorphism_Comms : FiveRowMorphism >-> FiveRowMorsComm.
+  #[reversible] Coercion FiveRowMorphism_Comms : FiveRowMorphism >-> FiveRowMorsComm.
 
 End five_lemma_data.
 

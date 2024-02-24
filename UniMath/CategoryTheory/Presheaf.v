@@ -189,7 +189,7 @@ Qed.
 Definition sieve (c : C) : hSet := (sieve_def c,,isaset_sieve c).
 
 Definition pr1sieve {c : C} : sieve_def c → hsubtype _ := @pr1 _ _.
-Coercion pr1sieve : sieve_def >-> hsubtype.
+#[reversible] Coercion pr1sieve : sieve_def >-> hsubtype.
 
 Lemma sieve_eq (c : C) (s t : sieve c) (H : pr1 s = pr1 t) : s = t.
 Proof.

@@ -27,7 +27,7 @@ Definition make_folds_ob_mor (ob : UU)(mor : ob → ob → UU) :
     folds_ob_mor := tpair _ ob mor.
 
 Definition ob (C : folds_ob_mor) : UU := @pr1 _ _ C.
-Coercion ob : folds_ob_mor >-> UU.
+#[reversible] Coercion ob : folds_ob_mor >-> UU.
 
 Definition folds_morphisms {C : folds_ob_mor} : C → C → UU := pr2 C.
 Local Notation "a ⇒ b" := (folds_morphisms a b).
@@ -41,7 +41,7 @@ Definition folds_id_T := ∑ C : folds_ob_mor,
  ×  (∏ (a b c : C), (a ⇒ b) → (b ⇒ c) → (a ⇒ c) → hProp).
 
 Definition folds_ob_mor_from_folds_id_comp (C : folds_id_T) : folds_ob_mor := pr1 C.
-Coercion folds_ob_mor_from_folds_id_comp : folds_id_T >-> folds_ob_mor.
+#[reversible] Coercion folds_ob_mor_from_folds_id_comp : folds_id_T >-> folds_ob_mor.
 
 Definition I {C : folds_id_T} : ∏ {a : C}, a ⇒ a → hProp
   := pr1 (pr2 C).
@@ -84,7 +84,7 @@ Qed.
 Definition folds_precat := ∑ C : folds_id_T, folds_ax_I C × folds_ax_T C.
 
 Definition folds_id_comp_from_folds_precat (C : folds_precat) : folds_id_T := pr1 C.
-Coercion folds_id_comp_from_folds_precat : folds_precat >-> folds_id_T.
+#[reversible] Coercion folds_id_comp_from_folds_precat : folds_precat >-> folds_id_T.
 
 (** * Some lemmas about FOLDS precategories *)
 

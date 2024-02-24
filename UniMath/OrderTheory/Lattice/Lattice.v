@@ -315,7 +315,7 @@ Definition latticewithgt (X : hSet) :=
 
 Definition lattice_latticewithgt {X : hSet} : latticewithgt X → lattice X :=
   pr1.
-Coercion lattice_latticewithgt : latticewithgt >-> lattice.
+#[reversible] Coercion lattice_latticewithgt : latticewithgt >-> lattice.
 
 (** [Lgt] *)
 
@@ -397,7 +397,7 @@ Definition latticedec (X : hSet) :=
   ∑ lat : lattice X, istotal (Lle lat) × (isdecrel (Lle lat)).
 Definition lattice_latticedec {X : hSet} (lat : latticedec X) : lattice X :=
   pr1 lat.
-Coercion lattice_latticedec : latticedec >-> lattice.
+#[reversible] Coercion lattice_latticedec : latticedec >-> lattice.
 Definition istotal_latticedec {X : hSet} (lat : latticedec X) : istotal (Lle lat) :=
   pr1 (pr2 lat).
 Definition isdecrel_latticedec {X : hSet} (lat : latticedec X) : isdecrel (Lle lat) :=

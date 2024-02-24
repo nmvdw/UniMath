@@ -70,7 +70,7 @@ End BicatOfDaggerCategories.
 Section Destructors.
 
   Definition DAG_to_cat (C : DAG) : category := pr1 C.
-  Coercion DAG_to_cat : ob >-> category.
+  #[reversible] Coercion DAG_to_cat : ob >-> category.
 
   Definition DAG_to_dagger (C : DAG) : dagger C := pr2 C.
 

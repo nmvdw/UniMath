@@ -55,18 +55,18 @@ Section FullSubBicat.
     : UU
     := f ==> g.
 
-  Coercion ob_of_fullsub
+  #[reversible] Coercion ob_of_fullsub
            (X : fullsub)
     : ob C
     := pr1 X.
 
-  Coercion fullsub_to_mor
+  #[reversible] Coercion fullsub_to_mor
            {X Y : fullsub}
            (f : morfullsub X Y)
     : C⟦pr1 X,pr1 Y⟧
     := pr1 f.
 
-  Coercion fullsub_to_cell
+  #[reversible] Coercion fullsub_to_cell
            {X Y : fullsub}
            {f g : morfullsub X Y}
            (α : cellfullsub f g)

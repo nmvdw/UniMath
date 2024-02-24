@@ -59,7 +59,7 @@ Definition make_actegory_data {C : category} {A : action_data C}
   := (A,,au,,auinv,,aα,,aαinv).
 
 Definition actegory_action_data {C : category} (AD : actegory_data C) : action_data C := pr1 AD.
-Coercion actegory_action_data : actegory_data >-> action_data.
+#[reversible] Coercion actegory_action_data : actegory_data >-> action_data.
 
 Definition actegory_unitordata {C : category} (AD : actegory_data C) : action_unitor_data AD
   := pr1 (pr2 AD).
@@ -152,14 +152,14 @@ Definition actegory (C : category) : UU :=
   ∑ (AD : actegory_data C), (actegory_laws AD).
 
 Definition actegory_actdata {C : category} (Act : actegory C) : actegory_data C := pr1 Act.
-Coercion actegory_actdata : actegory >-> actegory_data.
+#[reversible] Coercion actegory_actdata : actegory >-> actegory_data.
 
 Definition actegory_actlaws {C : category} (Act : actegory C) : actegory_laws Act := pr2 Act.
 
 Definition actegory_action_is_bifunctor {C : category} (Act : actegory C) : is_bifunctor Act
   := pr12 Act.
 
-Coercion actegory_action
+#[reversible] Coercion actegory_action
          {C : category}
          (Act : actegory C)
   : bifunctor V C C

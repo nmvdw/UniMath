@@ -13,6 +13,6 @@ Definition make_decSet (X: UU) (i: isdeceq X): decSet := X,, i.
 
 Definition pr1decSet: decSet -> UU := pr1.
 
-Coercion pr1decSet: decSet >-> UU.
+#[reversible] Coercion pr1decSet: decSet >-> UU.
 
 Definition decproperty (X: decSet) := pr2 X.

@@ -62,7 +62,7 @@ Section DisplayedFunctor.
     : D₂ (F x) (G y)
     := pr1 FG x y xy.
 
-  Coercion twosided_disp_functor_data_ob : twosided_disp_functor_data >-> Funclass.
+  #[reversible] Coercion twosided_disp_functor_data_ob : twosided_disp_functor_data >-> Funclass.
 
   Definition twosided_disp_functor_data_mor
              (FG : twosided_disp_functor_data)
@@ -126,7 +126,7 @@ Section DisplayedFunctor.
     : UU
     := ∑ (FG : twosided_disp_functor_data), twosided_disp_functor_laws FG.
 
-  Coercion twosided_disp_functor_to_data
+  #[reversible] Coercion twosided_disp_functor_to_data
            (FG : twosided_disp_functor)
     : twosided_disp_functor_data
     := pr1 FG.

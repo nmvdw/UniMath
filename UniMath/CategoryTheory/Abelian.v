@@ -140,16 +140,16 @@ Section def_abelian.
   Definition AbelianPreCat : UU := ∑ A : (∑ C : category, Data1 C), AbelianData (pr1 A) (pr2 A).
 
   Definition precategory_of_AbelianPreCat (A : AbelianPreCat) : category := pr1 (pr1 A).
-  Coercion precategory_of_AbelianPreCat : AbelianPreCat >-> category.
+  #[reversible] Coercion precategory_of_AbelianPreCat : AbelianPreCat >-> category.
 
   Definition make_Abelian (C : category) (AD1 : Data1 C) (AD : AbelianData C AD1) :
     AbelianPreCat := tpair _ (tpair _ C AD1) AD.
 
   Definition to_Data1 (A : AbelianPreCat) : Data1 A := pr2 (pr1 A).
-  Coercion to_Data1 : AbelianPreCat >-> Data1.
+  #[reversible] Coercion to_Data1 : AbelianPreCat >-> Data1.
 
   Definition to_Data2 (A : AbelianPreCat) : Data2 A (to_Data1 A) := pr1 (pr2 A).
-  Coercion to_Data2 : AbelianPreCat >-> Data2.
+  #[reversible] Coercion to_Data2 : AbelianPreCat >-> Data2.
 
   Definition to_MonicsAreKernels (A : AbelianPreCat) :
     MonicsAreKernels A (to_Data1 A) (to_Data2 A) := dirprod_pr1 (pr2 (pr2 A)).

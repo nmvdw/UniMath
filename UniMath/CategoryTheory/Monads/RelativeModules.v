@@ -53,7 +53,7 @@ Section RelModule_Definition.
   Definition RelModule_ob {R : RelMonad_data J} (M : RelModule_data R)
     : C → D
     := pr1 M.
-  Coercion RelModule_ob : RelModule_data >-> Funclass.
+  #[reversible] Coercion RelModule_ob : RelModule_data >-> Funclass.
 
   Section Projections_and_Laws.
 
@@ -78,7 +78,7 @@ Section RelModule_Definition.
        × (∏ c d e (f : D ⟦J c, R d⟧) (g : D ⟦J d, R e⟧),
           mbind M f · mbind M g = mbind M (f · r_bind R g)).
 
-    Coercion relmonad_axiom_from_relmodule {M : RelModule_data R} (X : RelModule_laws M)
+    #[reversible] Coercion relmonad_axiom_from_relmodule {M : RelModule_data R} (X : RelModule_laws M)
       : RelMonad_axioms R
       := pr1 X.
 
@@ -142,12 +142,12 @@ Definition make_RelModule {C D : precategory_data} {J : C ⟶ D} (R : RelMonad_d
   : RelModule R
   := (M,, HM).
 
-Coercion RelModule_data_from_RelModule {C D : precategory_data} {J : C ⟶ D}
+#[reversible] Coercion RelModule_data_from_RelModule {C D : precategory_data} {J : C ⟶ D}
          {R : RelMonad_data J} (M : RelModule R)
   : RelModule_data R
   := pr1 M.
 
-Coercion RelModule_laws_from_RelModule {C D : precategory_data} {J : C ⟶ D}
+#[reversible] Coercion RelModule_laws_from_RelModule {C D : precategory_data} {J : C ⟶ D}
          {R : RelMonad_data J} (M : RelModule R)
   : RelModule_laws M
   := pr2 M.
@@ -226,9 +226,9 @@ Section Part1.
   Definition relmodule_mor_map {M N : RelModule R} (φ : RelModule_Mor M N)
     : ∏ a : C, M a --> N a
     := pr1 φ.
-  Coercion relmodule_mor_map : RelModule_Mor >-> Funclass.
+  #[reversible] Coercion relmodule_mor_map : RelModule_Mor >-> Funclass.
 
-  Coercion relmodule_mor_property {M N : RelModule R} (φ : RelModule_Mor M N)
+  #[reversible] Coercion relmodule_mor_property {M N : RelModule R} (φ : RelModule_Mor M N)
     : is_relmodule_mor M N φ
     := pr2 φ.
 

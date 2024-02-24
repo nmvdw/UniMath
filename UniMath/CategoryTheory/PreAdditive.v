@@ -91,7 +91,7 @@ Section def_preadditive.
   Definition PreAdditive : UU := ∑ PA : categoryWithAbgrops, isPreAdditive PA.
 
   Definition PreAdditive_categoryWithAbgrops (A : PreAdditive) : categoryWithAbgrops := pr1 A.
-  Coercion PreAdditive_categoryWithAbgrops : PreAdditive >-> categoryWithAbgrops.
+  #[reversible] Coercion PreAdditive_categoryWithAbgrops : PreAdditive >-> categoryWithAbgrops.
 
   Definition make_PreAdditive (PA : categoryWithAbgrops) (H : isPreAdditive PA) : PreAdditive.
   Proof.
@@ -99,7 +99,7 @@ Section def_preadditive.
   Defined.
 
   Definition PreAdditive_isPreAdditive (A : PreAdditive) : isPreAdditive A := pr2 A.
-  Coercion PreAdditive_isPreAdditive : PreAdditive >-> isPreAdditive.
+  #[reversible] Coercion PreAdditive_isPreAdditive : PreAdditive >-> isPreAdditive.
 
   Variable A : PreAdditive.
 

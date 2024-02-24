@@ -99,7 +99,7 @@ Section def_equalizers.
   (** Returns the equalizer object. *)
   Definition EqualizerObject {y z : C} {f g : y --> z} (E : Equalizer f g) :
     C := pr1 (pr1 E).
-  Coercion EqualizerObject : Equalizer >-> ob.
+  #[reversible] Coercion EqualizerObject : Equalizer >-> ob.
 
   (** Returns the equalizer arrow. *)
   Definition EqualizerArrow {y z : C} {f g : y --> z} (E : Equalizer f g) :

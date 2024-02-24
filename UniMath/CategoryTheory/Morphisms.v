@@ -34,7 +34,7 @@ Section def_morphismpair.
   Definition Target (M : Morphism) : ob C := pr1 (pr2 M).
 
   Definition MorphismMor (M : Morphism) : C⟦Source M, Target M⟧ := pr2 (pr2 M).
-  Coercion MorphismMor : Morphism >-> precategory_morphisms.
+  #[reversible] Coercion MorphismMor : Morphism >-> precategory_morphisms.
 
 
   (** ** MorphismPair **)
@@ -103,11 +103,11 @@ Section def_morphismpair.
 
   Definition MPMor_MPMorMors {MP1 MP2 : MorphismPair} (MPM : MPMor MP1 MP2) :
     MPMorMors MP1 MP2 := pr1 MPM.
-  Coercion MPMor_MPMorMors : MPMor >-> MPMorMors.
+  #[reversible] Coercion MPMor_MPMorMors : MPMor >-> MPMorMors.
 
   Definition MPMor_MPMorComms {MP1 MP2 : MorphismPair} (MPM : MPMor MP1 MP2) :
     MPMorComms MPM := pr2 MPM.
-  Coercion MPMor_MPMorComms : MPMor >-> MPMorComms.
+  #[reversible] Coercion MPMor_MPMorComms : MPMor >-> MPMorComms.
 
   Lemma reverseCommIsoSquare {M : precategory} {P Q P' Q':M} (f:P'-->P) (g:Q'-->Q) (i:z_iso P' Q') (j:z_iso P Q) :
     i · g = f · j -> z_iso_inv i · f = g · z_iso_inv j.
@@ -238,7 +238,7 @@ Section def_shortshortexactdata.
   (** Accessor functions *)
   Definition ShortShortExactData_MorphismPair (SSED : ShortShortExactData) :
     MorphismPair C := pr1 SSED.
-  Coercion ShortShortExactData_MorphismPair : ShortShortExactData >-> MorphismPair.
+  #[reversible] Coercion ShortShortExactData_MorphismPair : ShortShortExactData >-> MorphismPair.
 
   Definition ShortShortExactData_Eq (SSED : ShortShortExactData) :
     (Mor1 SSED) · (Mor2 SSED) = ZeroArrow Z _ _ := pr2 SSED.

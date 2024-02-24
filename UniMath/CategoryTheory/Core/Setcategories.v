@@ -30,7 +30,7 @@ Definition is_setcategory : precategory → UU := object_homtype_hlevel 2 2.
 Definition setcategory := total2 is_setcategory.
 Definition category_from_setcategory (C : setcategory) : category :=
   (pr1 C,, (dirprod_pr2 (pr2 C))).
-Coercion category_from_setcategory : setcategory >-> category.
+#[reversible] Coercion category_from_setcategory : setcategory >-> category.
 
 Definition make_setcategory
            (C : category)

@@ -172,7 +172,7 @@ Section kfinite_subtypes.
   Definition subtype_from_kfinite_subtype {X}
     : kfinite_subtype X -> hsubtype X
     := pr1.
-  Coercion subtype_from_kfinite_subtype : kfinite_subtype >-> hsubtype.
+  #[reversible] Coercion subtype_from_kfinite_subtype : kfinite_subtype >-> hsubtype.
 
   Definition kfinite_subtype_property {X}
     (A : kfinite_subtype X)

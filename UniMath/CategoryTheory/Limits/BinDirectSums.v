@@ -169,7 +169,7 @@ Section def_bindirectsums.
 
   (** The direct sum object. *)
   Definition BinDirectSumOb {a b : A} (B : BinDirectSum a b) : A := pr1 (pr1 B).
-  Coercion BinDirectSumOb : BinDirectSum >-> ob.
+  #[reversible] Coercion BinDirectSumOb : BinDirectSum >-> ob.
 
   (** Accessor functions *)
   Definition to_In1 {a b : A} (B : BinDirectSum a b) : A⟦a, B⟧ := dirprod_pr1 (pr2 (pr1 B)).
@@ -186,7 +186,7 @@ Section def_bindirectsums.
   (** Another coercion *)
   Definition BinDirectSum_isBinDirectSum {a b : A} (B : BinDirectSum a b) :
     isBinDirectSum a b B (to_In1 B) (to_In2 B) (to_Pr1 B) (to_Pr2 B) := pr2 B.
-  Coercion BinDirectSum_isBinDirectSum : BinDirectSum >-> hProptoType.
+  #[reversible] Coercion BinDirectSum_isBinDirectSum : BinDirectSum >-> hProptoType.
 
   (** Construction of BinCoproduct and BinProduct from BinDirectSum. *)
   Definition BinDirectSum_BinCoproduct {a b : A} (B : BinDirectSum a b) :

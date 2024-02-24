@@ -64,11 +64,11 @@ Definition left_unitor : UU :=
 Definition left_unitor_funclass (λ' : left_unitor):
   ∏ x : ob C, I_pretensor x -->  x
   := pr1 (nat_z_iso_to_trans λ').
-Coercion left_unitor_funclass : left_unitor >-> Funclass.
+#[reversible] Coercion left_unitor_funclass : left_unitor >-> Funclass.
 
 Definition left_unitor_to_nat_trans (λ' : left_unitor): nat_trans I_pretensor (functor_identity C)
   := nat_z_iso_to_trans λ'.
-Coercion left_unitor_to_nat_trans: left_unitor >-> nat_trans.
+#[reversible] Coercion left_unitor_to_nat_trans: left_unitor >-> nat_trans.
 
 (* - ⊗ I *)
 Definition I_posttensor : C ⟶ C := functor_fix_snd_arg _ _ _ tensor I.
@@ -85,11 +85,11 @@ Definition right_unitor : UU :=
 Definition right_unitor_funclass (ρ' : right_unitor):
   ∏ x : ob C, I_posttensor x -->  x
   := pr1 (nat_z_iso_to_trans ρ').
-Coercion right_unitor_funclass : right_unitor >-> Funclass.
+#[reversible] Coercion right_unitor_funclass : right_unitor >-> Funclass.
 
 Definition right_unitor_to_nat_trans (ρ' : right_unitor): nat_trans I_posttensor (functor_identity C)
   := nat_z_iso_to_trans ρ'.
-Coercion right_unitor_to_nat_trans: right_unitor >-> nat_trans.
+#[reversible] Coercion right_unitor_to_nat_trans: right_unitor >-> nat_trans.
 
 (* (- ⊗ =) ⊗ ≡ *)
 Definition assoc_left : (C ⊠ C) ⊠ C ⟶ C :=
@@ -122,11 +122,11 @@ Definition associator : UU :=
 Definition associator_funclass (α' : associator):
   ∏ x : ob ((C ⊠ C) ⊠ C), assoc_left x -->  assoc_right x
   := pr1 (nat_z_iso_to_trans α').
-Coercion associator_funclass : associator >-> Funclass.
+#[reversible] Coercion associator_funclass : associator >-> Funclass.
 
 Definition associator_to_nat_trans (α' : associator): nat_trans assoc_left assoc_right
   := nat_z_iso_to_trans α'.
-Coercion associator_to_nat_trans: associator >-> nat_trans.
+#[reversible] Coercion associator_to_nat_trans: associator >-> nat_trans.
 
 Definition triangle_eq (λ' : left_unitor) (ρ' : right_unitor) (α' : associator) : UU :=
   ∏ (a b : C), pr1 ρ' a #⊗ id b = pr1 α' ((a, I), b) · id a #⊗ pr1 λ' b.
@@ -167,7 +167,7 @@ Definition make_monoidal_cat (C: category)(tensor: C ⊠ C ⟶ C)(I: C)
   (C,, (tensor,, (I,, (λ',, (ρ',, (α',, (eq1,, eq2))))))).
 
 Definition monoidal_cat_cat (M : monoidal_cat) : category := pr1 M.
-Coercion monoidal_cat_cat : monoidal_cat >-> category.
+#[reversible] Coercion monoidal_cat_cat : monoidal_cat >-> category.
 
 Section Monoidal_Cat_Accessors.
 

@@ -95,7 +95,7 @@ Section DisplayedAdjunction.
     := ∑ AA : disp_adjunction_data A D D',
         triangle_1_statement_over AA × triangle_2_statement_over AA.
 
-  Coercion data_of_disp_adjunction (C C' : category) (A : adjunction C C')
+  #[reversible] Coercion data_of_disp_adjunction (C C' : category) (A : adjunction C C')
            D D' (AA : disp_adjunction A D D') : disp_adjunction_data _ _ _ := pr1 AA.
 
   Definition triangle_1_over {C C' : category}
@@ -128,7 +128,7 @@ Section DisplayedAdjunction.
              {FF : disp_functor (left_functor A) D D'}
              (GG : right_adjoint_over_data FF)
     := pr1 GG.
-  Coercion functor_of_right_adjoint_over
+  #[reversible] Coercion functor_of_right_adjoint_over
     : right_adjoint_over_data >-> disp_functor.
 
   Definition adjunction_of_right_adjoint_over_data {C C' : category}
@@ -137,7 +137,7 @@ Section DisplayedAdjunction.
              (GG : right_adjoint_over_data FF)
     : disp_adjunction_data A D D'
     := (FF,, GG).
-  Coercion adjunction_of_right_adjoint_over_data
+  #[reversible] Coercion adjunction_of_right_adjoint_over_data
     : right_adjoint_over_data >-> disp_adjunction_data.
 
   Definition right_adjoint_of_disp_adjunction_data
@@ -161,7 +161,7 @@ Section DisplayedAdjunction.
              (GG : right_adjoint_over FF)
     : right_adjoint_over_data FF
     := pr1 GG.
-  Coercion data_of_right_adjoint_over
+  #[reversible] Coercion data_of_right_adjoint_over
     : right_adjoint_over >-> right_adjoint_over_data.
 
   Definition adjunction_of_right_adjoint_over {C C' : category}
@@ -208,12 +208,12 @@ Section DisplayedEquivalences.
     := ∑ AA : disp_adjunction E D D', @form_equiv_over _ _ E _  _ (pr1 AA).
   (* argument A is not inferred *)
 
-  Coercion adjunction_of_equiv_over {C C' : category} (E : adj_equiv C C')
+  #[reversible] Coercion adjunction_of_equiv_over {C C' : category} (E : adj_equiv C C')
            {D : disp_cat C} {D': disp_cat C'} (EE : equiv_over E D D')
     : disp_adjunction _ _ _ := pr1 EE.
 
 
-  Coercion axioms_of_equiv_over {C C' : category} (E : adj_equiv C C')
+  #[reversible] Coercion axioms_of_equiv_over {C C' : category} (E : adj_equiv C C')
            {D : disp_cat C} {D': disp_cat C'}
            (EE : equiv_over E D D') : form_equiv_over _
     := pr2 EE.
@@ -229,7 +229,7 @@ Section DisplayedEquivalences.
              {D : disp_cat C} {D': disp_cat C'}
              {FF : disp_functor (left_functor E) D D'}
              (EE : is_equiv_over E FF) := pr1 EE.
-  Coercion right_adjoint_of_is_equiv_over
+  #[reversible] Coercion right_adjoint_of_is_equiv_over
     : is_equiv_over >-> right_adjoint_over.
 
   Definition equiv_of_is_equiv_over {C C' : category} (E : adj_equiv C C')
@@ -238,7 +238,7 @@ Section DisplayedEquivalences.
              (EE : is_equiv_over E FF)
     : equiv_over E D D'
     := (adjunction_of_right_adjoint_over _ EE ,, pr2 EE).
-  Coercion equiv_of_is_equiv_over
+  #[reversible] Coercion equiv_of_is_equiv_over
     : is_equiv_over >-> equiv_over.
   (* Again, don’t worry about the ambiguous path generated here. *)
 
@@ -492,7 +492,7 @@ Definition left_adj_over_id {C} {D D' : disp_cat C}
   (A : disp_adjunction_id_data D D')
   : disp_functor _ D D'
 := pr1 A.
-Coercion left_adj_over_id
+#[reversible] Coercion left_adj_over_id
   : disp_adjunction_id_data >-> disp_functor.
 
 Definition right_adj_over_id {C} {D D' : disp_cat C}
@@ -545,7 +545,7 @@ Definition disp_adjunction_id {C} (D D' : disp_cat C) : UU
 Definition data_of_disp_adjunction_id {C} {D D' : disp_cat C}
   (A : disp_adjunction_id D D')
 := pr1 A.
-Coercion data_of_disp_adjunction_id
+#[reversible] Coercion data_of_disp_adjunction_id
   : disp_adjunction_id >-> disp_adjunction_id_data.
 
 Definition triangle_1_over_id {C} {D D' : disp_cat C}
@@ -574,14 +574,14 @@ Definition functor_of_right_adjoint_over_id {C} {D D' : disp_cat C}
   {FF : disp_functor _ D D'}
   (GG : right_adjoint_over_id_data FF)
   := pr1 GG.
-Coercion functor_of_right_adjoint_over_id : right_adjoint_over_id_data >-> disp_functor.
+#[reversible] Coercion functor_of_right_adjoint_over_id : right_adjoint_over_id_data >-> disp_functor.
 
 Definition adjunction_of_right_adjoint_over_id_data {C} {D D' : disp_cat C}
     {FF : disp_functor _ D D'}
     (GG : right_adjoint_over_id_data FF)
   : disp_adjunction_id_data D D'
 := (FF,, GG).
-Coercion adjunction_of_right_adjoint_over_id_data
+#[reversible] Coercion adjunction_of_right_adjoint_over_id_data
   : right_adjoint_over_id_data >-> disp_adjunction_id_data.
 
 Definition right_adjoint_of_disp_adjunction_id_data {C} {D D' : disp_cat C}
@@ -598,7 +598,7 @@ Definition data_of_right_adjoint_over_id {C} {D D' : disp_cat C}
   {FF : disp_functor _ D D'}
   (GG : right_adjoint_over_id FF)
 := pr1 GG.
-Coercion data_of_right_adjoint_over_id
+#[reversible] Coercion data_of_right_adjoint_over_id
   : right_adjoint_over_id >-> right_adjoint_over_id_data.
 
 Definition adjunction_of_right_adjoint_over_id {C} {D D' : disp_cat C}
@@ -657,13 +657,13 @@ Definition equiv_over_id {C} (D D' : disp_cat C) : UU
 Definition adjunction_of_equiv_over_id {C} {D D' : disp_cat C}
   (A : equiv_over_id D D')
 := pr1 A.
-Coercion adjunction_of_equiv_over_id
+#[reversible] Coercion adjunction_of_equiv_over_id
   : equiv_over_id >-> disp_adjunction_id.
 
 Definition axioms_of_equiv_over_id {C} {D D' : disp_cat C}
   (A : equiv_over_id D D')
 := pr2 A.
-Coercion axioms_of_equiv_over_id
+#[reversible] Coercion axioms_of_equiv_over_id
   : equiv_over_id >-> form_equiv_over_id.
 
 Definition is_equiv_over_id {C} {D D' : disp_cat C}
@@ -675,7 +675,7 @@ Definition right_adjoint_of_is_equiv_over_id {C} {D D' : disp_cat C}
   {FF : disp_functor _ D D'}
   (E : is_equiv_over_id FF)
 := pr1 E.
-Coercion right_adjoint_of_is_equiv_over_id
+#[reversible] Coercion right_adjoint_of_is_equiv_over_id
   : is_equiv_over_id >-> right_adjoint_over_id.
 
 Definition equiv_of_is_equiv_over_id {C} {D D' : disp_cat C}
@@ -683,7 +683,7 @@ Definition equiv_of_is_equiv_over_id {C} {D D' : disp_cat C}
     (E : is_equiv_over_id FF)
   : equiv_over_id D D'
 := (adjunction_of_right_adjoint_over_id E ,, pr2 E).
-Coercion equiv_of_is_equiv_over_id
+#[reversible] Coercion equiv_of_is_equiv_over_id
   : is_equiv_over_id >-> equiv_over_id.
 (* Again, don’t worry about the ambiguous path generated here. *)
 

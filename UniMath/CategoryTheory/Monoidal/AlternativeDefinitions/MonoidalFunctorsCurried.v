@@ -57,10 +57,10 @@ Section Curried_Monoidal_Functors.
     tensor_preserving_data × unit_preserving_data.
 
   Definition tensorpreservingdata_from_monoidalfunctordata (mfd : monoidalfunctor_data) : tensor_preserving_data := pr1 mfd.
-  Coercion tensorpreservingdata_from_monoidalfunctordata : monoidalfunctor_data >-> tensor_preserving_data.
+  #[reversible] Coercion tensorpreservingdata_from_monoidalfunctordata : monoidalfunctor_data >-> tensor_preserving_data.
 
   Definition unitpreservingdata_from_monoidalfunctordata (mfd : monoidalfunctor_data) : unit_preserving_data := pr2 mfd.
-  Coercion unitpreservingdata_from_monoidalfunctordata : monoidalfunctor_data >-> unit_preserving_data.
+  #[reversible] Coercion unitpreservingdata_from_monoidalfunctordata : monoidalfunctor_data >-> unit_preserving_data.
 
   (* Weak monoidal functor properties *)
   Definition tensor_preserving_data_is_natural (tpd : tensor_preserving_data) :=
@@ -99,7 +99,7 @@ Section Curried_Monoidal_Functors.
     intros x y.
     use (iso_stable_under_equalitytransportation (pr2 (pfstrict x y)) (is_z_isomorphism_identity ((F x) ⊗_{N} (F y)))).
   Defined.
-  Coercion strictlytensorpreserving_is_strong : is_strictlytensorpreserving >-> is_stronglytensorpreserving.
+  #[reversible] Coercion strictlytensorpreserving_is_strong : is_strictlytensorpreserving >-> is_stronglytensorpreserving.
 
   Definition is_stronglyunitpreserving (upd : unit_preserving_data) : UU := is_z_isomorphism upd.
 
@@ -110,6 +110,6 @@ Section Curried_Monoidal_Functors.
   Proof.
     use (iso_stable_under_equalitytransportation (pr2 pfstrict) (is_z_isomorphism_identity I_{N})).
   Defined.
-  Coercion strictlyunitpreserving_is_strong : is_strictlyunitpreserving >-> is_stronglyunitpreserving.
+  #[reversible] Coercion strictlyunitpreserving_is_strong : is_strictlyunitpreserving >-> is_stronglyunitpreserving.
 
 End Curried_Monoidal_Functors.

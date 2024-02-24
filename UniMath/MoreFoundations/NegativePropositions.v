@@ -11,7 +11,7 @@ Definition negProp_to_hProp {P : UU} (Q : negProp P) : hProp.
 Proof.
   intros. exists (pr1 Q). apply negProp_to_isaprop.
 Defined.
-Coercion negProp_to_hProp : negProp >-> hProp.
+#[reversible] Coercion negProp_to_hProp : negProp >-> hProp.
 
 Definition negProp_to_iff {P} (nP : negProp P) : ¬P <-> nP
   := pr2 (pr2 nP).
@@ -21,7 +21,7 @@ Proof.
   intros np. exact (pr2 (negProp_to_iff nP) np).
 Defined.
 
-Coercion negProp_to_neg : negProp >-> Funclass.
+#[reversible] Coercion negProp_to_neg : negProp >-> Funclass.
 
 Definition neg_to_negProp {P} {nP : negProp P} : ¬P -> nP.
 Proof.

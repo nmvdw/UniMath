@@ -60,7 +60,7 @@ Definition make_folds_3_ob_mor (ob : UU)(mor : ob → ob → UU) : folds_3_ob_mo
   := tpair _ ob mor.
 
 Definition ob (C : folds_3_ob_mor) : UU := @pr1 _ _ C.
-Coercion ob : folds_3_ob_mor >-> UU.
+#[reversible] Coercion ob : folds_3_ob_mor >-> UU.
 
 Definition folds_3_morphisms {C : folds_3_ob_mor} : C → C → UU := pr2 C.
 Local Notation "a ⇒ b" := (folds_3_morphisms a b).
@@ -79,7 +79,7 @@ Definition folds_3_id_comp_eq := ∑ C : folds_3_ob_mor,
 
 
 Definition folds_ob_mor_from_folds_id_comp (C : folds_3_id_comp_eq) : folds_3_ob_mor := pr1 C.
-Coercion folds_ob_mor_from_folds_id_comp : folds_3_id_comp_eq >-> folds_3_ob_mor.
+#[reversible] Coercion folds_ob_mor_from_folds_id_comp : folds_3_id_comp_eq >-> folds_3_ob_mor.
 
 Definition I {C : folds_3_id_comp_eq} : ∏ {a : C}, a ⇒ a → UU := pr1 (pr1 (pr2 C)).
 Definition T {C : folds_3_id_comp_eq} :
@@ -128,7 +128,7 @@ Definition folds_pre_3_cat := ∑ C : folds_3_id_comp_eq,
     × folds_ax_comp C)
     × E_is_good_to_I_and_T C.
 Definition folds_id_comp_from_folds_precat (C : folds_pre_3_cat) : folds_3_id_comp_eq := pr1 C.
-Coercion folds_id_comp_from_folds_precat : folds_pre_3_cat >-> folds_3_id_comp_eq.
+#[reversible] Coercion folds_id_comp_from_folds_precat : folds_pre_3_cat >-> folds_3_id_comp_eq.
 
 
 (** * FOLDS-2-precategories *)
@@ -148,7 +148,7 @@ Ltac folds_pre_2_cat_props C :=
 
 
 Definition folds_3_from_folds_2 (C : folds_pre_2_cat) : folds_pre_3_cat := pr1 C.
-Coercion folds_3_from_folds_2 : folds_pre_2_cat >-> folds_pre_3_cat.
+#[reversible] Coercion folds_3_from_folds_2 : folds_pre_2_cat >-> folds_pre_3_cat.
 
 
 (** * FOLDS-2-isomorphisms *)

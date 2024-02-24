@@ -62,7 +62,7 @@ Definition directed_set
 (**
  2. Accessors and builders
  *)
-Coercion directed_set_dom
+#[reversible] Coercion directed_set_dom
          {X : hSet}
          {PX : PartialOrder X}
          (D : directed_set PX)
@@ -76,7 +76,7 @@ Definition directed_set_map
   : directed_set_dom D → X
   := pr12 D.
 
-Coercion directed_set_map : directed_set >-> Funclass.
+#[reversible] Coercion directed_set_map : directed_set >-> Funclass.
 
 Definition directed_set_is_directed
            {X : hSet}

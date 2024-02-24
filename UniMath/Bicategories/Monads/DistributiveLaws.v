@@ -109,7 +109,7 @@ Section DistributiveLaw.
     : UU
     := ∑ (α : g · f ==> f · g), is_distr_law α.
 
-  Coercion cell_from_distr_law
+  #[reversible] Coercion cell_from_distr_law
            (α : distr_law)
     : g · f ==> f · g
     := pr1 α.

@@ -630,7 +630,7 @@ Definition disp_map_bicat
      ×
      closed_under_pb_ump_mor D.
 
-Coercion disp_map_bicat_to_arrow_subbicat
+#[reversible] Coercion disp_map_bicat_to_arrow_subbicat
          {B : bicat}
          (D : disp_map_bicat B)
   : arrow_subbicat B

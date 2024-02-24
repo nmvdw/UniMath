@@ -81,7 +81,7 @@ Section PseudoFunctorData.
 
 End PseudoFunctorData.
 
-Coercion functor_data_from_bifunctor_ob_mor_cell
+#[reversible] Coercion functor_data_from_bifunctor_ob_mor_cell
          {C D : bicat}
          (F: psfunctor_data C D)
   : functor_data C D

@@ -40,7 +40,7 @@ Defined.
 Definition functor_from_catiso (A B : precategory_data)
   (F : catiso A B)
   : functor A B := pr1 F.
-Coercion functor_from_catiso :
+#[reversible] Coercion functor_from_catiso :
   catiso >-> functor.
 
 Definition identity_catiso (A : precategory_data)

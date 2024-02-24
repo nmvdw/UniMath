@@ -420,13 +420,13 @@ Definition locally_univalent_verity_double_bicat
      ×
      ver_locally_univalent B.
 
-Coercion locally_univalent_verity_double_bicat_hor_locally_univalent
+#[reversible] Coercion locally_univalent_verity_double_bicat_hor_locally_univalent
          {B : verity_double_bicat}
          (H : locally_univalent_verity_double_bicat B)
   : hor_locally_univalent B
   := pr1 H.
 
-Coercion locally_univalent_verity_double_bicat_ver_locally_univalent
+#[reversible] Coercion locally_univalent_verity_double_bicat_ver_locally_univalent
          {B : verity_double_bicat}
          (H : locally_univalent_verity_double_bicat B)
   : ver_locally_univalent B

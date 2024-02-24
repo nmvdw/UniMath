@@ -19,7 +19,7 @@ Require Import UniMath.MoreFoundations.NegativePropositions.
 Definition stn ( n : nat ) := ∑ m, m < n.
 Definition make_stn n m (l:m<n) := (m,,l) : stn n.
 Definition stntonat ( n : nat ) : stn n -> nat := @pr1 _ _ .
-Coercion stntonat : stn >-> nat.
+#[reversible] Coercion stntonat : stn >-> nat.
 Lemma stnlt {n : nat} (i:stn n) : i < n.
 Proof.
   intros.

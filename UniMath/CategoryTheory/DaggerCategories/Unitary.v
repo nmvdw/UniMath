@@ -34,7 +34,7 @@ Section UnitaryMorphisms.
              {C : category} {dag : dagger_structure C}
              {x y : C} (u : unitary dag x y)
     : C⟦x,y⟧ := pr1 u.
-  Coercion unitary_to_mor : unitary >-> precategory_morphisms.
+  #[reversible] Coercion unitary_to_mor : unitary >-> precategory_morphisms.
 
   Lemma isaset_unitary
         {C : category} (dag : dagger_structure C) (x y : C)

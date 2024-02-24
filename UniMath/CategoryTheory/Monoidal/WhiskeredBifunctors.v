@@ -150,7 +150,7 @@ Section Bifunctor.
     : bifunctor := (F,,H).
 
   Definition bifunctordata_from_bifunctor (F : bifunctor) : bifunctor_data := pr1 F.
-  Coercion bifunctordata_from_bifunctor : bifunctor >-> bifunctor_data.
+  #[reversible] Coercion bifunctordata_from_bifunctor : bifunctor >-> bifunctor_data.
 
   Definition isbifunctor_from_bifunctor (F : bifunctor) : is_bifunctor F := pr2 F.
 
@@ -358,7 +358,7 @@ Section WhiskeredBinaturaltransformation.
      since I already have a identity coercion for binat_trans_data. *)
   Definition binattransdata_from_binattrans_funclass {F G : bifunctor_data A B C} (α : binat_trans F G)
     : ∏ (a : A) (b : B), C⟦a ⊗_{F} b, a ⊗_{G} b⟧ := pr1 α.
-  Coercion binattransdata_from_binattrans_funclass : binat_trans >-> Funclass.
+  #[reversible] Coercion binattransdata_from_binattrans_funclass : binat_trans >-> Funclass.
 
   Definition make_binat_trans {F G : bifunctor_data A B C} (α : binat_trans_data F G) (H : is_binat_trans α)
     : binat_trans F G := (α,,H).
@@ -681,7 +681,7 @@ Section DistributionOfBinaryCoproducts.
 
   Definition bifunctor_bincoprod_distributor_to_data (δ : bifunctor_bincoprod_distributor) :
     bifunctor_bincoprod_distributor_data := pr1 δ.
-  Coercion bifunctor_bincoprod_distributor_to_data :
+  #[reversible] Coercion bifunctor_bincoprod_distributor_to_data :
     bifunctor_bincoprod_distributor >-> bifunctor_bincoprod_distributor_data.
 
 End DistributionOfBinaryCoproducts.
@@ -742,7 +742,7 @@ Section DistributionOfCoproducts.
 
   Definition bifunctor_coprod_distributor_to_data (δ : bifunctor_coprod_distributor) :
     bifunctor_coprod_distributor_data := pr1 δ.
-  Coercion bifunctor_coprod_distributor_to_data :
+  #[reversible] Coercion bifunctor_coprod_distributor_to_data :
     bifunctor_coprod_distributor >-> bifunctor_coprod_distributor_data.
 
 End DistributionOfCoproducts.

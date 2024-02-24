@@ -47,7 +47,7 @@ Section def_monic.
 
   (** Gets the arrow out of Monic. *)
   Definition MonicArrow {y z : C} (M : Monic y z) : C⟦y, z⟧ := pr1 M.
-  Coercion MonicArrow : Monic >-> precategory_morphisms.
+  #[reversible] Coercion MonicArrow : Monic >-> precategory_morphisms.
 
   Definition MonicisMonic {y z : C} (M : Monic y z) : isMonic M := pr2 M.
 

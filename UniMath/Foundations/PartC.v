@@ -1154,7 +1154,7 @@ Lemma isdecincltoisincl {X Y : UU} (f : X -> Y) : isdecincl f -> isincl f.
 Proof.
   intros is y. apply (isdecproptoisaprop _ (is y)).
 Defined.
-Coercion isdecincltoisincl : isdecincl >-> isincl.
+#[reversible] Coercion isdecincltoisincl : isdecincl >-> isincl.
 
 Lemma isdecinclfromisweq {X Y : UU} (f : X -> Y) : isweq f -> isdecincl f.
 Proof.

@@ -286,7 +286,7 @@ Definition section_disp_bicat
   : UU
   := ∑ (s : section_disp_bicat_data D), section_disp_bicat_laws s.
 
-Coercion section_to_section_data
+#[reversible] Coercion section_to_section_data
           {B : bicat}
           {D : disp_bicat B}
           (s : section_disp_bicat D)

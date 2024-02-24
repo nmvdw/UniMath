@@ -111,7 +111,7 @@ Definition functor_enrichment_to_data
   : E₁ ⦃ x, y ⦄ --> E₂ ⦃ F x, F y ⦄
   := pr1 FE x y.
 
-Coercion functor_enrichment_to_data : functor_enrichment >-> Funclass.
+#[reversible] Coercion functor_enrichment_to_data : functor_enrichment >-> Funclass.
 
 Section FunctorLaws.
   Context {V : monoidal_cat}
@@ -172,7 +172,7 @@ Definition functor_with_enrichment
   : UU
   := ∑ (F : E₁ ⟶ E₂), functor_enrichment F E₁ E₂.
 
-Coercion functor_with_enrichment_to_functor
+#[reversible] Coercion functor_with_enrichment_to_functor
          {V : monoidal_cat}
          {E₁ : cat_with_enrichment V}
          {E₂ : cat_with_enrichment V}

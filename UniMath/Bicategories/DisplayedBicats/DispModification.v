@@ -71,7 +71,7 @@ Definition is_disp_modification (mm : disp_modification_data) : UU
 Definition disp_modification : UU
   := ∑ mm : disp_modification_data, is_disp_modification mm.
 
-Coercion disp_modification_to_disp_modification_data (αα : disp_modification)
+#[reversible] Coercion disp_modification_to_disp_modification_data (αα : disp_modification)
   : disp_modification_data
   := pr1 αα.
 
@@ -147,7 +147,7 @@ Definition is_disp_invmodification (mm : disp_invmodification_data) : UU
 Definition disp_invmodification : UU
   := ∑ mm : disp_invmodification_data, is_disp_invmodification mm.
 
-Coercion disp_invmodification_to_disp_invmodification_data (αα : disp_invmodification)
+#[reversible] Coercion disp_invmodification_to_disp_invmodification_data (αα : disp_invmodification)
   : disp_invmodification_data
   := pr1 αα.
 

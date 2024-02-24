@@ -156,7 +156,7 @@ Definition relativelaxcommutator: UU := ∑ γ : relativelaxcommutator_data,
       relativelaxcommutator_nat γ × relativelaxcommutator_tensor γ × relativelaxcommutator_unit γ.
 
 Definition relativelaxcommutator_lddata (γ : relativelaxcommutator): relativelaxcommutator_data := pr1 γ.
-Coercion relativelaxcommutator_lddata : relativelaxcommutator >-> relativelaxcommutator_data.
+#[reversible] Coercion relativelaxcommutator_lddata : relativelaxcommutator >-> relativelaxcommutator_data.
 
 Definition relativelaxcommutator_ldnat (γ : relativelaxcommutator): relativelaxcommutator_nat γ := pr12 γ.
 Definition relativelaxcommutator_ldtensor (γ : relativelaxcommutator): relativelaxcommutator_tensor γ := pr122 γ.

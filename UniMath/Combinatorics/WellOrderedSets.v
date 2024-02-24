@@ -35,7 +35,7 @@ Definition TOSubset (X:hSet) : UU := TOSubset_set X.
 Definition TOSubset_to_subtype {X:hSet} : TOSubset X -> hsubtype X
   := pr1.
 
-Coercion TOSubset_to_subtype : TOSubset >-> hsubtype.
+#[reversible] Coercion TOSubset_to_subtype : TOSubset >-> hsubtype.
 
 Local Definition TOSrel {X:hSet} (S : TOSubset X) : hrel (carrier_subset S) := pr12 S.
 
@@ -355,7 +355,7 @@ Definition WOStotal {X:hSet} (S : WOSubset X) : isTotalOrder (WOSrel S) := pr122
 Definition WOSubset_to_TOSubset {X:hSet} : WOSubset X -> TOSubset X
   := λ S, WOSubset_to_subtype S,, WOSrel S,, WOStotal S.
 
-Coercion WOSubset_to_TOSubset : WOSubset >-> TOSubset.
+#[reversible] Coercion WOSubset_to_TOSubset : WOSubset >-> TOSubset.
 
 Definition WOSwo {X:hSet} (S : WOSubset X) : WellOrdering (carrier_subset S) := pr2 S.
 
@@ -971,7 +971,7 @@ Definition Guided_WOSubset {X:hSet} (g : choice_fun X) := (∑ C, is_guided_WOSu
 Definition guidedFamily {X:hSet} (g : choice_fun X) : Guided_WOSubset g -> WOSubset X
   := pr1.
 
-Coercion guidedFamily : Guided_WOSubset >-> WOSubset.
+#[reversible] Coercion guidedFamily : Guided_WOSubset >-> WOSubset.
 
 (** ** The guided well ordered subsets form a chain *)
 
@@ -1270,7 +1270,7 @@ Definition WellOrderedSet : UU := (∑ (S:hSet), WellOrdering S)%type.
 
 Definition WellOrderedSet_to_hSet : WellOrderedSet -> hSet := pr1.
 
-Coercion WellOrderedSet_to_hSet : WellOrderedSet >-> hSet.
+#[reversible] Coercion WellOrderedSet_to_hSet : WellOrderedSet >-> hSet.
 
 Declare Scope woset.
 Delimit Scope woset with woset.

@@ -67,7 +67,7 @@ Section LeftStrength.
     : x ⊗ F y --> F(x ⊗ y)
     := pr1 tF x y.
 
-  Coercion left_strength_to_data : left_strength >-> Funclass.
+  #[reversible] Coercion left_strength_to_data : left_strength >-> Funclass.
 
   Section LeftStrengthLaws.
     Context {F : V ⟶ V}
@@ -130,7 +130,7 @@ Section LeftStrength.
     : UU
     := ∑ (tM : left_strength M), left_strong_monad_laws tM.
 
-  Coercion left_strong_monad_strength
+  #[reversible] Coercion left_strong_monad_strength
            {M : Monad V}
            (tM : left_strong_monad M)
     : left_strength M

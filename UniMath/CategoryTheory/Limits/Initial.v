@@ -30,7 +30,7 @@ Definition isInitial {C : precategory} (a : C) : UU := ∏ b : C, iscontr (a -->
 Definition Initial (C : precategory) : UU := ∑ a, @isInitial C a.
 
 Definition InitialObject {C : precategory} (O : Initial C) : C := pr1 O.
-Coercion InitialObject : Initial >-> ob.
+#[reversible] Coercion InitialObject : Initial >-> ob.
 
 Definition InitialArrow {C : precategory} (O : Initial C) (b : C) : O --> b := pr1 (pr2 O b).
 

@@ -37,7 +37,7 @@ Definition category_with_weq := ∑ C : category, morph_class C.
 
 Definition category_with_weq_pr1 (C : category_with_weq) : category := pr1 C.
 
-Coercion category_with_weq_pr1 : category_with_weq >-> category.
+#[reversible] Coercion category_with_weq_pr1 : category_with_weq >-> category.
 
 Definition two_of_six {C : category} (W : morph_class C) :=
   ∏ (x y z t : C)
@@ -72,7 +72,7 @@ Definition homotopical_category : UU := ∑ (C : category_with_weq), is_homotopi
 
 Definition homotopical_category_pr1 (C : homotopical_category) : category_with_weq := pr1 C.
 
-Coercion homotopical_category_pr1 : homotopical_category >-> category_with_weq.
+#[reversible] Coercion homotopical_category_pr1 : homotopical_category >-> category_with_weq.
 
 Definition category_with_weq_pr2 (C : category_with_weq) : morph_class (pr1 C) := pr2 C.
 

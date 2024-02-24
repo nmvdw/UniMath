@@ -793,7 +793,7 @@ Definition make_acommring := tpair ( P := fun X : commring =>
 Definition acommringconstr := make_acommring.
 
 Definition acommringtocommring : acommring -> commring := @pr1 _ _.
-Coercion acommringtocommring : acommring >-> commring.
+#[reversible] Coercion acommringtocommring : acommring >-> commring.
 
 Definition acommringapartrel ( X : acommring ) : hrel (pr1 X) :=
   pr1 ( pr1 ( pr2 X ) ).
@@ -826,7 +826,7 @@ Definition make_aintdom := tpair ( P := fun A : acommring =>
 Definition aintdomconstr := make_aintdom.
 
 Definition pr1aintdom : aintdom -> acommring := @pr1 _ _.
-Coercion pr1aintdom : aintdom >-> acommring.
+#[reversible] Coercion pr1aintdom : aintdom >-> acommring.
 
 Definition aintdomazerosubmonoid ( A : aintdom ) : @subabmonoid ( ringmultabmonoid A ).
 Proof.
@@ -845,7 +845,7 @@ Definition isaafield ( A : acommring ) :=
 Definition afld := ∑ A : acommring, isaafield A.
 Definition make_afld ( A : acommring ) ( is : isaafield A ) : afld := tpair A is .
 Definition pr1afld : afld -> acommring := @pr1 _ _ .
-Coercion pr1afld : afld >-> acommring.
+#[reversible] Coercion pr1afld : afld >-> acommring.
 
 Lemma afldinvertibletoazero ( A : afld ) ( a : A ) ( p : multinvpair A a ) : a # 0.
 Proof.

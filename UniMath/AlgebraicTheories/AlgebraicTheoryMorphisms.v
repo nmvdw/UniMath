@@ -36,14 +36,14 @@ Definition algebraic_theory_morphism_data_to_function
   : T n → T' n
   := F n.
 
-Coercion algebraic_theory_morphism_data_to_function : algebraic_theory_morphism_data >-> Funclass.
+#[reversible] Coercion algebraic_theory_morphism_data_to_function : algebraic_theory_morphism_data >-> Funclass.
 
 Definition algebraic_theory_morphism
   (T T' : algebraic_theory)
   : UU
   := algebraic_theory_cat⟦T, T'⟧.
 
-Coercion algebraic_theory_morphism_to_algebraic_theory_morphism_data
+#[reversible] Coercion algebraic_theory_morphism_to_algebraic_theory_morphism_data
   {T T' : algebraic_theory}
   (F : algebraic_theory_morphism T T')
   : algebraic_theory_morphism_data T T'

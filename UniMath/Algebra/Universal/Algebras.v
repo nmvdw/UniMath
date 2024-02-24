@@ -15,7 +15,7 @@ Definition algebra (σ: signature): UU
 
 Definition support {σ: signature} (A: algebra σ): sUU (sorts σ) := pr1 A.
 
-Coercion support: algebra >-> sUU.
+#[reversible] Coercion support: algebra >-> sUU.
 
 Definition ops {σ: signature} (A: algebra σ) := pr2 A.
 
@@ -105,7 +105,7 @@ Local Open Scope hom.
 
 Definition hom2fun {σ: signature} {A1 A2: algebra σ} (f: A1 ↷ A2): ∏ s: sorts σ, support A1 s → support A2 s:= pr1 f.
 
-Coercion hom2fun: hom >-> Funclass.
+#[reversible] Coercion hom2fun: hom >-> Funclass.
 
 Definition hom2axiom {σ: signature} {A1 A2: algebra σ} (f: A1 ↷ A2) := pr2 f.
 

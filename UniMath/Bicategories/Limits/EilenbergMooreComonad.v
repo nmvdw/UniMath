@@ -60,7 +60,7 @@ Section EilenbergMooreComonad.
     : em_comnd_cone
     := x ,, f ,, γ ,, fε ,, fν.
 
-  Coercion em_comnd_cone_ob (q : em_comnd_cone) : B := pr1 q.
+  #[reversible] Coercion em_comnd_cone_ob (q : em_comnd_cone) : B := pr1 q.
 
   Section Projections.
     Context (q : em_comnd_cone).
@@ -111,7 +111,7 @@ Section EilenbergMooreComonad.
     : em_comnd_cone_mor q₁ q₂
     := f ,, α ,, p ,, Hα.
 
-  Coercion mor_of_em_comnd_cone_mor
+  #[reversible] Coercion mor_of_em_comnd_cone_mor
            {q₁ q₂ : em_comnd_cone}
            (f : em_comnd_cone_mor q₁ q₂)
     : q₁ --> q₂

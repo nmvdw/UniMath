@@ -216,11 +216,11 @@ Definition length {X} : Sequence X -> nat := pr1.
 
 Definition sequenceToFunction {X} (x:Sequence X) := pr2 x : stn (length x) -> X.
 
-Coercion sequenceToFunction : Sequence >-> Funclass.
+#[reversible] Coercion sequenceToFunction : Sequence >-> Funclass.
 
 Definition unorderedSequenceToFunction {X} (x:UnorderedSequence X) := pr2 x : pr1 (pr1 x) -> X.
 
-Coercion unorderedSequenceToFunction : UnorderedSequence >-> Funclass.
+#[reversible] Coercion unorderedSequenceToFunction : UnorderedSequence >-> Funclass.
 
 Definition sequenceToUnorderedSequence {X} : Sequence X -> UnorderedSequence X.
 Proof.
@@ -229,7 +229,7 @@ Proof.
   exact x.
 Defined.
 
-Coercion sequenceToUnorderedSequence : Sequence >-> UnorderedSequence.
+#[reversible] Coercion sequenceToUnorderedSequence : Sequence >-> UnorderedSequence.
 
 Definition length'{X} : NonemptySequence X -> nat := λ x, S(pr1 x).
 
@@ -240,11 +240,11 @@ Definition functionToUnorderedSequence {X} {I : FiniteSet} (f:I -> X) : Unordere
 
 Definition NonemptySequenceToFunction {X} (x:NonemptySequence X) := pr2 x : stn (length' x) -> X.
 
-Coercion NonemptySequenceToFunction : NonemptySequence >-> Funclass.
+#[reversible] Coercion NonemptySequenceToFunction : NonemptySequence >-> Funclass.
 
 Definition NonemptySequenceToSequence {X} (x:NonemptySequence X) := functionToSequence (NonemptySequenceToFunction x) : Sequence X.
 
-Coercion NonemptySequenceToSequence : NonemptySequence >-> Sequence.
+#[reversible] Coercion NonemptySequenceToSequence : NonemptySequence >-> Sequence.
 
 (** *** Lemmas *)
 

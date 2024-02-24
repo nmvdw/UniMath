@@ -43,7 +43,7 @@ Definition hcomp_bicat_data
         → cell _ _ g₁ g₂
         → cell _ _ (comp1 _ _ _ f₁ g₁) (comp1 _ _ _ f₂ g₂)).
 
-Coercion hcomp_bicat_ob
+#[reversible] Coercion hcomp_bicat_ob
          (B : hcomp_bicat_data)
   : UU
   := pr1 B.
@@ -300,7 +300,7 @@ Definition hcomp_bicat
   : UU
   := ∑ (B : hcomp_bicat_data), hcomp_bicat_laws B.
 
-Coercion hcomp_bicat_to_data
+#[reversible] Coercion hcomp_bicat_to_data
          (B : hcomp_bicat)
   : hcomp_bicat_data
   := pr1 B.

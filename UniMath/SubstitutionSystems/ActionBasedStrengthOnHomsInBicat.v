@@ -380,7 +380,7 @@ Section IndividualFunctorsWithABStrength.
                          (ab_strength_domain_action(C:=bicat_of_cats) C D' forget)
                          (ab_strength_target_action(C:=bicat_of_cats) C D forget) H
     := ab_str.
-  Coercion ab_strength_for_functors_and_pointed_functors_to_actionbased_strength :
+  #[reversible] Coercion ab_strength_for_functors_and_pointed_functors_to_actionbased_strength :
     ab_strength_for_functors_and_pointed_functors >-> actionbased_strength.
 
   Context (ab_str : ab_strength_for_functors_and_pointed_functors).

@@ -34,7 +34,7 @@ Definition makeEquivalence X Y f g p q h := (f,,g,,p,,q,,h) : X ≅ Y.
 
 Definition Equivalence_toFunction {X Y} : X≅Y -> X->Y := pr1.
 
-Coercion Equivalence_toFunction : Equivalence >-> Funclass.
+#[reversible] Coercion Equivalence_toFunction : Equivalence >-> Funclass.
 
 Definition Equivalence_to_isEquivalence {X Y} (w:X≅Y) : isEquivalence w := pr2 w.
 

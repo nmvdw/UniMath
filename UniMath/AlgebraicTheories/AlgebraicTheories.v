@@ -34,7 +34,7 @@ Definition algebraic_theory_data_to_function
   : nat → hSet
   := pr1 T.
 
-Coercion algebraic_theory_data_to_function : algebraic_theory_data >-> Funclass.
+#[reversible] Coercion algebraic_theory_data_to_function : algebraic_theory_data >-> Funclass.
 
 Definition pr
   {T : algebraic_theory_data}
@@ -57,7 +57,7 @@ Notation "f • g" :=
 
 Definition algebraic_theory : UU := algebraic_theory_cat.
 
-Coercion algebraic_theory_to_algebraic_theory_data (T : algebraic_theory)
+#[reversible] Coercion algebraic_theory_to_algebraic_theory_data (T : algebraic_theory)
   : algebraic_theory_data
   := pr1 T.
 

@@ -23,9 +23,9 @@ Definition list : UU := ∑ n, vec A n.
 (** Length of a list *)
 Definition length : list -> nat := pr1.
 
-(** Coercion to a vector *)
+(** #[reversible] Coercion to a vector *)
 Definition list_to_vec: ∏ l: list, vec A (length l) := pr2.
-Coercion list_to_vec: list >-> vec.
+#[reversible] Coercion list_to_vec: list >-> vec.
 
 (** The empty list *)
 Definition nil : list := (0,, vnil).

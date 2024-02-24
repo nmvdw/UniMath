@@ -46,7 +46,7 @@ Section M.
   Definition M := ∑ (X : coalgebra F), is_final X.
   Definition M_coalgebra : M → coalgebra F := pr1.
   Definition M_is_final : ∏ (m : M), is_final (pr1 m) := pr2.
-  Coercion M_coalgebra : M >-> coalgebra.
+  #[reversible] Coercion M_coalgebra : M >-> coalgebra.
 End M.
 
 Arguments isaprop_is_final {_ _} _.

@@ -156,7 +156,7 @@ Definition make_bounded_latticeob {L} {l : latticeob L} {bot top : C⟦TC,L⟧} 
   bounded_latticeop_cat l bot top → bounded_latticeob L := λ bl, l,, bot,, top,, bl.
 
 Definition bounded_latticeob_to_latticeob X : bounded_latticeob X → latticeob X := pr1.
-Coercion bounded_latticeob_to_latticeob : bounded_latticeob >-> latticeob.
+#[reversible] Coercion bounded_latticeob_to_latticeob : bounded_latticeob >-> latticeob.
 
 Definition bot_mor {L} (isL : bounded_latticeob L) : C⟦TC,L⟧ := pr1 (pr2 isL).
 Definition top_mor {L} (isL : bounded_latticeob L) : C⟦TC,L⟧ := pr1 (pr2 (pr2 isL)).

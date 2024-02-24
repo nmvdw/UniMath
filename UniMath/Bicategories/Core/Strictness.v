@@ -116,7 +116,7 @@ Proof.
 Qed.
 
 (** Projections *)
-Coercion strictness_structure_to_data
+#[reversible] Coercion strictness_structure_to_data
          {B : bicat}
          (S : strictness_structure B)
   : strictness_structure_data B
@@ -172,7 +172,7 @@ Definition coh_strictness_structure
            (B : bicat)
   := ∑ (S : strictness_structure B), is_coh_strictness_structure S.
 
-Coercion pr_strictness_structure
+#[reversible] Coercion pr_strictness_structure
          {B : bicat}
          (S : coh_strictness_structure B)
   : strictness_structure B
@@ -208,7 +208,7 @@ Definition bisetcat
   : UU
   := ∑ (B : bicat), locally_strict B × globally_strict B.
 
-Coercion bisetcat_to_bicat
+#[reversible] Coercion bisetcat_to_bicat
          (B : bisetcat)
   : bicat
   := pr1 B.
@@ -295,7 +295,7 @@ Qed.
 Definition strict_bicat
   := ∑ (B : bicat), is_strict_bicat B.
 
-Coercion bicat_of_strict_bicat
+#[reversible] Coercion bicat_of_strict_bicat
          (B : strict_bicat)
   : bicat
   := pr1 B.

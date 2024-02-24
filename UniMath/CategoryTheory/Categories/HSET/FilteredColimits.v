@@ -50,10 +50,10 @@ Section filtered_colimits_in_SET.
     := ∑ (j : vertex J), (dob d j : hSet).
 
   Local Definition cobasepr1 : cobase -> vertex J := pr1.
-  Local Coercion cobasepr1 : cobase >-> vertex.
+  Local #[reversible] Coercion cobasepr1 : cobase >-> vertex.
 
   Local Definition cobasept : ∏ (a : cobase), (dob d a) : hSet := pr2.
-  Local Coercion cobasept : cobase >-> pr1hSet.
+  Local #[reversible] Coercion cobasept : cobase >-> pr1hSet.
 
   Definition filtered_cobase_rel : hrel cobase
     := λ (a b : cobase),

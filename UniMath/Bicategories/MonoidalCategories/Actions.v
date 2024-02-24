@@ -67,11 +67,11 @@ Definition action_right_unitor : UU := nat_z_iso odot_I_functor (functor_identit
 Definition action_right_unitor_funclass (μ : action_right_unitor):
   ∏ x : ob A, odot_I_functor x -->  x
   := pr1 (nat_z_iso_to_trans μ).
-Coercion action_right_unitor_funclass : action_right_unitor >-> Funclass.
+#[reversible] Coercion action_right_unitor_funclass : action_right_unitor >-> Funclass.
 
 Definition action_right_unitor_to_nat_trans (μ : action_right_unitor) : nat_trans odot_I_functor (functor_identity A)
   := nat_z_iso_to_trans μ.
-Coercion action_right_unitor_to_nat_trans: action_right_unitor >-> nat_trans.
+#[reversible] Coercion action_right_unitor_to_nat_trans: action_right_unitor >-> nat_trans.
 
 Definition odot_x_odot_y_functor : (A ⊠ Mon_V) ⊠ Mon_V ⟶ A :=
   functor_composite (pair_functor odot (functor_identity _)) odot.
@@ -97,12 +97,12 @@ Definition action_convertor : UU := nat_z_iso odot_x_odot_y_functor odot_x_otime
 Definition action_convertor_funclass (χ : action_convertor):
   ∏ x : ob ((A ⊠ Mon_V) ⊠ Mon_V), odot_x_odot_y_functor x --> odot_x_otimes_y_functor x
   := pr1 (nat_z_iso_to_trans χ).
-Coercion action_convertor_funclass : action_convertor >-> Funclass.
+#[reversible] Coercion action_convertor_funclass : action_convertor >-> Funclass.
 
 Definition action_convertor_to_nat_trans (χ : action_convertor) :
   nat_trans odot_x_odot_y_functor odot_x_otimes_y_functor
   := nat_z_iso_to_trans χ.
-Coercion action_convertor_to_nat_trans: action_convertor >-> nat_trans.
+#[reversible] Coercion action_convertor_to_nat_trans: action_convertor >-> nat_trans.
 
 Definition action_triangle_eq (ϱ : action_right_unitor) (χ : action_convertor) := ∏ (a : A), ∏ (v : Mon_V),
   (ϱ a) #⊙ (id v) = (χ ((a, I), v)) · (id a) #⊙ (λ' v).

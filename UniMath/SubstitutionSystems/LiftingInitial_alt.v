@@ -46,7 +46,7 @@ Local Open Scope subsys.
 
 Local Open Scope cat.
 
-Local Coercion alg_carrier : algebra_ob >-> ob.
+Local #[reversible] Coercion alg_carrier : algebra_ob >-> ob.
 
 Section category_Algebra.
 

@@ -356,7 +356,7 @@ Definition preserves_hor_id_to_data
     double_id I₂ (F x)
   := pr1 FFI x.
 
-Coercion preserves_hor_id_to_data : preserves_hor_id >-> Funclass.
+#[reversible] Coercion preserves_hor_id_to_data : preserves_hor_id >-> Funclass.
 
 Proposition is_natural_preserves_hor_id
             {C₁ C₂ : category}
@@ -662,7 +662,7 @@ Definition preserves_hor_comp_to_data
     double_hor_comp Cm₂ (FF _ _ f) (FF _ _ g)
   := pr1 FFc x y z f g.
 
-Coercion preserves_hor_comp_to_data : preserves_hor_comp >-> Funclass.
+#[reversible] Coercion preserves_hor_comp_to_data : preserves_hor_comp >-> Funclass.
 
 Proposition is_natural_preserves_hor_comp
             {C₁ C₂ : category}

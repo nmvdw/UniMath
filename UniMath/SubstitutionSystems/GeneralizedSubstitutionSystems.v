@@ -203,7 +203,7 @@ Section hss.
   End TheProperty.
 
   Definition mhss : UU := ∑ (t : V) (η : I_{Mon_V} --> t) (τ : H t --> t), mbracket t η τ.
-  Coercion carriermhss (t : mhss) : V := pr1 t.
+  #[reversible] Coercion carriermhss (t : mhss) : V := pr1 t.
 
   Section FixAMhss.
 

@@ -121,7 +121,7 @@ Section LeftExtension.
          (τ : f ==> g · h),
        is_left_extension τ.
 
-  Coercion mor_of_left_extension
+  #[reversible] Coercion mor_of_left_extension
            (h : left_extension)
     : y --> z
     := pr1 h.
@@ -131,7 +131,7 @@ Section LeftExtension.
     : f ==> g · h
     := pr12 h.
 
-  Coercion left_extension_is_left_extension
+  #[reversible] Coercion left_extension_is_left_extension
            (h : left_extension)
     : is_left_extension (cell_of_left_extension h)
     := pr22 h.
@@ -263,7 +263,7 @@ Section LeftLifting.
          (τ : f ==> h · g),
        is_left_lifting τ.
 
-  Coercion mor_of_left_lifting
+  #[reversible] Coercion mor_of_left_lifting
            (h : left_lifting)
     : z --> y
     := pr1 h.
@@ -273,7 +273,7 @@ Section LeftLifting.
     : f ==> h · g
     := pr12 h.
 
-  Coercion left_lifting_is_left_lifting
+  #[reversible] Coercion left_lifting_is_left_lifting
            (h : left_lifting)
     : is_left_lifting (cell_of_left_lifting h)
     := pr22 h.
@@ -453,7 +453,7 @@ Section RightExtension.
          (τ : g · h ==> f),
        is_right_extension τ.
 
-  Coercion mor_of_right_extension
+  #[reversible] Coercion mor_of_right_extension
            (h : right_extension)
     : y --> z
     := pr1 h.
@@ -463,7 +463,7 @@ Section RightExtension.
     : g · h ==> f
     := pr12 h.
 
-  Coercion right_extension_is_right_extension
+  #[reversible] Coercion right_extension_is_right_extension
            (h : right_extension)
     : is_right_extension (cell_of_right_extension h)
     := pr22 h.
@@ -643,7 +643,7 @@ Section RightLifting.
          (τ : h · g ==> f),
        is_right_lifting τ.
 
-  Coercion mor_of_right_lifting
+  #[reversible] Coercion mor_of_right_lifting
            (h : right_lifting)
     : z --> y
     := pr1 h.
@@ -653,7 +653,7 @@ Section RightLifting.
     : h · g ==> f
     := pr12 h.
 
-  Coercion right_lifting_is_left_lifting
+  #[reversible] Coercion right_lifting_is_left_lifting
            (h : right_lifting)
     : is_right_lifting (cell_of_right_lifting h)
     := pr22 h.

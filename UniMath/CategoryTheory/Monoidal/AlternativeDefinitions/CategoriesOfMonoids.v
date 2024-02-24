@@ -39,7 +39,7 @@ Definition monoid_ob : UU :=
 	∑ X : monoid_ob_data, is_monoid_ob (pr1 X) (pr1 (pr2 X)) (pr2 (pr2 X)).
 
 Definition monoid_carrier (X : monoid_ob) : Mon := pr1 (pr1 X).
-Local Coercion monoid_carrier : monoid_ob >-> ob.
+Local #[reversible] Coercion monoid_carrier : monoid_ob >-> ob.
 
 Definition monoid_mult (X : monoid_ob) := pr1 (pr2 (pr1 X)).
 
@@ -51,7 +51,7 @@ Definition is_monoid_mor (X Y : monoid_ob) (f : monoid_carrier X --> monoid_carr
 
 Definition monoid_mor (X Y : monoid_ob) : UU :=
   ∑ f : X --> Y, is_monoid_mor X Y f.
-Coercion mor_from_monoid_mor (X Y : monoid_ob) (f : monoid_mor X Y) : X --> Y := pr1 f.
+#[reversible] Coercion mor_from_monoid_mor (X Y : monoid_ob) (f : monoid_mor X Y) : X --> Y := pr1 f.
 
 Definition isaprop_is_monoid_mor (X Y : monoid_ob) (f : monoid_carrier X --> monoid_carrier Y):
   isaprop (is_monoid_mor X Y f).

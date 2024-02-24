@@ -32,7 +32,7 @@ Definition NNO : UU :=
   ∑ (n : C) (z : C ⟦ 1, n ⟧) (s : C ⟦ n, n ⟧), isNNO n z s.
 
 Definition NNObject (n : NNO) : C := pr1 n.
-Coercion NNObject : NNO >-> ob.
+#[reversible] Coercion NNObject : NNO >-> ob.
 
 Definition zeroNNO (n : NNO) : C ⟦1,n⟧ := pr1 (pr2 n).
 Definition sucNNO (n : NNO) : C ⟦n,n⟧ := pr1 (pr2 (pr2 n)).

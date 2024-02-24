@@ -66,7 +66,7 @@ Section def_po.
 
   Definition PushoutObject {a b c : C} {f : a --> b} {g : a --> c}:
     Pushout f g -> C := λ H, pr1 (pr1 H).
-  Coercion PushoutObject : Pushout >-> ob.
+  #[reversible] Coercion PushoutObject : Pushout >-> ob.
 
   Definition PushoutIn1 {a b c : C} {f : a --> b} {g : a --> c}
              (Pb : Pushout f g) : b --> Pb := pr1 (pr2 (pr1 Pb)).

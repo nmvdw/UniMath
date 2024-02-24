@@ -72,7 +72,7 @@ Section def_cokernels.
   Definition hasCokernels : UU := ∏ (x y : C) (f : x --> y), ishinh (Cokernel f).
 
   Definition CokernelOb {x y : C} {f : x --> y} (CK : Cokernel f) : ob C := pr1 (pr1 CK).
-  Coercion CokernelOb : Cokernel >-> ob.
+  #[reversible] Coercion CokernelOb : Cokernel >-> ob.
 
   Definition CokernelArrow {x y : C} {f : x --> y} (CK : Cokernel f) : C⟦y, CK⟧ := pr2 (pr1 CK).
 

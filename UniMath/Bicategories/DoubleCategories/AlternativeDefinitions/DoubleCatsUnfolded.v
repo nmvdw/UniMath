@@ -35,7 +35,7 @@ Definition predoublecategory_ob_mor_hor : UU
 
 Definition obdb (C : predoublecategory_ob_mor_hor) : UU := @pr1 _ _ C.
 
-Coercion obdb : predoublecategory_ob_mor_hor >-> UU.
+#[reversible] Coercion obdb : predoublecategory_ob_mor_hor >-> UU.
 
 Definition predoublecategory_mor_ver (C : predoublecategory_ob_mor_hor)
   : UU
@@ -44,7 +44,7 @@ Definition predoublecategory_mor_ver (C : predoublecategory_ob_mor_hor)
 Definition predoublecategory_ob_mor_data : UU :=
   ∑ C, predoublecategory_mor_ver C.
 
-Coercion precategory_ob_mor_from_predoublecategory_ob_mor_data (C : predoublecategory_ob_mor_data) :
+#[reversible] Coercion precategory_ob_mor_from_predoublecategory_ob_mor_data (C : predoublecategory_ob_mor_data) :
     predoublecategory_ob_mor_hor := pr1 C.
 
 End Definition_of_Double_Graphs.
@@ -90,7 +90,7 @@ Definition predoublecategory_hor_precat_data : UU
 Definition predoublecategory_ob_mor_data_from_predoublecategory_hor_precat_data (C: predoublecategory_hor_precat_data) :
   predoublecategory_ob_mor_data := pr1 C.
 
-Coercion predoublecategory_ob_mor_data_from_predoublecategory_hor_precat_data :
+#[reversible] Coercion predoublecategory_ob_mor_data_from_predoublecategory_hor_precat_data :
   predoublecategory_hor_precat_data >->  predoublecategory_ob_mor_data.
 
 Definition hor_identity {C : predoublecategory_hor_precat_data}
@@ -123,7 +123,7 @@ Definition make_predoublecategory_hor (C : predoublecategory_hor_precat_data) (H
 
 Definition predoublecategory_hor_data_from_predoublecategory_hor (C : predoublecategory_hor) :
   predoublecategory_hor_precat_data := pr1 C.
-Coercion predoublecategory_hor_data_from_predoublecategory_hor : predoublecategory_hor >-> predoublecategory_hor_precat_data.
+#[reversible] Coercion predoublecategory_hor_data_from_predoublecategory_hor : predoublecategory_hor >-> predoublecategory_hor_precat_data.
 
 Definition get_id_hor_left (C : predoublecategory_hor) :
   ∏ (a b : C) (f : a -h-> b),
@@ -167,9 +167,9 @@ Definition make_doublecategory_hor C h : doublecategory_hor := C,,h.
 
 Definition doublecategory_hor_to_predoublecategory_hor : doublecategory_hor -> predoublecategory_hor := pr1.
 
-Coercion doublecategory_hor_to_predoublecategory_hor : doublecategory_hor >-> predoublecategory_hor.
+#[reversible] Coercion doublecategory_hor_to_predoublecategory_hor : doublecategory_hor >-> predoublecategory_hor.
 
-Coercion double_homset_property (C : doublecategory_hor) : has_hor_homsets C := pr2 C.
+#[reversible] Coercion double_homset_property (C : doublecategory_hor) : has_hor_homsets C := pr2 C.
 
 Definition und_ob_hor_category (C: doublecategory_hor) : category :=
 make_category (und_ob_hor_precategory C) (pr2 C).
@@ -195,7 +195,7 @@ Definition predoublecategory_hor_cat_ver_precat_data : UU (* double graph with h
 Definition predoublecategory_hor_from_predoublecategory_hor_cat_ver_precat_data (C: predoublecategory_hor_cat_ver_precat_data) :
 predoublecategory_hor := pr1 C.
 
-Coercion predoublecategory_hor_from_predoublecategory_hor_cat_ver_precat_data :
+#[reversible] Coercion predoublecategory_hor_from_predoublecategory_hor_cat_ver_precat_data :
 predoublecategory_hor_cat_ver_precat_data >->  predoublecategory_hor.
 
 Definition ver_identity {C : predoublecategory_hor_cat_ver_precat_data}
@@ -223,7 +223,7 @@ Definition predoublecategory_ob_mor_sq_data : UU := (*Ob, HorMor, VerMor, Sq hor
 Definition predoublecategory_hor_cat_ver_precat_data_from_predoublecategory_square (C : predoublecategory_ob_mor_sq_data) :
 predoublecategory_hor_cat_ver_precat_data := pr1 C. (* Forget Sq *)
 
-Coercion predoublecategory_hor_cat_ver_precat_data_from_predoublecategory_square :
+#[reversible] Coercion predoublecategory_hor_cat_ver_precat_data_from_predoublecategory_square :
 predoublecategory_ob_mor_sq_data >-> predoublecategory_hor_cat_ver_precat_data.
 
  Definition get_predoublecat_sq (C: predoublecategory_ob_mor_sq_data) :
@@ -293,7 +293,7 @@ Definition make_predoublecategory_sq_hor_data (C : predoublecategory_ob_mor_sq_d
 Definition predoublecategory_ob_mor_sq_data_from_predoublecategory_sq_hor_data (C : predoublecategory_sq_hor_data) :
 predoublecategory_ob_mor_sq_data := pr1 C.
 
-Coercion predoublecategory_ob_mor_sq_data_from_predoublecategory_sq_hor_data :
+#[reversible] Coercion predoublecategory_ob_mor_sq_data_from_predoublecategory_sq_hor_data :
     predoublecategory_sq_hor_data >-> predoublecategory_ob_mor_sq_data.
 
 Definition get_hor_sq_identity {C : predoublecategory_sq_hor_data}
@@ -365,7 +365,7 @@ Definition make_predoublecategory_hor_sq (C : predoublecategory_sq_hor_data) (H 
 
 Definition predoublecategory_sq_hor_data_from_predoublecategory_hor_sq (C : predoublecategory_hor_sq) :
   predoublecategory_sq_hor_data := pr1 C.
-Coercion predoublecategory_sq_hor_data_from_predoublecategory_hor_sq : predoublecategory_hor_sq >-> predoublecategory_sq_hor_data.
+#[reversible] Coercion predoublecategory_sq_hor_data_from_predoublecategory_hor_sq : predoublecategory_hor_sq >-> predoublecategory_sq_hor_data.
 
 Definition get_id_hor_sq_left (C : predoublecategory_hor_sq) :
   ∏ (a b c d : pr1 C) (f : a -h-> b) (g : a -v-> c) (h : b -v-> d) (k : c -h-> d)
@@ -461,7 +461,7 @@ Definition make_predoublecategory_sq_hor_ver_data (C : predoublecategory_hor_sq)
 Definition predoublecategory_hor_sq_from_predoublecategory_sq_hor_ver_data (C : predoublecategory_sq_hor_ver_data) :
   predoublecategory_hor_sq := pr1 C. (* Predoublegraph with vertical morphisms and squares composition *)
 
-Coercion predoublecategory_hor_sq_from_predoublecategory_sq_hor_ver_data:
+#[reversible] Coercion predoublecategory_hor_sq_from_predoublecategory_sq_hor_ver_data:
     predoublecategory_sq_hor_ver_data >-> predoublecategory_hor_sq.
 
 Definition get_ver_sq_identity {C : predoublecategory_sq_hor_ver_data}
@@ -507,7 +507,7 @@ Definition has_predoublecategory_sq_hor_ver_unit_assoc ( C:predoublecategory_sq_
 Definition predoublecategory_sq_hor_ver_unit_assoc_data : UU :=
   ∑ (C:predoublecategory_sq_hor_ver_data), has_predoublecategory_sq_hor_ver_unit_assoc C.
 
-Coercion predoublecategory_sq_hor_ver_data_from_predoublecategory_sq_hor_ver_unit_assoc_data (C: predoublecategory_sq_hor_ver_unit_assoc_data)
+#[reversible] Coercion predoublecategory_sq_hor_ver_data_from_predoublecategory_sq_hor_ver_unit_assoc_data (C: predoublecategory_sq_hor_ver_unit_assoc_data)
 : predoublecategory_sq_hor_ver_data := pr1 C.
 
 Definition get_ver_left_unitor {C: predoublecategory_sq_hor_ver_unit_assoc_data} {a b : C} (f: a -v-> b) : sqq_iso_special (ver_identity a ·v f) f
@@ -625,7 +625,7 @@ Definition predoublecategory : UU :=
     (predoublecategory_interchange C)).
 
 
-Coercion predoublecategory_sq_hor_ver_unit_assoc_data_from_predoublecategory (C: predoublecategory)
+#[reversible] Coercion predoublecategory_sq_hor_ver_unit_assoc_data_from_predoublecategory (C: predoublecategory)
     : predoublecategory_sq_hor_ver_unit_assoc_data := pr1 C.
 
 Definition get_predoublecategory_ver_left_unitor_naturality
@@ -825,9 +825,9 @@ Definition make_doublecategory C h k : doublecategory := C,,h,,k.
 
 Definition doublecategory_to_predoublecategory : doublecategory → predoublecategory := pr1.
 
-Coercion doublecategory_to_predoublecategory : doublecategory >-> predoublecategory.
+#[reversible] Coercion doublecategory_to_predoublecategory : doublecategory >-> predoublecategory.
 
-Coercion homset_sq_property (C : doublecategory) : (has_homsets (und_ob_hor_precategory C) × has_sq_hor_homsets C) := pr2 C.
+#[reversible] Coercion homset_sq_property (C : doublecategory) : (has_homsets (und_ob_hor_precategory C) × has_sq_hor_homsets C) := pr2 C.
 
 Definition get_has_sq_hor_homsets
 {C : doublecategory} {a b c d : C}
@@ -897,5 +897,5 @@ Section Univalent_Double_Categories.
 
   Definition univalent_doublecategory : UU := ∑ (C: doublecategory), is_double_univalent C.
 
-  Coercion univalent_doublecategory_to_doublecategory (C: univalent_doublecategory) := pr1 C.
+  #[reversible] Coercion univalent_doublecategory_to_doublecategory (C: univalent_doublecategory) := pr1 C.
 End Univalent_Double_Categories.

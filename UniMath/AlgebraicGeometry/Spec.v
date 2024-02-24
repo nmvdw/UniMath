@@ -152,7 +152,7 @@ Section section.
     section := s ,, H.
 
   Definition section_map (s : section) : ∏ p : carrier U, localization_at (pr1 p) := pr1 s.
-  Coercion section_map : section >-> Funclass.
+  #[reversible] Coercion section_map : section >-> Funclass.
 
   Definition section_prop (s : section) : is_section s := pr2 s.
 

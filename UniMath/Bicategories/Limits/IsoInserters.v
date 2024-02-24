@@ -55,7 +55,7 @@ Section IsoInserters.
     : iso_inserter_cone
     := i ,, m ,, α.
 
-  Coercion iso_inserter_cone_ob
+  #[reversible] Coercion iso_inserter_cone_ob
            (cone : iso_inserter_cone)
     : B
     := pr1 cone.
@@ -103,7 +103,7 @@ Section IsoInserters.
     : iso_inserter_1cell cone₁ cone₂
     := k ,, α ,, p.
 
-  Coercion iso_inserter_1cell_mor
+  #[reversible] Coercion iso_inserter_1cell_mor
            {cone₁ cone₂ : iso_inserter_cone}
            (u : iso_inserter_1cell cone₁ cone₂)
     : cone₁ --> cone₂

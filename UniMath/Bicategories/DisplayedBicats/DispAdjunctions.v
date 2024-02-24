@@ -124,7 +124,7 @@ Definition disp_left_adjoint
   := ∑ (ααd : disp_left_adjoint_data α ff),
        disp_left_adjoint_axioms α ααd.
 
-Coercion disp_data_of_left_adjoint
+#[reversible] Coercion disp_data_of_left_adjoint
          {a b : C}
          {f : a --> b}
          (α : left_adjoint f)
@@ -134,7 +134,7 @@ Coercion disp_data_of_left_adjoint
   : disp_left_adjoint_data α ff
   := pr1 αα.
 
-Coercion disp_axioms_of_left_adjoint
+#[reversible] Coercion disp_axioms_of_left_adjoint
          {a b : C}
          {f : a --> b}
          (α : left_adjoint f)
@@ -181,7 +181,7 @@ Definition disp_left_adjoint_equivalence
      × disp_left_equivalence_axioms αe ααd.
 
 (* the coercion to the adjoint axioms will be induced *)
-Coercion disp_left_adjoint_of_left_adjoint_equivalence
+#[reversible] Coercion disp_left_adjoint_of_left_adjoint_equivalence
          {a b : C}
          {f : a --> b}
          {αe : left_adjoint_equivalence f}
@@ -190,7 +190,7 @@ Coercion disp_left_adjoint_of_left_adjoint_equivalence
          (ααe : disp_left_adjoint_equivalence αe ff)
   : disp_left_adjoint αe ff := (pr1 ααe,, pr12 ααe).
 
-Coercion axioms_of_left_adjoint_equivalence
+#[reversible] Coercion axioms_of_left_adjoint_equivalence
          {a b : C}
          {f : a --> b}
          {αe : left_adjoint_equivalence f}
@@ -206,7 +206,7 @@ Definition disp_adjunction
            (aa : D a) (bb : D b) : UU
   := ∑ ff : aa -->[f] bb, disp_left_adjoint f ff.
 
-Coercion disp_arrow_of_adjunction
+#[reversible] Coercion disp_arrow_of_adjunction
          {a b : C}
          {f : adjunction a b}
          {aa : D a} {bb : D b}
@@ -214,7 +214,7 @@ Coercion disp_arrow_of_adjunction
   : aa -->[f] bb
   := pr1 ff.
 
-Coercion disp_left_adjoint_of_adjunction
+#[reversible] Coercion disp_left_adjoint_of_adjunction
          {a b : C}
          {f : adjunction a b}
          {aa : D a} {bb : D b}
@@ -228,7 +228,7 @@ Definition disp_adjoint_equivalence
            (aa : D a) (bb : D b) : UU
   := ∑ ff : aa -->[f] bb, disp_left_adjoint_equivalence f ff.
 
-Coercion disp_adjunction_of_adjoint_equivalence
+#[reversible] Coercion disp_adjunction_of_adjoint_equivalence
          {a b : C}
          {f : adjoint_equivalence a b}
          {aa : D a} {bb : D b}
@@ -239,7 +239,7 @@ Proof.
   apply (disp_left_adjoint_of_left_adjoint_equivalence (pr2 ff)).
 Defined.
 
-Coercion disp_left_adjoint_equivalence_of_adjoint_equivalence
+#[reversible] Coercion disp_left_adjoint_equivalence_of_adjoint_equivalence
          {a b : C}
          {f : adjoint_equivalence a b}
          {aa : D a} {bb : D b}

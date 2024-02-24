@@ -62,7 +62,7 @@ Definition functor_data_constr (C C' : precategory_ob_mor)
 
 Definition functor_on_objects {C C' : precategory_ob_mor}
      (F : functor_data C C') :  ob C -> ob C' := pr1 F.
-Coercion functor_on_objects : functor_data >-> Funclass.
+#[reversible] Coercion functor_on_objects : functor_data >-> Funclass.
 
 Definition functor_on_morphisms {C C' : precategory_ob_mor} (F : functor_data C C')
   { a b : ob C} :  a --> b -> F a --> F b := pr2 F a b.
@@ -156,7 +156,7 @@ Qed.
 
 Definition functor_data_from_functor (C C': precategory_data)
      (F : functor C C') : functor_data C C' := pr1 F.
-Coercion functor_data_from_functor : functor >-> functor_data.
+#[reversible] Coercion functor_data_from_functor : functor >-> functor_data.
 
 
 Definition functor_eq_eq_from_functor_ob_eq (C C' : precategory_data) (hs: has_homsets C')

@@ -49,7 +49,7 @@ Definition disp_2cell_struct {C : prebicat_1_id_comp_cells} (D : disp_cat_ob_mor
 Definition disp_prebicat_1_id_comp_cells (C : prebicat_1_id_comp_cells) : UU
   := ∑ D : disp_cat_data C, disp_2cell_struct D.
 
-Coercion disp_cat_data_from_disp_prebicat_1_id_comp_cells
+#[reversible] Coercion disp_cat_data_from_disp_prebicat_1_id_comp_cells
          {C : prebicat_1_id_comp_cells} (D : disp_prebicat_1_id_comp_cells C)
   : disp_cat_data C
   := pr1 D.
@@ -190,12 +190,12 @@ Definition disp_prebicat_ops (D : disp_prebicat_1_id_comp_cells C) : UU
 Definition disp_prebicat_data : UU
   := ∑ D : disp_prebicat_1_id_comp_cells C, disp_prebicat_ops D.
 
-Coercion disp_prebicat_ob_mor_cells_1_id_comp_from_disp_prebicat_data
+#[reversible] Coercion disp_prebicat_ob_mor_cells_1_id_comp_from_disp_prebicat_data
          (D : disp_prebicat_data)
   : disp_prebicat_1_id_comp_cells C
   := pr1 D.
 
-Coercion disp_prebicat_ops_from_disp_prebicat_data (D : disp_prebicat_data)
+#[reversible] Coercion disp_prebicat_ops_from_disp_prebicat_data (D : disp_prebicat_data)
   : disp_prebicat_ops D
   := pr2 D.
 
@@ -475,7 +475,7 @@ End disp_prebicat_laws.
 Definition disp_prebicat : UU
   := ∑ D : disp_prebicat_data, disp_prebicat_laws D.
 
-Coercion disp_prebicat_data_from_disp_prebicat (D : disp_prebicat)
+#[reversible] Coercion disp_prebicat_data_from_disp_prebicat (D : disp_prebicat)
   : disp_prebicat_data
   := pr1 D.
 
@@ -749,7 +749,7 @@ Section Display_Invertible_2cell.
     : UU
     := ∑ (x : ff ==>[α] ff'), is_disp_invertible_2cell α x.
 
-  Coercion disp_cell_from_invertible_2cell {α : invertible_2cell f f'}
+  #[reversible] Coercion disp_cell_from_invertible_2cell {α : invertible_2cell f f'}
            {ff : d -->[f] d'} {ff' : d -->[f'] d'}
            (e : disp_invertible_2cell α ff ff')
     : ff ==>[α] ff'
@@ -1459,7 +1459,7 @@ Definition has_disp_cellset (D : disp_prebicat) : UU
 Definition disp_bicat : UU
   := ∑ D : disp_prebicat, has_disp_cellset D.
 
-Coercion disp_prebicat_of_disp_bicat (D : disp_bicat)
+#[reversible] Coercion disp_prebicat_of_disp_bicat (D : disp_bicat)
   : disp_prebicat
   := pr1 D.
 

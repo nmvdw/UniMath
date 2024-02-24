@@ -100,7 +100,7 @@ Definition poset_enrichment_hom_poset
   : PartialOrder (x --> y ,, homset_property C x y)
   := pr1 PEC x y.
 
-Coercion poset_enrichment_hom_poset : poset_enrichment >-> Funclass.
+#[reversible] Coercion poset_enrichment_hom_poset : poset_enrichment >-> Funclass.
 
 Proposition poset_enrichment_comp_l
             {C : category}

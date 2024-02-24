@@ -129,7 +129,7 @@ Section FixAStructureWithSmash.
     : P (homset x y)
     := pr1 SC x y.
 
-  Coercion smash_struct_enrichment_to_data : smash_struct_enrichment >-> Funclass.
+  #[reversible] Coercion smash_struct_enrichment_to_data : smash_struct_enrichment >-> Funclass.
 
   Proposition smash_struct_enrichment_comp
               {C : category}

@@ -80,7 +80,7 @@ Section StrictPseudoFunctorData.
   Defined.
 End StrictPseudoFunctorData.
 
-Coercion functor_data_from_bifunctor_ob_mor_cell
+#[reversible] Coercion functor_data_from_bifunctor_ob_mor_cell
          {C D : bicat}
          (F: strict_psfunctor_data C D)
   : functor_data C D

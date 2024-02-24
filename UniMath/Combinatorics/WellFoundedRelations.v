@@ -97,7 +97,7 @@ Section Attempts.
   Definition attempt x := ∑ f, guided_by x f H.
 
   Definition attempt_fun {x} : attempt x -> (∏ y _, P y) := pr1.
-  Coercion attempt_fun : attempt >-> Funclass.
+  #[reversible] Coercion attempt_fun : attempt >-> Funclass.
 
   Definition attempt_comp {x} : ∏ (f : attempt x), _ := pr2.
 

@@ -28,7 +28,7 @@ Section def_zero.
   Definition Zero : UU := total2 (λ a, isZero a).
 
   Definition ZeroObject (Z : Zero) : C := pr1 Z.
-  Coercion ZeroObject : Zero >-> ob.
+  #[reversible] Coercion ZeroObject : Zero >-> ob.
 
   Definition make_Zero (b : C) (H : isZero b) : Zero.
   Proof.

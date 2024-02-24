@@ -60,7 +60,7 @@ Section sheaf_commring.
 
   Definition sheaf_commring_functor (F : sheaf_commring) :
     (open_category X)^op ⟶ commring_precategory := pr1 F.
-  Coercion sheaf_commring_functor : sheaf_commring >-> functor.
+  #[reversible] Coercion sheaf_commring_functor : sheaf_commring >-> functor.
 
   Definition sheaf_commring_locality (F : sheaf_commring) : locality F := pr12 F.
 

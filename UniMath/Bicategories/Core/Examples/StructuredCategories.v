@@ -318,7 +318,7 @@ Definition make_univ_cat_with_finlim
   : univ_cat_with_finlim
   := C ,, (T ,, tt) ,, (P ,, tt).
 
-Coercion univ_cat_of_univ_cat_with_finlim
+#[reversible] Coercion univ_cat_of_univ_cat_with_finlim
          (C : univ_cat_with_finlim)
   : univalent_category
   := pr1 C.
@@ -346,7 +346,7 @@ Definition make_functor_finlim
   : functor_finlim C₁ C₂
   := F ,, (tt ,, FT) ,, (tt ,, FP).
 
-Coercion functor_of_functor_finlim
+#[reversible] Coercion functor_of_functor_finlim
          {C₁ C₂ : univ_cat_with_finlim}
          (F : functor_finlim C₁ C₂)
   : C₁ ⟶ C₂
@@ -377,7 +377,7 @@ Definition make_nat_trans_finlim
   : nat_trans_finlim F G
   := τ ,, (tt ,, tt) ,, (tt ,, tt).
 
-Coercion nat_trans_of_nat_trans_finlim
+#[reversible] Coercion nat_trans_of_nat_trans_finlim
          {C₁ C₂ : univ_cat_with_finlim}
          {F G : functor_finlim C₁ C₂}
          (τ : nat_trans_finlim F G)

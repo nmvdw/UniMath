@@ -21,7 +21,7 @@ Context {C : precategory} (F : functor C C).
 Definition coalgebra : UU := ∑ X : C, X --> F X.
 
 Definition coalgebra_ob (X : coalgebra) : C := pr1 X.
-Local Coercion coalgebra_ob : coalgebra >-> ob.
+Local #[reversible] Coercion coalgebra_ob : coalgebra >-> ob.
 
 Definition coalgebra_mor (X : coalgebra) : C ⟦X, F X ⟧ := pr2 X.
 
@@ -48,7 +48,7 @@ Definition coalgebra_homo (X Y : coalgebra) := ∑ f : C ⟦X, Y⟧, is_coalgebr
 
 Definition mor_from_coalgebra_homo (X Y : coalgebra) (f : coalgebra_homo X Y)
   : C ⟦X, Y⟧ := pr1 f.
-Coercion mor_from_coalgebra_homo : coalgebra_homo >-> precategory_morphisms.
+#[reversible] Coercion mor_from_coalgebra_homo : coalgebra_homo >-> precategory_morphisms.
 
 Definition coalgebra_homo_eq (hasHom : has_homsets C) {X Y : coalgebra}
            (f g : coalgebra_homo X Y) : (f : C ⟦X, Y⟧) = g ≃ f = g.

@@ -196,7 +196,7 @@ Section VerticalCellsAreSquares.
     : invertible_vertical_square_data v₁ v₂
     := s₁ ,, s₂.
 
-  Coercion cell_of_invertible_vertical_square
+  #[reversible] Coercion cell_of_invertible_vertical_square
            {x y : B}
            {v₁ v₂ : x -|-> y}
            (s : invertible_vertical_square_data v₁ v₂)
@@ -251,7 +251,7 @@ Section VerticalCellsAreSquares.
     : invertible_vertical_square v₁ v₂
     := s ,, H.
 
-  Coercion invertible_vertical_square_to_data
+  #[reversible] Coercion invertible_vertical_square_to_data
            {x y : B}
            {v₁ v₂ : x -|-> y}
            (s : invertible_vertical_square v₁ v₂)
@@ -478,7 +478,7 @@ Section HorizontalCellsAreSquares.
     : invertible_horizontal_square_data h₁ h₂
     := s₁ ,, s₂.
 
-  Coercion cell_of_invertible_horizontal_square
+  #[reversible] Coercion cell_of_invertible_horizontal_square
            {x y : B}
            {h₁ h₂ : x --> y}
            (s : invertible_horizontal_square_data h₁ h₂)
@@ -533,7 +533,7 @@ Section HorizontalCellsAreSquares.
     : invertible_horizontal_square h₁ h₂
     := s ,, H.
 
-  Coercion invertible_horizontal_square_to_data
+  #[reversible] Coercion invertible_horizontal_square_to_data
            {x y : B}
            {h₁ h₂ : x --> y}
            (s : invertible_horizontal_square h₁ h₂)

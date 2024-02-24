@@ -83,7 +83,7 @@ Section Def.
     enriched_cat_mor y z ⊗ enriched_cat_mor x y --> enriched_cat_mor x z :=
     pr2 (pr2 (pr2 d)) x y z.
 
-  Coercion enriched_cat_ob : enriched_precat_data >-> UU.
+  #[reversible] Coercion enriched_cat_ob : enriched_precat_data >-> UU.
 
   (** Constructor. Use like so: [use make_enriched_cat_data] *)
   Definition make_enriched_precat_data (C : UU) (mor : ∏ x y : C, ob Mon_V)
@@ -149,7 +149,7 @@ Section Def.
 
   Definition enriched_precat_to_enriched_precat_data :
     enriched_precat -> enriched_precat_data := pr1.
-  Coercion enriched_precat_to_enriched_precat_data :
+  #[reversible] Coercion enriched_precat_to_enriched_precat_data :
     enriched_precat >-> enriched_precat_data.
 
   Definition make_enriched_precat (d : enriched_precat_data) (idax : enriched_id_ax d)
@@ -185,7 +185,7 @@ Section Functors.
   (** Accessors *)
   Definition enriched_functor_on_objects (F : enriched_functor_data) :
     enriched_cat_ob D -> enriched_cat_ob E := pr1 F.
-  Coercion enriched_functor_on_objects : enriched_functor_data >-> Funclass.
+  #[reversible] Coercion enriched_functor_on_objects : enriched_functor_data >-> Funclass.
   Definition enriched_functor_on_morphisms (F : enriched_functor_data) :
     ∏ x y : enriched_cat_ob D,
       Mon_V⟦enriched_cat_mor x y, enriched_cat_mor (F x) (F y)⟧ := pr2 F.
@@ -222,7 +222,7 @@ Section Functors.
 
   Definition enriched_functor_to_enriched_functor_data (F : enriched_functor) :
     enriched_functor_data := pr1 F.
-  Coercion enriched_functor_to_enriched_functor_data :
+  #[reversible] Coercion enriched_functor_to_enriched_functor_data :
     enriched_functor >-> enriched_functor_data.
 
   (** Accessors for axioms*)
@@ -658,7 +658,7 @@ Definition enriched_nat_trans_law {A B : enriched_precat} {F G : enriched_functo
 Definition enriched_nat_trans {A B : enriched_precat} (F G : enriched_functor A B) := ∑ a : enriched_nat_trans_data F G, enriched_nat_trans_law a.
 
 Definition enriched_nat_trans_data_from_enriched_nat_trans {A B : enriched_precat} {F G : enriched_functor A B} (a : enriched_nat_trans F G) : ∏ a : A, I --> enriched_cat_mor (F a) (G a) := pr1 a.
-Coercion enriched_nat_trans_data_from_enriched_nat_trans : enriched_nat_trans >-> Funclass.
+#[reversible] Coercion enriched_nat_trans_data_from_enriched_nat_trans : enriched_nat_trans >-> Funclass.
 
 Definition enriched_nat_trans_ax {A B : enriched_precat} {F G : enriched_functor A B} (a : enriched_nat_trans F G) :enriched_nat_trans_law a := pr2 a.
 

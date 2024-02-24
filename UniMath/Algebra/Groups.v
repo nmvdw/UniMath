@@ -48,7 +48,7 @@ Definition make_gr :
   tpair (λ X : setwithbinop, isgrop (@op X)).
 
 Definition grtomonoid : gr -> monoid := λ X : _, make_monoid (pr1 X) (pr1 (pr2 X)).
-Coercion grtomonoid : gr >-> monoid.
+#[reversible] Coercion grtomonoid : gr >-> monoid.
 
 Definition grinv (X : gr) : X -> X := pr1 (pr2 (pr2 X)).
 
@@ -349,7 +349,7 @@ Definition subgrconstr {X : gr} :
 
 Definition subgrtosubmonoid (X : gr) : subgr X -> submonoid X :=
   λ A : _, make_submonoid (pr1 A) (pr1 (pr2 A)).
-Coercion subgrtosubmonoid : subgr >-> submonoid.
+#[reversible] Coercion subgrtosubmonoid : subgr >-> submonoid.
 
 Definition totalsubgr (X : gr) : subgr X.
 Proof.
@@ -387,7 +387,7 @@ Definition isgrcarrier {X : gr} (A : subgr X) : isgrop (@op A) :=
 
 Definition carrierofasubgr {X : gr} (A : subgr X) : gr.
 Proof. split with A. apply (isgrcarrier A). Defined.
-Coercion carrierofasubgr : subgr >-> gr.
+#[reversible] Coercion carrierofasubgr : subgr >-> gr.
 
 Lemma intersection_subgr : forall {X : gr} {I : UU} (S : I -> hsubtype X)
                                   (each_is_subgr : ∏ i : I, issubgr (S i)),
@@ -594,7 +594,7 @@ Section NormalSubGroups.
   Definition normalsubgr (X : gr) : UU := ∑ N : subgr X, isnormalsubgr N.
 
   Definition normalsubgrtosubgr (X : gr) : normalsubgr X -> subgr X := pr1.
-  Coercion normalsubgrtosubgr : normalsubgr >-> subgr.
+  #[reversible] Coercion normalsubgrtosubgr : normalsubgr >-> subgr.
 
   Definition normalsubgrprop {X : gr} (N : normalsubgr X) : isnormalsubgr N := pr2 N.
 
@@ -789,11 +789,11 @@ Definition abgrconstr (X : abmonoid) (inv0 : X -> X) (is : isinv (@op X) (unel X
   make_abgr X (make_dirprod (make_isgrop (pr2 X) (tpair _ inv0 is)) (commax X)).
 
 Definition abgrtogr : abgr -> gr := λ X : _, make_gr (pr1 X) (pr1 (pr2 X)).
-Coercion abgrtogr : abgr >-> gr.
+#[reversible] Coercion abgrtogr : abgr >-> gr.
 
 Definition abgrtoabmonoid : abgr -> abmonoid :=
   λ X : _, make_abmonoid (pr1 X) (make_dirprod (pr1 (pr1 (pr2 X))) (pr2 (pr2 X))).
-Coercion abgrtoabmonoid : abgr >-> abmonoid.
+#[reversible] Coercion abgrtoabmonoid : abgr >-> abmonoid.
 
 Definition abgr_of_gr (X : gr) (H : iscomm (@op X)) : abgr :=
   make_abgr X (make_isabgrop (pr2 X) H).
@@ -969,7 +969,7 @@ Defined.
 
 Definition carrierofasubabgr {X : abgr} (A : subabgr X) : abgr.
 Proof. split with A. apply isabgrcarrier. Defined.
-Coercion carrierofasubabgr : subabgr >-> abgr.
+#[reversible] Coercion carrierofasubabgr : subabgr >-> abgr.
 
 Definition subabgr_incl {X : abgr} (A : subabgr X) : monoidfun A X :=
   submonoid_incl A.

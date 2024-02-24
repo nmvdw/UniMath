@@ -50,7 +50,7 @@ Section DaggerCategories.
 
   Definition dagger_to_struct {C : category} (dag : dagger C)
     : dagger_structure C := pr1 dag.
-  Coercion dagger_to_struct : dagger >-> dagger_structure.
+  #[reversible] Coercion dagger_to_struct : dagger >-> dagger_structure.
 
   Definition dagger_to_laws {C : category} (dag : dagger C)
     : dagger_laws dag := pr2 dag.
@@ -110,11 +110,11 @@ Section DaggerCategories.
 
   Definition dagger_category_to_cat (C : dagger_category)
     : category := pr1 C.
-  Coercion dagger_category_to_cat : dagger_category >-> category.
+  #[reversible] Coercion dagger_category_to_cat : dagger_category >-> category.
 
   Definition dagger_category_to_dagger (C : dagger_category) : dagger C
     := pr2 C.
-  Coercion dagger_category_to_dagger : dagger_category >-> dagger.
+  #[reversible] Coercion dagger_category_to_dagger : dagger_category >-> dagger.
 
   Notation "{ f }_ C ^†" := (dagger_category_to_dagger C _ _ f).
 

@@ -79,7 +79,7 @@ Definition indexed_nat_trans_to_data
   : τ x ⟹ θ x
   := pr1 m x.
 
-Coercion indexed_nat_trans_to_data : indexed_nat_trans >-> Funclass.
+#[reversible] Coercion indexed_nat_trans_to_data : indexed_nat_trans >-> Funclass.
 
 Proposition indexed_nat_trans_natural
             {C : category}

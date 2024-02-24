@@ -495,7 +495,7 @@ Definition discrete_twosided_fibration
        (HD : discrete_twosided_disp_cat D),
      is_discrete_twosided_fibration HD.
 
-Coercion discrete_twosided_fibration_to_twosided_disp_cat
+#[reversible] Coercion discrete_twosided_fibration_to_twosided_disp_cat
          {C₁ C₂ : category}
          (D : discrete_twosided_fibration C₁ C₂)
   : twosided_disp_cat C₁ C₂

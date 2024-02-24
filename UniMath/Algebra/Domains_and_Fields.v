@@ -324,7 +324,7 @@ Opaque isapropisintdom.
 Definition intdom : UU := total2 (λ X : commring, isintdom X).
 
 Definition pr1intdom : intdom -> commring := @pr1 _ _.
-Coercion pr1intdom : intdom >-> commring.
+#[reversible] Coercion pr1intdom : intdom >-> commring.
 
 Definition nonzeroax (X : intdom) : neg (@paths X 1 0) := pr1 (pr2 X).
 
@@ -530,7 +530,7 @@ Proof.
     apply (hinhpr (ii2 e2)).
   - intro e12. apply (hinhpr (ii1 e0)).
 Defined.
-Coercion fldtointdom : fld >-> intdom.
+#[reversible] Coercion fldtointdom : fld >-> intdom.
 
 Definition fldchoice {X : fld} (x : X) : (multinvpair X x) ⨿ (x = 0) := pr2 (pr2 X) x.
 

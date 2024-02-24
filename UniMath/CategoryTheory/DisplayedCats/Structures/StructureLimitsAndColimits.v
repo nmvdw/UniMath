@@ -65,7 +65,7 @@ Definition struct_fun_to_fun
   : X → Y
   := pr1 f.
 
-Coercion struct_fun_to_fun : struct_fun >-> Funclass.
+#[reversible] Coercion struct_fun_to_fun : struct_fun >-> Funclass.
 
 Definition struct_fun_hSet
            {P : hset_struct}
@@ -106,7 +106,7 @@ Definition hset_cartesian_closed_struct_data
        (constP : struct_contains_constant P),
      closed_under_fun_data P.
 
-Coercion hset_cartesian_closed_struct_data_to_struct
+#[reversible] Coercion hset_cartesian_closed_struct_data_to_struct
          (P : hset_cartesian_closed_struct_data)
   : hset_cartesian_struct
   := pr1 P.
@@ -177,7 +177,7 @@ Definition hset_cartesian_closed_struct
   : UU
   := ∑ (P : hset_cartesian_closed_struct_data), closed_under_fun_laws P.
 
-Coercion hset_cartesian_closed_struct_to_data
+#[reversible] Coercion hset_cartesian_closed_struct_to_data
          (P : hset_cartesian_closed_struct)
   : hset_cartesian_closed_struct_data
   := pr1 P.
@@ -312,7 +312,7 @@ Definition hset_equalizer_struct
   : UU
   := ∑ (EP : hset_equalizer_struct_data P), hset_equalizer_struct_laws EP.
 
-Coercion hset_equalizer_struct_to_data
+#[reversible] Coercion hset_equalizer_struct_to_data
          {P : hset_struct}
          (EP : hset_equalizer_struct P)
   : hset_equalizer_struct_data P
@@ -450,7 +450,7 @@ Definition hset_coequalizer_struct
   : UU
   := ∑ (EP : hset_coequalizer_struct_data P), hset_coequalizer_struct_laws EP.
 
-Coercion hset_coequalizer_struct_to_data
+#[reversible] Coercion hset_coequalizer_struct_to_data
          {P : hset_struct}
          (EP : hset_coequalizer_struct P)
   : hset_coequalizer_struct_data P
@@ -576,7 +576,7 @@ Definition hset_struct_type_prod_to_data
   : P (forall_hSet D)
   := pr1 HP D PD.
 
-Coercion hset_struct_type_prod_to_data : hset_struct_type_prod >-> Funclass.
+#[reversible] Coercion hset_struct_type_prod_to_data : hset_struct_type_prod >-> Funclass.
 
 Definition hset_struct_type_prod_ob
            {P : hset_struct}
@@ -688,7 +688,7 @@ Definition pointed_hset_struct
   : UU
   := ∑ (Pt : pointed_hset_struct_data P), pointed_hset_struct_laws Pt.
 
-Coercion pointed_hset_struct_to_data
+#[reversible] Coercion pointed_hset_struct_to_data
          {P : hset_struct}
          (Pt : pointed_hset_struct P)
   : pointed_hset_struct_data P
@@ -787,7 +787,7 @@ Definition hset_binary_coprod_struct
   : UU
   := ∑ (EP : hset_binary_coprod_struct_data P), hset_binary_coprod_struct_laws EP.
 
-Coercion hset_binary_coprod_struct_to_data
+#[reversible] Coercion hset_binary_coprod_struct_to_data
          {P : hset_struct}
          (EP : hset_binary_coprod_struct P)
   : hset_binary_coprod_struct_data P
@@ -914,7 +914,7 @@ Definition hset_struct_set_coprod_to_data
   : P (∑ (i : I), D i)%set
   := pr1 HP D PD.
 
-Coercion hset_struct_set_coprod_to_data : hset_struct_set_coprod >-> Funclass.
+#[reversible] Coercion hset_struct_set_coprod_to_data : hset_struct_set_coprod >-> Funclass.
 
 Definition hset_struct_set_coprod_ob
            {P : hset_struct}

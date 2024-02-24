@@ -45,7 +45,7 @@ Definition eqsystem (σ : signature) (V: varspec σ): UU
 
 Definition eqsystemids (σ : signature) (V: varspec σ): eqsystem σ V → UU := pr1.
 
-Coercion eqsystemids : eqsystem >-> UU.
+#[reversible] Coercion eqsystemids : eqsystem >-> UU.
 
 Definition geteq {σ: signature} {V: varspec σ} {sys : eqsystem σ V}: sys → equation σ V
   := pr2 sys.
@@ -59,7 +59,7 @@ Definition eqspec: UU  := ∑ (σ : signature) (V: varspec σ), eqsystem σ V.
 
 Definition signature_of_eqspec: eqspec → signature := pr1.
 
-Coercion signature_of_eqspec : eqspec >-> signature.
+#[reversible] Coercion signature_of_eqspec : eqspec >-> signature.
 
 Definition variables (σ: eqspec): varspec σ := pr12 σ.
 

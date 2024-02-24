@@ -209,7 +209,7 @@ Section MonoidalFunctorLifting.
     := ∑ (ms : flmonoidal_data), flmonoidal_laxlaws ms.
   Definition flmonoidal_lax_to_data (sm : flmonoidal_lax)
     : flmonoidal_data := pr1 sm.
-  Coercion flmonoidal_lax_to_data : flmonoidal_lax >-> flmonoidal_data.
+  #[reversible] Coercion flmonoidal_lax_to_data : flmonoidal_lax >-> flmonoidal_data.
 
   Definition flmonoidal_lax_to_laxlaws (sm : flmonoidal_lax)
     : flmonoidal_laxlaws sm := pr2 sm.
@@ -267,7 +267,7 @@ Section MonoidalFunctorLifting.
                                         (fmonoidal_preservesunit Fm)}
              (sm : flmonoidal Fs)
     : flmonoidal_lax := pr1 sm.
-  Coercion flmonoidal_to_flmonoidal_lax : flmonoidal >-> flmonoidal_lax.
+  #[reversible] Coercion flmonoidal_to_flmonoidal_lax : flmonoidal >-> flmonoidal_lax.
 
   Definition flmonoidal_to_fl_stronglaws
              {Fs : fmonoidal_stronglaws (fmonoidal_preservestensordata Fm)

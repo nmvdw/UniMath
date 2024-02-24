@@ -163,7 +163,7 @@ Section EMObject.
     Defined.
   End MakeCone.
 
-  Coercion em_cone_to_ob (e : em_cone) : B := pr1 e.
+  #[reversible] Coercion em_cone_to_ob (e : em_cone) : B := pr1 e.
 
   Definition mor_of_em_cone (e : em_cone) : mnd_incl B e --> m := pr2 e.
 
@@ -184,7 +184,7 @@ Section EMObject.
     : em_cone_mor e₁ e₂
     := g ,, α.
 
-  Coercion mor_of_em_cone_mor
+  #[reversible] Coercion mor_of_em_cone_mor
            {e₁ e₂ : em_cone}
            (f : em_cone_mor e₁ e₂)
     : e₁ --> e₂

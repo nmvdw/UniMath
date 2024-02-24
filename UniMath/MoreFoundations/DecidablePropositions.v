@@ -38,8 +38,8 @@ Definition isFalse (C : ComplementaryPair)
 Definition  trueWitness {C : ComplementaryPair} : isTrue  C -> Part1 C := pr1.
 Definition falseWitness {C : ComplementaryPair} : isFalse C -> Part2 C := pr1.
 
-Coercion  trueWitness : isTrue  >-> Part1.
-Coercion falseWitness : isFalse >-> Part2.
+#[reversible] Coercion  trueWitness : isTrue  >-> Part1.
+#[reversible] Coercion falseWitness : isFalse >-> Part2.
 
 Lemma complementaryDecisions (C : ComplementaryPair) :
   iscontr (isTrue C ⨿ isFalse C).
@@ -220,7 +220,7 @@ Proof.
   intros X.
   exact (pr1 X,, isdecproptoisaprop (pr1 X) (pr2 X)).
 Defined.
-Coercion DecidableProposition_to_hProp : DecidableProposition >-> hProp.
+#[reversible] Coercion DecidableProposition_to_hProp : DecidableProposition >-> hProp.
 Definition decidabilityProperty (X : DecidableProposition) :
   isdecprop X := pr2 X.
 
@@ -349,11 +349,11 @@ Defined.
 Definition DecidableSubtype_to_hsubtype {X : UU} (P : DecidableSubtype X) :
   hsubtype X
   := λ x, DecidableProposition_to_hProp (P x).
-Coercion DecidableSubtype_to_hsubtype : DecidableSubtype >-> hsubtype.
+#[reversible] Coercion DecidableSubtype_to_hsubtype : DecidableSubtype >-> hsubtype.
 
 Definition DecidableRelation_to_hrel {X : UU} (P : DecidableRelation X) : hrel X
   := λ x y, DecidableProposition_to_hProp(P x y).
-Coercion DecidableRelation_to_hrel : DecidableRelation >-> hrel.
+#[reversible] Coercion DecidableRelation_to_hrel : DecidableRelation >-> hrel.
 
 Definition natlth_DecidableProposition : DecidableRelation nat :=
   decrel_to_DecidableRelation natlthdec.

@@ -197,12 +197,12 @@ Definition bicat_with_biinitial_bincoprod
      ×
      has_bincoprod B.
 
-Coercion bicat_with_biinitial_bincoprod_to_bicat_with_biinitial
+#[reversible] Coercion bicat_with_biinitial_bincoprod_to_bicat_with_biinitial
          (B : bicat_with_biinitial_bincoprod)
   : bicat_with_biinitial
   := pr1 B ,, pr12 B.
 
-Coercion bicat_with_biinitial_bincoprod_to_bicat_with_bincoprod
+#[reversible] Coercion bicat_with_biinitial_bincoprod_to_bicat_with_bincoprod
          (B : bicat_with_biinitial_bincoprod)
   : bicat_with_bincoprod
   := pr1 B ,, pr22 B.

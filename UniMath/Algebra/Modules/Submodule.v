@@ -45,7 +45,7 @@ Definition make_submodule {R : ring} {M : module R} :
 
 Definition submoduletosubabgr {R : ring} {M : module R} : submodule M -> @subabgr M :=
   λ A : _, make_subgr (pr1 A) (pr1 (pr2 A)).
-Coercion submoduletosubabgr : submodule >-> subabgr.
+#[reversible] Coercion submoduletosubabgr : submodule >-> subabgr.
 
 Definition submodule_to_issubsetwithsmul {R : ring} {M : module R} (A : submodule M) :
   issubsetwithsmul (module_mult M) A :=
@@ -71,7 +71,7 @@ Proof.
   - intros f. apply (invmaponpathsincl _ (isinclpr1carrier A)). apply module_mult_unel2.
 Defined.
 
-Coercion carrierofasubmodule : submodule >-> module.
+#[reversible] Coercion carrierofasubmodule : submodule >-> module.
 Lemma intersection_submodule {R : ring} {M : module R} {I : UU} (S : I -> hsubtype M)
       (each_is_submodule : ∏ i : I, issubmodule (S i)) :
   issubmodule (subtype_intersection S).

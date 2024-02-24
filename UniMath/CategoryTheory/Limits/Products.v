@@ -48,7 +48,7 @@ Definition hasProducts := ∏ (ci : ∏ i, C), ∥ Product ci ∥.
 
 Definition ProductObject {c : ∏ i, C} (P : Product c) : C := pr1 (pr1 P).
 
-Coercion ProductObject : Product >-> ob.
+#[reversible] Coercion ProductObject : Product >-> ob.
 
 Definition ProductPr {c : ∏ i, C} (P : Product c) : ∏ i, P --> c i :=
   pr2 (pr1 P).

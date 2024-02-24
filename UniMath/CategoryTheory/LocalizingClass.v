@@ -57,7 +57,7 @@ Section def_roofs.
 
   Definition LocSqr1Ob {SOM : SubsetsOfMors} {x y z : ob C} {s : x --> y} {e1 : SOM x y s}
              {f : x --> z} (LS1 : LocSqr1 SOM s e1 f) : ob C := pr1 (pr1 LS1).
-  Coercion LocSqr1Ob : LocSqr1 >-> ob.
+  #[reversible] Coercion LocSqr1Ob : LocSqr1 >-> ob.
 
   Definition LocSqr1Mor1 {SOM : SubsetsOfMors} {x y z : ob C} {s : x --> y} {e1 : SOM x y s}
              {f : x --> z} (LS1 : LocSqr1 SOM s e1 f) : C⟦y, LS1⟧ := dirprod_pr1 (pr2 (pr1 LS1)).
@@ -81,7 +81,7 @@ Section def_roofs.
 
   Definition LocSqr2Ob {SOM : SubsetsOfMors} {y z w : ob C} {s : y --> w} {e1 : SOM y w s}
              {f : z --> w} (LS2 : LocSqr2 SOM s e1 f) : ob C := pr1 (pr1 LS2).
-  Coercion LocSqr2Ob : LocSqr2 >-> ob.
+  #[reversible] Coercion LocSqr2Ob : LocSqr2 >-> ob.
 
   Definition LocSqr2Mor1 {SOM : SubsetsOfMors} {y z w : ob C} {s : y --> w} {e1 : SOM y w s}
              {f : z --> w} (LS2 : LocSqr2 SOM s e1 f) : C⟦LS2, y⟧ := dirprod_pr1 (pr2 (pr1 LS2)).
@@ -118,7 +118,7 @@ Section def_roofs.
   Definition PreSwitchOb {SOM : SubsetsOfMors} {x y z : ob C} {s : x --> y} {e : SOM x y s}
              {f g : y --> z} {H : s · f = s · g} (PreS : PreSwitch SOM s e f g H) : ob C :=
     pr1 (pr1 PreS).
-  Coercion PreSwitchOb : PreSwitch >-> ob.
+  #[reversible] Coercion PreSwitchOb : PreSwitch >-> ob.
 
   Definition PreSwitchMor {SOM : SubsetsOfMors} {x y z : ob C} {s : x --> y} {e : SOM x y s}
              {f g : y --> z} {H : s · f = s · g} (PreS : PreSwitch SOM s e f g H) :
@@ -141,7 +141,7 @@ Section def_roofs.
   Definition PostSwitchOb {SOM : SubsetsOfMors} {y z w : ob C} {f g : y --> z} {s : z --> w}
              {e : SOM z w s} {H : f · s = g · s} (PostS : PostSwitch SOM f g s e H) : ob C :=
     pr1 (pr1 PostS).
-  Coercion PostSwitchOb : PostSwitch >-> ob.
+  #[reversible] Coercion PostSwitchOb : PostSwitch >-> ob.
 
   Definition PostSwitchMor {SOM : SubsetsOfMors} {y z w : ob C} {f g : y --> z} {s : z --> w}
              {e : SOM z w s} {H : f · s = g · s} (PostS : PostSwitch SOM f g s e H) :
@@ -176,17 +176,17 @@ Section def_roofs.
 
   Definition isLocalizingClass_isLocalizingClass1 {SOM : SubsetsOfMors}
              (H : isLocalizingClass SOM) : isLocalizingClass1 SOM := dirprod_pr1 H.
-  Coercion isLocalizingClass_isLocalizingClass1 : isLocalizingClass >-> isLocalizingClass1.
+  #[reversible] Coercion isLocalizingClass_isLocalizingClass1 : isLocalizingClass >-> isLocalizingClass1.
 
   Definition isLocalizingClass_isLocalizingClass2 {SOM : SubsetsOfMors}
              (H : isLocalizingClass SOM) : isLocalizingClass2 SOM :=
     dirprod_pr1 (dirprod_pr2 H).
-  Coercion isLocalizingClass_isLocalizingClass2 : isLocalizingClass >-> isLocalizingClass2.
+  #[reversible] Coercion isLocalizingClass_isLocalizingClass2 : isLocalizingClass >-> isLocalizingClass2.
 
   Definition isLocalizingClass_isLocalizingClass3 {SOM : SubsetsOfMors}
              (H : isLocalizingClass SOM) : isLocalizingClass3 SOM :=
     dirprod_pr2 (dirprod_pr2 H).
-  Coercion isLocalizingClass_isLocalizingClass3 : isLocalizingClass >-> isLocalizingClass3.
+  #[reversible] Coercion isLocalizingClass_isLocalizingClass3 : isLocalizingClass >-> isLocalizingClass3.
 
   (** Collection of morphisms in C *)
   Variable SOM : SubsetsOfMors.
@@ -203,7 +203,7 @@ Section def_roofs.
     tpair _ (tpair _ z (s,,f)) e.
 
   Definition RoofOb {x y : ob C} (R : Roof x y) : ob C := pr1 (pr1 R).
-  Coercion RoofOb : Roof >-> ob.
+  #[reversible] Coercion RoofOb : Roof >-> ob.
 
   Definition RoofMor1 {x y : ob C} (R : Roof x y) : C⟦R, x⟧ := dirprod_pr1 (pr2 (pr1 R)).
 
@@ -219,7 +219,7 @@ Section def_roofs.
     tpair _ (tpair _ z (f,,s)) e.
 
   Definition CoroofOb {x y : ob C} (CR : Coroof x y) : ob C := pr1 (pr1 CR).
-  Coercion CoroofOb : Coroof >-> ob.
+  #[reversible] Coercion CoroofOb : Coroof >-> ob.
 
   Definition CoroofMor1 {x y : ob C} (CR : Coroof x y) : C⟦x, CR⟧ := dirprod_pr1 (pr2 (pr1 CR)).
 
@@ -252,7 +252,7 @@ Section def_roofs.
     tpair _ (tpair _ w (s,,f)) (e,,(H1,,H2)).
 
   Definition RoofTopOb {x y : ob C} {R1 R2 : Roof x y} (T : RoofTop R1 R2) : ob C := pr1 (pr1 T).
-  Coercion RoofTopOb : RoofTop >-> ob.
+  #[reversible] Coercion RoofTopOb : RoofTop >-> ob.
 
   Definition RoofTopMor1 {x y : ob C} {R1 R2 : Roof x y} (T : RoofTop R1 R2) : C⟦T, R1⟧ :=
     dirprod_pr1 (pr2 (pr1 T)).

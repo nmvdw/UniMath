@@ -177,7 +177,7 @@ Ltac unwrap_OrderedSet X :=
   simpl in total.
 
 Local Definition underlyingPoset (X:OrderedSet) : Poset := pr1 X.
-Coercion underlyingPoset : OrderedSet >-> Poset.
+#[reversible] Coercion underlyingPoset : OrderedSet >-> Poset.
 
 Declare Scope oset.
 Delimit Scope oset with oset.
@@ -302,11 +302,11 @@ Ltac oset_induction f e := generalize f; apply OrderedSetEquivalence_rect; intro
 
 Definition FiniteOrderedSet := ∑ X:OrderedSet, isfinite X.
 Definition underlyingOrderedSet (X:FiniteOrderedSet) : OrderedSet := pr1 X.
-Coercion underlyingOrderedSet : FiniteOrderedSet >-> OrderedSet.
+#[reversible] Coercion underlyingOrderedSet : FiniteOrderedSet >-> OrderedSet.
 Definition finitenessProperty (X:FiniteOrderedSet) : isfinite X := pr2 X.
 Definition underlyingFiniteSet : FiniteOrderedSet -> FiniteSet.
 Proof. intros. exists X. apply finitenessProperty. Defined.
-Coercion underlyingFiniteSet : FiniteOrderedSet >-> FiniteSet.
+#[reversible] Coercion underlyingFiniteSet : FiniteOrderedSet >-> FiniteSet.
 
 Lemma istotal_FiniteOrderedSet (X:FiniteOrderedSet) : istotal (posetRelation X).
 Proof. intros. exact (pr2 (pr1 X)). Defined.

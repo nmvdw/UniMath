@@ -113,7 +113,7 @@ Section Comonads.
     : UU
     := ∑ (C : comnd_data), comnd_laws C.
 
-  Coercion comnd_to_comnd_data (C : comnd) : comnd_data := pr1 C.
+  #[reversible] Coercion comnd_to_comnd_data (C : comnd) : comnd_data := pr1 C.
 
   Section LawsProjections.
     Context (C : comnd).
@@ -167,7 +167,7 @@ Section ComonadMorphism.
     : comnd_mor_data
     := f ,,  fe.
 
-  Coercion mor_of_comnd_mor
+  #[reversible] Coercion mor_of_comnd_mor
            (f : comnd_mor_data)
     : ob_of_comnd C₁ --> ob_of_comnd C₂
     := pr1 f.
@@ -208,7 +208,7 @@ Section ComonadMorphism.
     : UU
     := ∑ (f : comnd_mor_data), comnd_mor_laws f.
 
-  Coercion comnd_mor_to_comnd_mor_data
+  #[reversible] Coercion comnd_mor_to_comnd_mor_data
            (f : comnd_mor)
     : comnd_mor_data
     := pr1 f.
@@ -265,7 +265,7 @@ Definition comnd_cell
   : UU
   := ∑ (α : f₂ ==> f₁), is_comnd_cell α.
 
-Coercion comnd_cell_to_cell
+#[reversible] Coercion comnd_cell_to_cell
          {B : bicat}
          {C₁ C₂ : comnd B}
          {f₁ f₂ : comnd_mor C₁ C₂}

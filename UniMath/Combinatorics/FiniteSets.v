@@ -31,7 +31,7 @@ Section nelstructure.
     : ⟦ n ⟧ -> X
     := pr1weq S.
 
-  Coercion nelstructToFunction : nelstruct >-> Funclass.
+  #[reversible] Coercion nelstructToFunction : nelstruct >-> Funclass.
 
   Definition nelstructonstn (n : nat) : nelstruct n (⟦ n ⟧)
     := idweq (⟦ n ⟧).
@@ -214,7 +214,7 @@ Section finite_structure.
 
   Definition finstructToFunction {X : UU} (S : finstruct X) : nelstruct (pr1 S) X
     := pr2 S.
-  Coercion finstructToFunction : finstruct >-> nelstruct.
+  #[reversible] Coercion finstructToFunction : finstruct >-> nelstruct.
 
   Definition make_finstruct (X : UU) {n : nat} (w : ⟦ n ⟧ ≃ X) : finstruct X
     := (n ,, w).
@@ -555,7 +555,7 @@ Section finite_subsets.
 
   Definition subtype_from_finite_subset {X : hSet} (A : finite_subset X) : hsubtype X
     := pr1 A.
-  Coercion subtype_from_finite_subset : finite_subset >-> hsubtype.
+  #[reversible] Coercion subtype_from_finite_subset : finite_subset >-> hsubtype.
 
   Lemma isfinite_singleton {X : hSet} {x : X} : isfinite (singleton x).
   Proof.
@@ -589,7 +589,7 @@ Section FiniteSets.
 
   Definition FiniteSet_to_hSet (X : FiniteSet) : hSet
     := make_hSet (pr1 X) (isfinite_isaset (pr1 X) (pr2 X)).
-  Coercion FiniteSet_to_hSet : FiniteSet >-> hSet.
+  #[reversible] Coercion FiniteSet_to_hSet : FiniteSet >-> hSet.
 
   Definition FiniteSetSum {I : FiniteSet} (X : I -> FiniteSet) : FiniteSet.
   Proof.

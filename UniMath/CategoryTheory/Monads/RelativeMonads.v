@@ -43,7 +43,7 @@ Definition RelMonad_data : UU
                  × (∏ c d, D ⟦J c, F d⟧ → D ⟦F c, F d⟧).
 
 Definition RelMonad_ob (R : RelMonad_data) (c : C) : D := pr1 R c.
-Coercion RelMonad_ob : RelMonad_data >-> Funclass.
+#[reversible] Coercion RelMonad_ob : RelMonad_data >-> Funclass.
 Definition r_eta (R : RelMonad_data) c : D ⟦J c, R c⟧ := pr1 (pr2 R) c.
 Definition r_bind (R : RelMonad_data) {c d} (f : D⟦J c, R d⟧) : D ⟦R c, R d⟧
   := pr2 (pr2 R) _ _ f.
@@ -73,8 +73,8 @@ Definition r_bind_r_bind {R : RelMonad_data} (X : RelMonad_axioms R)
 
 (* implicitness of arguments for RelMonad are set after this section *)
 Definition RelMonad : UU := ∑ R : RelMonad_data, RelMonad_axioms R.
-Coercion RelMonad_data_from_RelMonad (R : RelMonad) : RelMonad_data := pr1 R.
-Coercion RelMonad_axioms_from_RelMonad (R : RelMonad) : RelMonad_axioms R := pr2 R.
+#[reversible] Coercion RelMonad_data_from_RelMonad (R : RelMonad) : RelMonad_data := pr1 R.
+#[reversible] Coercion RelMonad_axioms_from_RelMonad (R : RelMonad) : RelMonad_axioms R := pr2 R.
 
 Lemma RelMonad_eq (R R' : RelMonad)(hs : has_homsets D) :
   pr1 R = pr1 R' -> R = R'.
@@ -272,10 +272,10 @@ Definition α_r_bind {C D : precategory_data} {J : functor_data C D}
 Definition RelMonadMor {C D : precategory_data} {J : functor_data C D}
            (R R' : RelMonad_data J) : UU
   := ∑ α : RelMonadMor_data R R', RelMonadMor_axioms α.
-Coercion RelMonadMor_data_from_RelMonadMor  {C D : precategory_data} {J : functor_data C D}
+#[reversible] Coercion RelMonadMor_data_from_RelMonadMor  {C D : precategory_data} {J : functor_data C D}
            {R R' : RelMonad_data J} (α : RelMonadMor R R') : RelMonadMor_data R R' := pr1 α.
 
- Coercion RelMonadMor_axioms_from_RelMonadMor {C D : precategory_data} {J : functor_data C D}
+ #[reversible] Coercion RelMonadMor_axioms_from_RelMonadMor {C D : precategory_data} {J : functor_data C D}
          {R R' : RelMonad_data J} (α : RelMonadMor R R') :
   RelMonadMor_axioms α := pr2 α.
 

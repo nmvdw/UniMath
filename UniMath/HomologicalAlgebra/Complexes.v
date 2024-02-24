@@ -95,7 +95,7 @@ Section def_complexes.
 
   (** Accessor functions *)
   Definition Complex_Funclass (C : Complex) : hz -> ob A := pr1 (pr1 C).
-  Coercion Complex_Funclass : Complex >-> Funclass.
+  #[reversible] Coercion Complex_Funclass : Complex >-> Funclass.
 
   Definition Diff (C : Complex) (i : hz) : A⟦C i, C (i + 1)⟧ := pr2 (pr1 C) i.
 
@@ -203,7 +203,7 @@ Section def_complexes.
 
   (** Accessor functions *)
   Definition MMor {C1 C2 : Complex} (M : Morphism C1 C2) (i : hz) : A⟦C1 i, C2 i⟧ := pr1 M i.
-  Coercion MMor : Morphism >-> Funclass.
+  #[reversible] Coercion MMor : Morphism >-> Funclass.
 
   Definition MComm {C1 C2 : Complex} (M : Morphism C1 C2) (i : hz) :
     (M i) · (Diff C2 i) = (Diff C1 i) · (M (i + 1)) := pr2 M i.

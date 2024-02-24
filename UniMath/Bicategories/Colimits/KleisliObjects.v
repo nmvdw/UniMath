@@ -55,7 +55,7 @@ Section KleisliObject.
     : kleisli_cocone
     := x ,, f ,, γ ,, fη ,, fμ.
 
-  Coercion kleisli_cocone_ob (q : kleisli_cocone) : B := pr1 q.
+  #[reversible] Coercion kleisli_cocone_ob (q : kleisli_cocone) : B := pr1 q.
 
   Section Projections.
     Context (q : kleisli_cocone).
@@ -109,7 +109,7 @@ Section KleisliObject.
     : kleisli_cocone_mor q₁ q₂
     := f ,, α ,, p ,, Hα.
 
-  Coercion mor_of_kleisli_cocone_mor
+  #[reversible] Coercion mor_of_kleisli_cocone_mor
            {q₁ q₂ : kleisli_cocone}
            (f : kleisli_cocone_mor q₁ q₂)
     : q₁ --> q₂

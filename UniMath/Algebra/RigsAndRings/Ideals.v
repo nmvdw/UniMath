@@ -59,7 +59,7 @@ Section Definitions.
 
   Definition ideal_subabmonoid (I : ideal) : subabmonoid (rigaddabmonoid R) :=
     pr1 I.
-  Coercion ideal_subabmonoid : ideal >-> subabmonoid.
+  #[reversible] Coercion ideal_subabmonoid : ideal >-> subabmonoid.
 
   Definition ideal_isl (I : ideal) : is_lideal I := pr12 I.
 
@@ -148,7 +148,7 @@ Section prime.
     prime_ideal := p ,, H1 ,, H2.
 
   Definition prime_ideal_ideal (p : prime_ideal) : ideal R := pr1 p.
-  Coercion prime_ideal_ideal : prime_ideal >-> ideal.
+  #[reversible] Coercion prime_ideal_ideal : prime_ideal >-> ideal.
 
   Definition prime_ideal_ax1 (p : prime_ideal) : ∀ a b, p (a * b) ⇒ p a ∨ p b := pr12 p.
 

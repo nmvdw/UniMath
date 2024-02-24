@@ -65,7 +65,7 @@ Section def_kernels.
 
   (** Accessor functions *)
   Definition KernelOb {y z : C} {g : y --> z} (K : Kernel g) : C := pr1 (pr1 K).
-  Coercion KernelOb : Kernel >-> ob.
+  #[reversible] Coercion KernelOb : Kernel >-> ob.
 
   Definition KernelArrow {y z : C} {g : y --> z} (K : Kernel g) :  C⟦K, y⟧ := pr2 (pr1 K).
 

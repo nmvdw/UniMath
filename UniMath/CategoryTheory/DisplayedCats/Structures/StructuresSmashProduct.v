@@ -359,7 +359,7 @@ Definition hset_struct_with_smash_setquot
   : P (setquotinset (smash_eqrel P Pt PX PY))
   := pr21 SP X Y PX PY.
 
-Coercion hset_struct_with_smash_setquot : hset_struct_with_smash >-> Funclass.
+#[reversible] Coercion hset_struct_with_smash_setquot : hset_struct_with_smash >-> Funclass.
 
 Definition hset_struct_with_smash_setquot_ob
            {P : hset_cartesian_struct}
@@ -712,7 +712,7 @@ Definition hset_struct_with_smash_closed_adj
 (**
  7. Accessores for structures with an pointed hom-adjunction
  *)
-Coercion hset_struct_with_smash_closed_to_point
+#[reversible] Coercion hset_struct_with_smash_closed_to_point
          {P : hset_cartesian_struct}
          {Pt : pointed_hset_struct P}
          {SP : hset_struct_with_smash P Pt}
@@ -731,7 +731,7 @@ Definition hset_struct_with_smash_closed_adj_to_hom
   : P (@homset (category_of_hset_struct P) (X ,, PX) (Y ,, PY))
   := pr11 PC X Y PX PY.
 
-Coercion hset_struct_with_smash_closed_adj_to_hom
+#[reversible] Coercion hset_struct_with_smash_closed_adj_to_hom
   : hset_struct_with_smash_closed_adj >-> Funclass.
 
 Definition hset_struct_smash_curry
@@ -811,12 +811,12 @@ Definition hset_struct_with_smash_closed
        (PC : hset_struct_with_smash_closed_adj SP),
      hset_struct_with_smash_closed_laws_enrich PC.
 
-Coercion hset_struct_with_smash_closed_to_struct
+#[reversible] Coercion hset_struct_with_smash_closed_to_struct
          (PC : hset_struct_with_smash_closed)
   : hset_cartesian_struct
   := pr1 PC.
 
-Coercion hset_struct_with_smash_closed_point
+#[reversible] Coercion hset_struct_with_smash_closed_point
          (PC : hset_struct_with_smash_closed)
   : pointed_hset_struct PC
   := pr12 PC.

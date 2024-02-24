@@ -106,13 +106,13 @@ Definition make_TopologicalSpace (X : hSet) (O : (X → hProp) → hProp)
   (X,,O,,is,,(isSetOfOpen_finite_intersection_carac _ is0 is1)).
 
 Definition pr1TopologicatSpace : TopologicalSpace → hSet := pr1.
-Coercion pr1TopologicatSpace : TopologicalSpace >-> hSet.
+#[reversible] Coercion pr1TopologicatSpace : TopologicalSpace >-> hSet.
 
 Definition isOpen {T : TopologicalSpace} : (T → hProp) → hProp := pr1 (pr2 T).
 Definition Open {T : TopologicalSpace} :=
   ∑ O : T → hProp, isOpen O.
 Definition pr1Open {T : TopologicalSpace} : Open → (T → hProp) := pr1.
-Coercion pr1Open : Open >-> Funclass.
+#[reversible] Coercion pr1Open : Open >-> Funclass.
 
 Section Topology_pty.
 
@@ -333,7 +333,7 @@ Definition base_of_neighborhood {T : TopologicalSpace} (x : T) :=
   ∑ (B : (T → hProp) → hProp), is_base_of_neighborhood x B.
 Definition pr1base_of_neighborhood {T : TopologicalSpace} (x : T) :
   base_of_neighborhood x → ((T → hProp) → hProp) := pr1.
-Coercion pr1base_of_neighborhood : base_of_neighborhood >-> Funclass.
+#[reversible] Coercion pr1base_of_neighborhood : base_of_neighborhood >-> Funclass.
 
 Section base_default.
 

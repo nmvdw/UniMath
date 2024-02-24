@@ -1236,7 +1236,7 @@ Notation "X ≃ Y" := (weq X%type Y%type) : type_scope.
 (* written \~- or \simeq in Agda input method *)
 
 Definition pr1weq {X Y : UU} := pr1 : X ≃ Y -> (X -> Y).
-Coercion pr1weq : weq >-> Funclass.
+#[reversible] Coercion pr1weq : weq >-> Funclass.
 
 Definition weqproperty {X Y} (f:X≃Y) : isweq f := pr2 f.
 
@@ -3018,7 +3018,7 @@ Definition make_fibseqstr {X Y Z : UU} (f : X -> Y) (g : Y -> Z) (z : Z)
 Definition fibseqstrtocomplxstr {X Y Z : UU} (f : X -> Y) (g : Y -> Z) (z : Z) :
   fibseqstr f g z -> complxstr f g z
   := @pr1 _ (λ ez : complxstr f g z, isfibseq f g z ez).
-Coercion fibseqstrtocomplxstr : fibseqstr >-> complxstr.
+#[reversible] Coercion fibseqstrtocomplxstr : fibseqstr >-> complxstr.
 
 Definition ezweq {X Y Z : UU} (f : X -> Y) (g : Y -> Z) (z : Z)
            (fs : fibseqstr f g z) : X ≃ hfiber g z
@@ -3870,7 +3870,7 @@ Definition hfsqstrtocommsqstr {X X' Y Z : UU} (f : X -> Y) (f' : X' -> Y)
            (g : Z -> X) (g' : Z -> X') :
   hfsqstr f f' g g' -> commsqstr g' f' g f
   := @pr1 _ (λ h : commsqstr g' f' g f, isweq (commsqZtohfp f f' g g' h)).
-Coercion hfsqstrtocommsqstr : hfsqstr >-> commsqstr.
+#[reversible] Coercion hfsqstrtocommsqstr : hfsqstr >-> commsqstr.
 
 Definition weqZtohfp {X X' Y Z : UU} (f : X -> Y) (f' : X' -> Y) (g : Z -> X)
            (g' : Z -> X') (hf : hfsqstr f f' g g') : Z ≃ hfp f f'

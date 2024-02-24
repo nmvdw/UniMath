@@ -32,7 +32,7 @@ Section CommaObject.
          (π₂ : p --> b₂),
        π₁ · f ==> π₂ · g.
 
-  Coercion comma_cone_obj
+  #[reversible] Coercion comma_cone_obj
            (p : comma_cone)
     : B
     := pr1 p.
@@ -81,7 +81,7 @@ Section CommaObject.
        • (θ^-1 ▹ g)
        • rassociator _ _ _.
 
-  Coercion comma_1cell_1cell
+  #[reversible] Coercion comma_1cell_1cell
            {p q : comma_cone}
            (φ : comma_1cell p q)
     : p --> q
@@ -570,7 +570,7 @@ Definition bicat_with_comma
   : UU
   := ∑ (B : bicat), has_comma B.
 
-Coercion bicat_with_comma_to_bicat
+#[reversible] Coercion bicat_with_comma_to_bicat
          (B : bicat_with_comma)
   : bicat
   := pr1 B.

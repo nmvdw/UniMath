@@ -36,7 +36,7 @@ Definition pseudo_double_setcat
   := ob univalent_cat_of_pseudo_double_setcategory.
 
 (** * 2. Accessors for univalent double categories *)
-Coercion pseudo_double_setcat_to_double_cat
+#[reversible] Coercion pseudo_double_setcat_to_double_cat
          (C : pseudo_double_setcat)
   : double_cat
   := make_double_cat

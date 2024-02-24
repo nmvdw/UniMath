@@ -105,7 +105,7 @@ Definition make_disp_cat_ob_mor
   := obd,, mord.
 
 Definition ob_disp {C: precategory_ob_mor} (D : disp_cat_ob_mor C) : C -> UU := pr1 D.
-Coercion ob_disp : disp_cat_ob_mor >-> Funclass.
+#[reversible] Coercion ob_disp : disp_cat_ob_mor >-> Funclass.
 
 Definition mor_disp {C: precategory_ob_mor} {D : disp_cat_ob_mor C}
   {x y} xx yy (f : x --> y)
@@ -127,7 +127,7 @@ Definition disp_cat_ob_mor_from_disp_cat_data {C: precategory_data}
   : disp_cat_ob_mor C
 := pr1 D.
 
-Coercion disp_cat_ob_mor_from_disp_cat_data :
+#[reversible] Coercion disp_cat_ob_mor_from_disp_cat_data :
  disp_cat_data >-> disp_cat_ob_mor.
 
 Definition id_disp {C: precategory_data} {D : disp_cat_data C} {x:C} (xx : D x)
@@ -185,7 +185,7 @@ Definition disp_cat (C : category) := total2 (disp_cat_axioms C).
 
 Definition disp_cat_data_from_disp_cat {C} (D : disp_cat C)
  := pr1 D : disp_cat_data C.
-Coercion disp_cat_data_from_disp_cat : disp_cat >-> disp_cat_data.
+#[reversible] Coercion disp_cat_data_from_disp_cat : disp_cat >-> disp_cat_data.
 
 Definition make_disp_cat_locally_prop
            {C : category}

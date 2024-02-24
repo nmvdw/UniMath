@@ -94,7 +94,7 @@ Definition disp_psfunctor_ob (FFdata : disp_psfunctor_data)
   : D₂ (F x)
   := pr1 FFdata x xx.
 
-Coercion disp_psfunctor_ob : disp_psfunctor_data >-> Funclass.
+#[reversible] Coercion disp_psfunctor_ob : disp_psfunctor_data >-> Funclass.
 
 Section Projections.
 
@@ -263,7 +263,7 @@ End DispPseudofunctorLaws.
 Definition disp_psfunctor : UU
   := ∑ FF : disp_psfunctor_data, is_disp_psfunctor FF.
 
-Coercion disp_psfunctor_to_disp_psfunctor_data (FF : disp_psfunctor)
+#[reversible] Coercion disp_psfunctor_to_disp_psfunctor_data (FF : disp_psfunctor)
   : disp_psfunctor_data
   := pr1 FF.
 

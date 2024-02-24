@@ -72,12 +72,12 @@ Section Univalent_Categories.
   Definition disp_cat_of_disp_univalent_cat {C} (D : disp_univalent_category C)
     : disp_cat C
     := pr1 D.
-  Coercion disp_cat_of_disp_univalent_cat : disp_univalent_category >-> disp_cat.
+  #[reversible] Coercion disp_cat_of_disp_univalent_cat : disp_univalent_category >-> disp_cat.
 
   Definition disp_univalent_category_is_univalent_disp {C} (D : disp_univalent_category C)
     : is_univalent_disp D
     := pr2 D.
-  Coercion disp_univalent_category_is_univalent_disp : disp_univalent_category >-> is_univalent_disp.
+  #[reversible] Coercion disp_univalent_category_is_univalent_disp : disp_univalent_category >-> is_univalent_disp.
 
   Definition isotoid_disp
              {C} {D : disp_cat C} (D_cat : is_univalent_disp D)

@@ -54,7 +54,7 @@ Local Notation "C  'c×'  D" := (category_binproduct C D)
 
 Definition prebicategory_ob_hom : UU := ∑ C : UU, ∏ a b : C, category.
 
-Coercion bicat_ob (C : prebicategory_ob_hom) : UU := pr1 C.
+#[reversible] Coercion bicat_ob (C : prebicategory_ob_hom) : UU := pr1 C.
 
 Definition homcat {C : prebicategory_ob_hom} (a b : C) : category := pr2 C a b.
 
@@ -71,7 +71,7 @@ Definition prebicategory_id_comp :=
           (∏ a : C, a -1-> a)
         × (∏ a b c : C, ((a -1-> b) c× (b -1-> c)) ⟶ (a -1-> c)).
 
-Coercion prebicategory_ob_hom_from_prebicategory_id_comp (C : prebicategory_id_comp) :
+#[reversible] Coercion prebicategory_ob_hom_from_prebicategory_id_comp (C : prebicategory_id_comp) :
   prebicategory_ob_hom := pr1 C.
 
 Definition identity1 {C : prebicategory_id_comp} (a : C) : a -1-> a := pr1 (pr2 C) a.
@@ -143,7 +143,7 @@ Definition prebicategory_data : UU :=
         × (∏ a b : C, left_unitor_trans_type a b)
         × (∏ a b : C, right_unitor_trans_type a b).         (* Right *)
 
-Coercion prebicategory_id_comp_from_prebicategory_data (C : prebicategory_data)
+#[reversible] Coercion prebicategory_id_comp_from_prebicategory_data (C : prebicategory_data)
   : prebicategory_id_comp
   := pr1 C.
 
@@ -230,7 +230,7 @@ Definition is_prebicategory (C : prebicategory_data) : UU
 
 Definition prebicategory : UU := total2 is_prebicategory.
 
-Coercion prebicategory_data_from_prebicategory (C : prebicategory) : prebicategory_data
+#[reversible] Coercion prebicategory_data_from_prebicategory (C : prebicategory) : prebicategory_data
   := pr1 C.
 
 Definition has_homcats (C : prebicategory) : UU

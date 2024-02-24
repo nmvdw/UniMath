@@ -81,7 +81,7 @@ Definition hProp := total2 (λ X : UU, isaprop X).
 Definition make_hProp (X : UU) (is : isaprop X) : hProp
   := tpair (λ X : UU, isaprop X) X is.
 Definition hProptoType := @pr1 _ _ : hProp -> UU.
-Coercion hProptoType : hProp >-> UU.
+#[reversible] Coercion hProptoType : hProp >-> UU.
 
 Definition propproperty (P : hProp) := pr2 P : isaprop (pr1 P).
 

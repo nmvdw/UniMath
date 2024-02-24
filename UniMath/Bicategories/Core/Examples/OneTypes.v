@@ -27,7 +27,7 @@ Definition make_one_type
   := tpair (λ A, isofhlevel 3 A) X i.
 
 Definition one_type_to_type : one_type -> UU := pr1.
-Coercion one_type_to_type : one_type >-> UU.
+#[reversible] Coercion one_type_to_type : one_type >-> UU.
 
 Definition one_type_isofhlevel
            (X : one_type)

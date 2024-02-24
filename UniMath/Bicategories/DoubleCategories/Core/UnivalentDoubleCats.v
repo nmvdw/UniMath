@@ -61,7 +61,7 @@ Definition univalent_double_cat
   := ob bicat_of_double_cats.
 
 (** * 2. Accessors for univalent double categories *)
-Coercion univalent_double_cat_to_double_cat
+#[reversible] Coercion univalent_double_cat_to_double_cat
          (C : univalent_double_cat)
   : double_cat
   := make_double_cat
@@ -146,7 +146,7 @@ Definition lax_double_functor_ver
   : C₁ ⟶ C₂
   := pr1 (pr111 F).
 
-Coercion lax_double_functor_ver : lax_double_functor >-> functor.
+#[reversible] Coercion lax_double_functor_ver : lax_double_functor >-> functor.
 
 Definition lax_double_functor_ver_mor
            {C₁ C₂ : univalent_double_cat}
@@ -457,13 +457,13 @@ Definition strong_double_functor
   : UU
   := ∑ (F : lax_double_functor C₁ C₂), is_strong_double_functor F.
 
-Coercion strong_double_functor_to_lax
+#[reversible] Coercion strong_double_functor_to_lax
          {C₁ C₂ : univalent_double_cat}
          (F : strong_double_functor C₁ C₂)
   : lax_double_functor C₁ C₂
   := pr1 F.
 
-Coercion strong_double_functor_to_strong
+#[reversible] Coercion strong_double_functor_to_strong
          {C₁ C₂ : univalent_double_cat}
          (F : strong_double_functor C₁ C₂)
   : is_strong_double_functor F
@@ -484,7 +484,7 @@ Definition double_transformation_to_nat_trans
   : F ⟹ G
   := pr1 (pr111 τ).
 
-Coercion double_transformation_to_nat_trans : double_transformation >-> nat_trans.
+#[reversible] Coercion double_transformation_to_nat_trans : double_transformation >-> nat_trans.
 
 Proposition double_transformation_ver_mor
             {C₁ C₂ : univalent_double_cat}

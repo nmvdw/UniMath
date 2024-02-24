@@ -72,7 +72,7 @@ Definition nat_trans_data_from_nat_trans {C C' : precategory_data}
 Definition nat_trans_data_from_nat_trans_funclass {C C' : precategory_data}
   {F F' : functor_data C C'}(a : nat_trans F F') :
   ∏ x : ob C, F x -->  F' x := pr1 a.
-Coercion nat_trans_data_from_nat_trans_funclass : nat_trans >-> Funclass.
+#[reversible] Coercion nat_trans_data_from_nat_trans_funclass : nat_trans >-> Funclass.
 
 Definition nat_trans_ax {C C' : precategory_data}
   {F F' : functor_data C C'} (a : nat_trans F F') :
@@ -325,7 +325,7 @@ Defined.
 Definition nat_iso_to_trans {C D : precategory} {F G : C ⟶ D} (ν : nat_iso F G) : F ⟹ G :=
   pr1 ν.
 
-Coercion nat_iso_to_trans : nat_iso >-> nat_trans.
+#[reversible] Coercion nat_iso_to_trans : nat_iso >-> nat_trans.
 
 (* ⁻¹ *)
 Definition nat_iso_to_trans_inv {C D : precategory} {F G : C ⟶ D} (ν : nat_iso F G) : G ⟹ F :=
@@ -387,7 +387,7 @@ Defined.
 Definition nat_z_iso_to_trans {C D : precategory_data} {F G : C ⟶ D} (μ : nat_z_iso F G) : F ⟹ G :=
   pr1 μ.
 
-Coercion nat_z_iso_to_trans : nat_z_iso >-> nat_trans.
+#[reversible] Coercion nat_z_iso_to_trans : nat_z_iso >-> nat_trans.
 
 Definition pr2_nat_z_iso {C D : precategory_data} {F G : C ⟶ D} (μ : nat_z_iso F G) : is_nat_z_iso μ :=
   pr2 μ.

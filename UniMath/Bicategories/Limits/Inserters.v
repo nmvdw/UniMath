@@ -55,7 +55,7 @@ Section Inserters.
     : inserter_cone
     := i ,, m ,, α.
 
-  Coercion inserter_cone_ob
+  #[reversible] Coercion inserter_cone_ob
            (cone : inserter_cone)
     : B
     := pr1 cone.
@@ -101,7 +101,7 @@ Section Inserters.
     : inserter_1cell cone₁ cone₂
     := k ,, α ,, p.
 
-  Coercion inserter_1cell_mor
+  #[reversible] Coercion inserter_1cell_mor
            {cone₁ cone₂ : inserter_cone}
            (u : inserter_1cell cone₁ cone₂)
     : cone₁ --> cone₂

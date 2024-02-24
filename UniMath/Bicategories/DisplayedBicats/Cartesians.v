@@ -514,7 +514,7 @@ Section WeakCartesians.
     : invertible_2cell (wk_lift_1cell_factor_over Lh) h
     := pr12 Lh.
 
-  Coercion disp_mor_wk_lift_1cell_factor
+  #[reversible] Coercion disp_mor_wk_lift_1cell_factor
            {c : B}
            {cc : D c}
            {h : c --> a}
@@ -591,7 +591,7 @@ Section WeakCartesians.
     : UU
     := iscontr (wk_lift_2cell_factor_type σσ Lh Lh').
 
-  Coercion disp_cell_wk_lift_2cell_factor
+  #[reversible] Coercion disp_cell_wk_lift_2cell_factor
            {c : B}
            {cc : D c}
            {h h' : c --> a}

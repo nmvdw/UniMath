@@ -95,7 +95,7 @@ Section def_coequalizers.
   (** Returns the coequalizer object. *)
   Definition CoequalizerObject {y z : C} {f g : y --> z} (E : Coequalizer f g) :
     C := pr1 (pr1 E).
-  Coercion CoequalizerObject : Coequalizer >-> ob.
+  #[reversible] Coercion CoequalizerObject : Coequalizer >-> ob.
 
   (** Returns the coequalizer arrow. *)
   Definition CoequalizerArrow {y z : C} {f g : y --> z} (E : Coequalizer f g) :

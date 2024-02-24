@@ -116,7 +116,7 @@ Defined.
 
 Definition contr_cat : UU := ∑ C : category, iscontr (ob C).
 Definition contr_cat_cat : contr_cat -> category := pr1.
-Coercion contr_cat_cat : contr_cat >-> category.
+#[reversible] Coercion contr_cat_cat : contr_cat >-> category.
 Definition contr_cat_iscontr : ∏ C : contr_cat, iscontr (ob C) := pr2.
 Definition contr_cat_center (C : contr_cat) : ob C :=
   iscontrpr1 (contr_cat_iscontr C).

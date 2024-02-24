@@ -59,7 +59,7 @@ Definition make_monoid :
   tpair (λ X : setwithbinop, ismonoidop (@op X)).
 
 Definition pr1monoid : monoid -> setwithbinop := @pr1 _ _.
-Coercion pr1monoid : monoid >-> setwithbinop.
+#[reversible] Coercion pr1monoid : monoid >-> setwithbinop.
 
 Definition assocax (X : monoid) : isassoc (@op X) := pr1 (pr2 X).
 
@@ -138,7 +138,7 @@ Definition pr1monoidfun (X Y : monoid) : monoidfun X Y -> (X -> Y) := @pr1 _ _.
 
 Definition monoidfuntobinopfun (X Y : monoid) : monoidfun X Y -> binopfun X Y :=
   λ f, make_binopfun (pr1 f) (pr1 (pr2 f)).
-Coercion monoidfuntobinopfun : monoidfun >-> binopfun.
+#[reversible] Coercion monoidfuntobinopfun : monoidfun >-> binopfun.
 
 Definition monoidfununel {X Y : monoid} (f : monoidfun X Y) : f (unel X) = (unel Y) := pr2 (pr2 f).
 
@@ -218,15 +218,15 @@ Definition make_monoidmono {X Y : monoid} (f : incl X Y) (is : ismonoidfun f) :
   monoidmono X Y := tpair _  f is.
 
 Definition pr1monoidmono (X Y : monoid) : monoidmono X Y -> incl X Y := @pr1 _ _.
-Coercion pr1monoidmono : monoidmono >-> incl.
+#[reversible] Coercion pr1monoidmono : monoidmono >-> incl.
 
 Definition monoidincltomonoidfun (X Y : monoid) :
   monoidmono X Y -> monoidfun X Y := λ f, monoidfunconstr (pr2 f).
-Coercion monoidincltomonoidfun : monoidmono >-> monoidfun.
+#[reversible] Coercion monoidincltomonoidfun : monoidmono >-> monoidfun.
 
 Definition monoidmonotobinopmono (X Y : monoid) : monoidmono X Y -> binopmono X Y :=
   λ f, make_binopmono (pr1 f) (pr1 (pr2 f)).
-Coercion monoidmonotobinopmono : monoidmono >-> binopmono.
+#[reversible] Coercion monoidmonotobinopmono : monoidmono >-> binopmono.
 
 Definition monoidmonocomp {X Y Z : monoid}
            (f : monoidmono X Y) (g : monoidmono Y Z) : monoidmono X Z :=
@@ -238,15 +238,15 @@ Definition make_monoidiso {X Y : monoid} (f : X ≃ Y) (is : ismonoidfun f) :
   monoidiso X Y := tpair _  f is.
 
 Definition pr1monoidiso (X Y : monoid) : monoidiso X Y -> X ≃ Y := @pr1 _ _.
-Coercion pr1monoidiso : monoidiso >-> weq.
+#[reversible] Coercion pr1monoidiso : monoidiso >-> weq.
 
 Definition monoidisotomonoidmono (X Y : monoid) : monoidiso X Y -> monoidmono X Y :=
   λ f, make_monoidmono (weqtoincl (pr1 f)) (pr2 f).
-Coercion monoidisotomonoidmono : monoidiso >-> monoidmono.
+#[reversible] Coercion monoidisotomonoidmono : monoidiso >-> monoidmono.
 
 Definition monoidisotobinopiso (X Y : monoid) : monoidiso X Y -> binopiso X Y :=
   λ f, make_binopiso (pr1 f) (pr1 (pr2 f)).
-Coercion monoidisotobinopiso : monoidiso >-> binopiso.
+#[reversible] Coercion monoidisotobinopiso : monoidiso >-> binopiso.
 
 Definition monoidiso_paths {X Y : monoid} (f g : monoidiso X Y) (e : pr1 f = pr1 g) : f = g.
 Proof.
@@ -404,7 +404,7 @@ Defined.
 
 Definition submonoidtosubsetswithbinop (X : monoid) : submonoid X -> @subsetswithbinop X :=
   λ A : _, make_subsetswithbinop (pr1 A) (pr1 (pr2 A)).
-Coercion submonoidtosubsetswithbinop : submonoid >-> subsetswithbinop.
+#[reversible] Coercion submonoidtosubsetswithbinop : submonoid >-> subsetswithbinop.
 
 Lemma ismonoidcarrier {X : monoid} (A : submonoid X) : ismonoidop (@op A).
 Proof.
@@ -421,7 +421,7 @@ Defined.
 
 Definition carrierofsubmonoid {X : monoid} (A : submonoid X) : monoid.
 Proof. split with A. apply ismonoidcarrier. Defined.
-Coercion carrierofsubmonoid : submonoid >-> monoid.
+#[reversible] Coercion carrierofsubmonoid : submonoid >-> monoid.
 
 Lemma intersection_submonoid :
   forall {X : monoid} {I : UU} (S : I -> hsubtype X)
@@ -669,7 +669,7 @@ Definition make_abmonoid :
 
 Definition abmonoidtomonoid : abmonoid -> monoid :=
   λ X : _, make_monoid (pr1 X) (pr1 (pr2 X)).
-Coercion abmonoidtomonoid : abmonoid >-> monoid.
+#[reversible] Coercion abmonoidtomonoid : abmonoid >-> monoid.
 
 Definition commax (X : abmonoid) : iscomm (@op X) := pr2 (pr2 X).
 
@@ -884,7 +884,7 @@ Definition carrierofsubabmonoid {X : abmonoid} (A : subabmonoid X) : abmonoid.
 Proof.
   unfold subabmonoid in A. split with A. apply isabmonoidcarrier.
 Defined.
-Coercion carrierofsubabmonoid : subabmonoid >-> abmonoid.
+#[reversible] Coercion carrierofsubabmonoid : subabmonoid >-> abmonoid.
 
 Definition subabmonoid_incl {X : abmonoid} (A : subabmonoid X) : monoidfun A X :=
 submonoid_incl A.

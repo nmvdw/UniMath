@@ -282,7 +282,7 @@ Definition module (R : ring) : UU := ∑ G, module_struct R G.
 
 Definition pr1module {R : ring} (M : module R) : abgr := pr1 M.
 
-Coercion pr1module : module >-> abgr.
+#[reversible] Coercion pr1module : module >-> abgr.
 
 Definition pr2module {R : ring} (M : module R) : module_struct R (pr1module M) := pr2 M.
 
@@ -434,7 +434,7 @@ Definition make_linearfun {R : ring} {M N : module R} (f : M -> N) (is : islinea
 
 Definition pr1linearfun {R : ring} {M N : module R} (f : linearfun M N) : M -> N := pr1 f.
 
-Coercion pr1linearfun : linearfun >-> Funclass.
+#[reversible] Coercion pr1linearfun : linearfun >-> Funclass.
 
 Definition linearfun_islinear {R} {M N : module R} (f : linearfun M N) :
   islinear f := pr2 f.
@@ -513,7 +513,7 @@ Section accessors.
     make_linearfun pr1modulefun modulefun_to_islinear.
 End accessors.
 
-Coercion pr1modulefun : modulefun >-> Funclass.
+#[reversible] Coercion pr1modulefun : modulefun >-> Funclass.
 
 Lemma ismodulefun_comp {R} {M N P : module R} (f : R-mod(M,N)) (g : R-mod(N,P)) :
   ismodulefun (g ∘ f)%functions.
@@ -718,8 +718,8 @@ Section accessors_moduleiso.
     (tpair _ (pr1weq moduleiso_to_weq) (pr2 f)).
 End accessors_moduleiso.
 
-Coercion moduleiso_to_weq : moduleiso >-> weq.
-Coercion moduleiso_to_modulefun : moduleiso >-> modulefun.
+#[reversible] Coercion moduleiso_to_weq : moduleiso >-> weq.
+#[reversible] Coercion moduleiso_to_modulefun : moduleiso >-> modulefun.
 
 Definition make_moduleiso {R} {M N : module R} f is : moduleiso M N := tpair _ f is.
 

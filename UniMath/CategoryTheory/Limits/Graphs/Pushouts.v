@@ -127,7 +127,7 @@ Section def_po.
 
   Definition PushoutObject {a b c : C} {f : C⟦a, b⟧} {g : C⟦a, c⟧}:
     Pushout f g -> C := λ H, colim H.
-  (* Coercion PushoutObject : Pushout >-> ob. *)
+  (* #[reversible] Coercion PushoutObject : Pushout >-> ob. *)
 
   Definition PushoutIn1 {a b c : C} {f : C⟦a, b⟧} {g : C⟦a, c⟧} (Po : Pushout f g) :
     C⟦b, colim Po⟧ := colimIn Po Two.

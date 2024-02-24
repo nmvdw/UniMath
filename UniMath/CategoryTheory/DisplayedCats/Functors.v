@@ -39,7 +39,7 @@ Section Disp_Functor.
     : D (F x)
     := pr1 FF x xx.
 
-  Coercion disp_functor_on_objects : disp_functor_data >-> Funclass.
+  #[reversible] Coercion disp_functor_on_objects : disp_functor_data >-> Funclass.
 
   (** Unfortunately, the coercion loses implicitness of the {x:C'} argument:
   we have to write [ FF _ xx ] instead of just [ FF xx ].
@@ -86,7 +86,7 @@ Section Disp_Functor.
     : disp_functor_data F D' D
     := pr1 FF.
 
-  Coercion disp_functor_data_from_disp_functor
+  #[reversible] Coercion disp_functor_data_from_disp_functor
     : disp_functor >-> disp_functor_data.
 
   Definition disp_functor_id {C' C} {F} {D' : disp_cat C'} {D : disp_cat C}

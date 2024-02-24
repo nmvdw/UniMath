@@ -73,7 +73,7 @@ Section BiadjunctionProjections.
     := pr22 R.
 End BiadjunctionProjections.
 
-Coercion biadj_right_adjoint : left_biadj_unit_counit >-> psfunctor.
+#[reversible] Coercion biadj_right_adjoint : left_biadj_unit_counit >-> psfunctor.
 
 Section BiadjunctionTriangleLaws.
   Context {B₁ B₂ : bicat}
@@ -151,7 +151,7 @@ Section BiadjunctionDataProjections.
     := pr22 R.
 End BiadjunctionDataProjections.
 
-Coercion left_biadj_data_to_left_biadj_unit_counit
+#[reversible] Coercion left_biadj_data_to_left_biadj_unit_counit
   : left_biadj_data >-> left_biadj_unit_counit.
 
 Definition make_biadj_unit_counit

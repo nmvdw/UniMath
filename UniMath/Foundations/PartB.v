@@ -699,13 +699,13 @@ Definition incl (X Y : UU) := total2 (fun f : X -> Y => isincl f).
 Definition make_incl {X Y : UU} (f : X -> Y) (is : isincl f) :
   incl X Y := tpair _ f is.
 Definition pr1incl (X Y : UU) : incl X Y -> (X -> Y) := @pr1 _ _.
-Coercion pr1incl : incl >-> Funclass.
+#[reversible] Coercion pr1incl : incl >-> Funclass.
 
 Lemma isinclweq (X Y : UU) (f : X -> Y) : isweq f -> isincl f.
 Proof.
   intros is. apply (isofhlevelfweq 1 (make_weq _ is)).
 Defined.
-Coercion isinclweq : isweq >-> isincl.
+#[reversible] Coercion isinclweq : isweq >-> isincl.
 
 Lemma isofhlevelfsnincl (n : nat) {X Y : UU} (f : X -> Y) (is : isincl f) :
   isofhlevelf (S n) f.
@@ -1044,7 +1044,7 @@ Defined.
 Definition isdecprop (P:UU) := (P ⨿ ¬P) × isaprop P.
 
 Definition isdecproptoisaprop ( X : UU ) ( is : isdecprop X ) : isaprop X := pr2 is.
-Coercion isdecproptoisaprop : isdecprop >-> isaprop .
+#[reversible] Coercion isdecproptoisaprop : isdecprop >-> isaprop .
 
 Lemma isdecpropif ( X : UU ) : isaprop X -> X ⨿ ¬ X -> isdecprop X.
 Proof.

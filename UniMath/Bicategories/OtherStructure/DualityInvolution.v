@@ -560,7 +560,7 @@ Definition duality_involution
   := ∑ (d : duality_involution_data L),
      duality_involution_laws d.
 
-Coercion duality_involution_to_data
+#[reversible] Coercion duality_involution_to_data
          {B : bicat}
          {L : psfunctor (op2_bicat B) B}
          (d : duality_involution L)

@@ -20,7 +20,7 @@ Section def_precategory_with_binops.
   Definition precategoryWithBinOps : UU := ∑ C : category, precategoryWithBinOpsData C.
 
   Definition precategoryWithBinOps_precategory (P : precategoryWithBinOps) : category := pr1 P.
-  Coercion precategoryWithBinOps_precategory : precategoryWithBinOps >-> category.
+  #[reversible] Coercion precategoryWithBinOps_precategory : precategoryWithBinOps >-> category.
 
   Definition make_precategoryWithBinOps (C : category) (H : precategoryWithBinOpsData C) :
     precategoryWithBinOps := tpair _ C H.

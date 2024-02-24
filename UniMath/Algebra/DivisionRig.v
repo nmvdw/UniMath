@@ -69,7 +69,7 @@ Definition isDivRig_isrdistr {X : rig} (is : isDivRig X) : isrdistr (isDivRig_pl
 Definition DivRig : UU :=
   ∑ (X : rig), isDivRig X.
 Definition pr1DivRig (F : DivRig) : hSet := pr1 F.
-Coercion pr1DivRig : DivRig >-> hSet.
+#[reversible] Coercion pr1DivRig : DivRig >-> hSet.
 
 Definition zeroDivRig {F : DivRig} : F := isDivRig_zero (pr2 F).
 Definition oneDivRig {F : DivRig} : F := isDivRig_one (pr2 F).
@@ -143,7 +143,7 @@ End DivRig_pty.
 Definition CommDivRig : UU :=
   ∑ (X : commrig), isDivRig X.
 Definition CommDivRig_DivRig (F : CommDivRig) : DivRig := commrigtorig (pr1 F) ,, pr2 F.
-Coercion CommDivRig_DivRig : CommDivRig >-> DivRig.
+#[reversible] Coercion CommDivRig_DivRig : CommDivRig >-> DivRig.
 
 Section CommDivRig_pty.
 

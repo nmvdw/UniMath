@@ -30,7 +30,7 @@ Section Def.
             (D : reflective_subcategory) : hsubtype C :=
     pr1 D.
 
-  Coercion reflective_subcategory_to_hsubtype :
+  #[reversible] Coercion reflective_subcategory_to_hsubtype :
     reflective_subcategory >-> hsubtype.
 
   Definition reflective_subcategory_to_precategory :
@@ -38,7 +38,7 @@ Section Def.
     intro D; exact (full_sub_precategory D).
   Defined.
 
-  Coercion reflective_subcategory_to_precategory :
+  #[reversible] Coercion reflective_subcategory_to_precategory :
     reflective_subcategory >-> precategory.
 
   Definition localization (R : reflective_subcategory) :

@@ -85,7 +85,7 @@ Section Category_of_Monoids.
 
   Definition monoid_to_monoid_data {x : C} (m : monoid x)
     : monoid_data x := pr1 m.
-  Coercion monoid_to_monoid_data : monoid >-> monoid_data.
+  #[reversible] Coercion monoid_to_monoid_data : monoid >-> monoid_data.
 
   Definition monoid_to_monoid_laws {x : C} (m : monoid x)
     : monoid_laws m := pr2 m.

@@ -71,7 +71,7 @@ Definition indexed_cat_on_ob
   : univalent_category
   := pr1 F x.
 
-Coercion indexed_cat_on_ob : indexed_cat_data >-> Funclass.
+#[reversible] Coercion indexed_cat_on_ob : indexed_cat_data >-> Funclass.
 
 Definition indexed_cat_on_mor
            {C : category}
@@ -168,7 +168,7 @@ Definition make_indexed_cat
   : indexed_cat C
   := F ,, HF₁ ,, HF₂.
 
-Coercion indexed_cat_to_data
+#[reversible] Coercion indexed_cat_to_data
          {C : category}
          (F : indexed_cat C)
   : indexed_cat_data C

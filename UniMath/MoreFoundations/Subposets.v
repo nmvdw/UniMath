@@ -6,7 +6,7 @@ Definition Subposet' (X:Poset) := ∑ (S:Poset) (f:posetmorphism S X), isincl f.
 
 Definition Subposet'_to_Poset {X:Poset} (S:Subposet' X) := pr1 S.
 
-Coercion Subposet'_to_Poset : Subposet' >-> Poset.
+#[reversible] Coercion Subposet'_to_Poset : Subposet' >-> Poset.
 
 Definition Subposet_to_Subposet' {X:Poset} : Subposet X -> Subposet' X.
 Proof.
@@ -30,7 +30,7 @@ Proof.
   intros S x. set (f := pr1 (pr2 S)); simpl in f. exact (nonempty (hfiber f x)).
 Defined.
 
-Coercion Subposet_to_Subposet' : Subposet >-> Subposet'.
+#[reversible] Coercion Subposet_to_Subposet' : Subposet >-> Subposet'.
 
 Definition Subposet'_equiv_Subposet (X:Poset) : Subposet' X ≃ Subposet X.
 Proof.

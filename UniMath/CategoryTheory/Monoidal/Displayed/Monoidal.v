@@ -153,7 +153,7 @@ Section DisplayedMonoidalCategories.
     : disp_tensor D M
     := pr1 DMD.
 
-  Coercion disp_monoidal_tensor : disp_monoidal_data >-> disp_tensor.
+  #[reversible] Coercion disp_monoidal_tensor : disp_monoidal_data >-> disp_tensor.
 
   Definition disp_monoidal_unit
              {C : category}
@@ -735,7 +735,7 @@ Section DisplayedMonoidalCategories.
     : disp_monoidal_data D M
     := pr1 DM.
 
-  Coercion disp_monoidal_mondata : disp_monoidal >-> disp_monoidal_data.
+  #[reversible] Coercion disp_monoidal_mondata : disp_monoidal >-> disp_monoidal_data.
 
   Definition disp_monoidal_monlaws
              {C : category}

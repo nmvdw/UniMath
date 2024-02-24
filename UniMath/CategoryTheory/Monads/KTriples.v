@@ -43,7 +43,7 @@ Definition Kleisli_Data : UU := ∑ T : C → C,
 (* ----- Projections ----- *)
 
 Definition Kleisli_Data_ob (T: Kleisli_Data) (c : C) : C := pr1 T c.
-Coercion Kleisli_Data_ob : Kleisli_Data >-> Funclass.
+#[reversible] Coercion Kleisli_Data_ob : Kleisli_Data >-> Funclass.
 
 Definition η (T : Kleisli_Data) : ∏ a : C, a --> T a := pr1 (pr2 T).
 
@@ -78,8 +78,8 @@ Definition η_bind {T : Kleisli_Data} (H : Kleisli_Laws T) :
 Definition KleisliMonad : UU :=
   ∑ (T : Kleisli_Data), Kleisli_Laws T.
 (* argument [C] will be set as not implicit after the end of the section *)
-Coercion Kleisli_Data_from_Kleisli (T : KleisliMonad) : Kleisli_Data := pr1 T.
-Coercion kleisli_laws (T : KleisliMonad) : Kleisli_Laws (pr1 T) := pr2 T.
+#[reversible] Coercion Kleisli_Data_from_Kleisli (T : KleisliMonad) : Kleisli_Data := pr1 T.
+#[reversible] Coercion kleisli_laws (T : KleisliMonad) : Kleisli_Laws (pr1 T) := pr2 T.
 
 End Kleisli_defn.
 

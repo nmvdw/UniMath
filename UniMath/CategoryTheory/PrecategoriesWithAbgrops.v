@@ -32,7 +32,7 @@ Section def_precategory_with_abgrops.
   Definition categoryWithAbgrops_precategoryWithBinOps (PB : categoryWithAbgrops) :
     precategoryWithBinOps := (pr1 PB).
 
-  Coercion categoryWithAbgrops_precategoryWithBinOps :
+  #[reversible] Coercion categoryWithAbgrops_precategoryWithBinOps :
     categoryWithAbgrops >-> precategoryWithBinOps.
 
   Definition make_categoryWithAbgrops (PB : precategoryWithBinOps)

@@ -68,10 +68,10 @@ Proof.
 Defined.
 
 
-Coercion ConeData_from_Cone : Cone >-> ConeData.
+#[reversible] Coercion ConeData_from_Cone : Cone >-> ConeData.
 
 Definition ConeProp_from_Cone (a : Cone) : ConeProp a := pr2 a.
-Coercion ConeProp_from_Cone : Cone >-> ConeProp.
+#[reversible] Coercion ConeProp_from_Cone : Cone >-> ConeProp.
 
 
 Lemma cone_prop (a : Cone) :

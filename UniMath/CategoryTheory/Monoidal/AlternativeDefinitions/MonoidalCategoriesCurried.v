@@ -54,19 +54,19 @@ Local Open Scope cat.
           (leftunitor_data T I) × (rightunitor_data T I) × (associator_data T).
 
 Definition tensordata_from_monoidalcatdata {C : category} (MD : monoidalcategory_data C) : tensor_data C := (pr1 MD).
-Coercion tensordata_from_monoidalcatdata : monoidalcategory_data >-> tensor_data.
+#[reversible] Coercion tensordata_from_monoidalcatdata : monoidalcategory_data >-> tensor_data.
 
 Definition unit_from_monoidalcatdata {C : category} (MD : monoidalcategory_data C) : C := (pr1 (pr2 MD)).
-Coercion unit_from_monoidalcatdata : monoidalcategory_data >-> ob.
+#[reversible] Coercion unit_from_monoidalcatdata : monoidalcategory_data >-> ob.
 
 Definition leftunitordata_from_monoidalcatdata {C : category} (MD : monoidalcategory_data C) : leftunitor_data MD MD := (pr1 (pr2 (pr2 MD))).
-Coercion leftunitordata_from_monoidalcatdata : monoidalcategory_data >-> leftunitor_data.
+#[reversible] Coercion leftunitordata_from_monoidalcatdata : monoidalcategory_data >-> leftunitor_data.
 
 Definition rightunitordata_from_monoidalcatdata {C : category} (MD : monoidalcategory_data C) : rightunitor_data MD MD := (pr1 (pr2 (pr2 (pr2 MD)))).
-Coercion rightunitordata_from_monoidalcatdata : monoidalcategory_data >-> rightunitor_data.
+#[reversible] Coercion rightunitordata_from_monoidalcatdata : monoidalcategory_data >-> rightunitor_data.
 
 Definition associatordata_from_monoidalcatdata {C : category} (MD : monoidalcategory_data C) : associator_data MD := (pr2 (pr2 (pr2 (pr2 MD)))).
-Coercion associatordata_from_monoidalcatdata : monoidalcategory_data >-> associator_data.
+#[reversible] Coercion associatordata_from_monoidalcatdata : monoidalcategory_data >-> associator_data.
 
 
 (** Axioms **)
@@ -118,40 +118,40 @@ Definition monoidal_laws {C : category} (MD : monoidalcategory_data C) : UU :=
                                                     (triangle_identity MD MD MD) × (pentagon_identity MD).
 
 Definition tensorfunctorialityid_from_monoidallaws {C : category} {MD : monoidalcategory_data C} (ML : monoidal_laws MD) : tensorfunctor_id MD := pr1 ML.
-Coercion tensorfunctorialityid_from_monoidallaws : monoidal_laws >-> tensorfunctor_id.
+#[reversible] Coercion tensorfunctorialityid_from_monoidallaws : monoidal_laws >-> tensorfunctor_id.
 
 Definition tensorfunctorialitycomp_from_monoidallaws {C : category} {MD : monoidalcategory_data C} (ML : monoidal_laws MD) : tensorfunctor_comp MD := pr1 (pr2 ML).
-Coercion tensorfunctorialitycomp_from_monoidallaws : monoidal_laws >-> tensorfunctor_comp.
+#[reversible] Coercion tensorfunctorialitycomp_from_monoidallaws : monoidal_laws >-> tensorfunctor_comp.
 
 Definition associatornaturality_from_monoidallaws {C : category} {MD : monoidalcategory_data C} (ML : monoidal_laws MD) : associator_naturality MD := pr1 (pr2 (pr2 ML)).
-Coercion associatornaturality_from_monoidallaws : monoidal_laws >-> associator_naturality.
+#[reversible] Coercion associatornaturality_from_monoidallaws : monoidal_laws >-> associator_naturality.
 
 Definition associatorisiso_from_monoidallaws {C : category} {MD : monoidalcategory_data C} (ML : monoidal_laws MD) : associator_is_natiso MD := pr1 (pr2 (pr2 (pr2 ML))).
-Coercion associatorisiso_from_monoidallaws : monoidal_laws >-> associator_is_natiso.
+#[reversible] Coercion associatorisiso_from_monoidallaws : monoidal_laws >-> associator_is_natiso.
 
 Definition leftunitornaturality_from_monoidallaws {C : category} {MD : monoidalcategory_data C} (ML : monoidal_laws MD) : leftunitor_naturality MD := pr1 (pr2 (pr2 (pr2 (pr2 ML)))).
-Coercion leftunitornaturality_from_monoidallaws : monoidal_laws >-> leftunitor_naturality.
+#[reversible] Coercion leftunitornaturality_from_monoidallaws : monoidal_laws >-> leftunitor_naturality.
 
 Definition leftunitorisiso_from_monoidallaws {C : category} {MD : monoidalcategory_data C} (ML : monoidal_laws MD) : leftunitor_is_natiso MD := pr1 (pr2 (pr2 (pr2 (pr2 (pr2 ML))))).
-Coercion leftunitorisiso_from_monoidallaws : monoidal_laws >-> leftunitor_is_natiso.
+#[reversible] Coercion leftunitorisiso_from_monoidallaws : monoidal_laws >-> leftunitor_is_natiso.
 
 Definition rightunitornaturality_from_monoidallaws {C : category} {MD : monoidalcategory_data C} (ML : monoidal_laws MD) : rightunitor_naturality MD := pr1 (pr2 (pr2 (pr2 (pr2 (pr2 (pr2 ML)))))).
-Coercion rightunitornaturality_from_monoidallaws : monoidal_laws >-> rightunitor_naturality.
+#[reversible] Coercion rightunitornaturality_from_monoidallaws : monoidal_laws >-> rightunitor_naturality.
 
 Definition rightunitorisiso_from_monoidallaws {C : category} {MD : monoidalcategory_data C} (ML : monoidal_laws MD) : rightunitor_is_natiso MD := pr1 (pr2 (pr2 (pr2 (pr2 (pr2 (pr2 (pr2 ML))))))).
-Coercion rightunitorisiso_from_monoidallaws : monoidal_laws >-> rightunitor_is_natiso.
+#[reversible] Coercion rightunitorisiso_from_monoidallaws : monoidal_laws >-> rightunitor_is_natiso.
 
 Definition triangleidentity_from_monoidallaws {C : category} {MD : monoidalcategory_data C} (ML : monoidal_laws MD) : triangle_identity MD MD MD := pr1 (pr2 (pr2 (pr2 (pr2 (pr2 (pr2 (pr2 (pr2 ML)))))))).
-Coercion triangleidentity_from_monoidallaws : monoidal_laws >-> triangle_identity.
+#[reversible] Coercion triangleidentity_from_monoidallaws : monoidal_laws >-> triangle_identity.
 
 Definition pentagonidentity_from_monoidallaws {C : category} {MD : monoidalcategory_data C} (ML : monoidal_laws MD) : pentagon_identity MD := pr2 (pr2 (pr2 (pr2 (pr2 (pr2 (pr2 (pr2 (pr2 ML)))))))).
-Coercion pentagonidentity_from_monoidallaws : monoidal_laws >-> pentagon_identity.
+#[reversible] Coercion pentagonidentity_from_monoidallaws : monoidal_laws >-> pentagon_identity.
 
 Definition monoidalcategory (C : category) : UU :=
   ∑ (MD : monoidalcategory_data C), (monoidal_laws MD).
 
 Definition monoidalcategorydata_from_monoidalcategory {C : category} (M : monoidalcategory C) : monoidalcategory_data C := pr1 M.
-Coercion monoidalcategorydata_from_monoidalcategory : monoidalcategory >-> monoidalcategory_data.
+#[reversible] Coercion monoidalcategorydata_from_monoidalcategory : monoidalcategory >-> monoidalcategory_data.
 
 Definition monoidallaws_from_monoidalcategory {C : category} (M : monoidalcategory C) : monoidal_laws M := pr2 M.
-Coercion monoidallaws_from_monoidalcategory : monoidalcategory >-> monoidal_laws.
+#[reversible] Coercion monoidallaws_from_monoidalcategory : monoidalcategory >-> monoidal_laws.

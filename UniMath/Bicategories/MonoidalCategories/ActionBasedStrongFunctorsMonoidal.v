@@ -1953,7 +1953,7 @@ Section Main.
       Definition parameterized_distributivity_bicat_nat : UU := H ⟹ H'.
       Definition parameterized_distributivity_bicat_nat_funclass (δ : parameterized_distributivity_bicat_nat):
         ∏ v : ob (Mon_V), H v --> H' v := pr1 δ.
-      Coercion parameterized_distributivity_bicat_nat_funclass : parameterized_distributivity_bicat_nat >-> Funclass.
+      #[reversible] Coercion parameterized_distributivity_bicat_nat_funclass : parameterized_distributivity_bicat_nat >-> Funclass.
 
       Context (δ: parameterized_distributivity_bicat_nat).
 

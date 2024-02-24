@@ -51,7 +51,7 @@ Definition profunctor_nat_trans_point
   : Q y x
   := pr1 τ (y ,, x) h.
 
-Coercion profunctor_nat_trans_point
+#[reversible] Coercion profunctor_nat_trans_point
   : profunctor_nat_trans >-> Funclass.
 
 Proposition profunctor_nat_trans_natural
@@ -311,14 +311,14 @@ Definition make_profunctor_nat_iso
   : profunctor_nat_iso P Q
   := τ ,, Hτ.
 
-Coercion profunctor_nat_iso_to_profunctor_nat_trans
+#[reversible] Coercion profunctor_nat_iso_to_profunctor_nat_trans
          {C₁ C₂ : category}
          {P Q : profunctor C₁ C₂}
          (τ : profunctor_nat_iso P Q)
   : profunctor_nat_trans P Q
   := pr1 τ.
 
-Coercion profunctor_nat_iso_to_is_profunctor_nat_iso
+#[reversible] Coercion profunctor_nat_iso_to_is_profunctor_nat_iso
          {C₁ C₂ : category}
          {P Q : profunctor C₁ C₂}
          (τ : profunctor_nat_iso P Q)

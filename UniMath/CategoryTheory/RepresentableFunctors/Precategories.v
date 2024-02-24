@@ -87,7 +87,7 @@ Definition embeddingToFunctor (B C : category) :
   categoryEmbedding B C -> B ⟶ C
   := pr1.
 
-Coercion embeddingToFunctor : categoryEmbedding >-> functor.
+#[reversible] Coercion embeddingToFunctor : categoryEmbedding >-> functor.
 
 Definition categoryIsomorphism (B C : category) :=
   ∑ F:categoryEmbedding B C, isweq ((pr1 F : B ⟶ C) : ob B -> ob C).
@@ -96,7 +96,7 @@ Definition isomorphismToEmbedding (B C:category) :
   categoryIsomorphism B C -> categoryEmbedding B C
   := pr1.
 
-Coercion isomorphismToEmbedding : categoryIsomorphism >-> categoryEmbedding.
+#[reversible] Coercion isomorphismToEmbedding : categoryIsomorphism >-> categoryEmbedding.
 
 Definition isomorphismOnMor {B C:category} (F:categoryIsomorphism B C)
            (b b':B) : Hom B b b'  ≃  Hom C (F b) (F b')

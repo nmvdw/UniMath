@@ -83,7 +83,7 @@ Section DisplayedNatTrans.
     : FG _ _ xy -->[ τ x ][ θ y ] FG' _ _ xy
     := pr1 τθ x y xy.
 
-  Coercion twosided_disp_nat_trans_ob : twosided_disp_nat_trans >-> Funclass.
+  #[reversible] Coercion twosided_disp_nat_trans_ob : twosided_disp_nat_trans >-> Funclass.
 
   Proposition twosided_disp_nat_trans_ax
               (τθ : twosided_disp_nat_trans)

@@ -93,7 +93,7 @@ Definition lambda_calculus_data : UU := ∑
   ).
 
 Definition lambda_calculus_data_to_function (L : lambda_calculus_data) : nat → hSet := pr1 L.
-Coercion lambda_calculus_data_to_function : lambda_calculus_data >-> Funclass.
+#[reversible] Coercion lambda_calculus_data_to_function : lambda_calculus_data >-> Funclass.
 
 Definition var {L : lambda_calculus_data} {n : nat} (i : stn n) : L n := pr12 L n i.
 Definition app {L : lambda_calculus_data} {n : nat} (l l' : L n) : L n := pr122 L n l l'.
@@ -320,7 +320,7 @@ Definition is_lambda_calculus (L : lambda_calculus_data) : UU :=
 
 Definition lambda_calculus : UU := ∑ L, is_lambda_calculus L.
 
-Coercion lambda_calculus_to_lambda_calculus_data (L : lambda_calculus)
+#[reversible] Coercion lambda_calculus_to_lambda_calculus_data (L : lambda_calculus)
   : lambda_calculus_data
   := pr1 L.
 

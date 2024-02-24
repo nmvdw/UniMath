@@ -57,7 +57,7 @@ Definition object_map_kt
   : ob C → ob C
   := pr1 M.
 
-Coercion object_map_kt : kleisli_triple >-> Funclass.
+#[reversible] Coercion object_map_kt : kleisli_triple >-> Funclass.
 
 Section Projections.
   Context {C : category}

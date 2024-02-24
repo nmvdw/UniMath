@@ -90,7 +90,7 @@ Definition universalElement {C:category} {X:[C^op,HSET]} (r:Representation X) :
   universalObject r ⇒ X
   := pr1 (pr2 r).
 
-Coercion universalElement : Representation >-> pr1hSet.
+#[reversible] Coercion universalElement : Representation >-> pr1hSet.
 
 Definition universalProperty {C:category} {X:[C^op,HSET]} (r:Representation X) (c:C) :
   c --> universalObject r ≃ (c ⇒ X)

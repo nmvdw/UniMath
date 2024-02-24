@@ -125,7 +125,7 @@ Section AsDisplayedCategory.
     intro sη.
     exact (pr1 sη).
   Defined.
-  Coercion Strong_Functor_Category_Mor_to_nat_trans : Strong_Functor_Category_Mor >-> nat_trans.
+  #[reversible] Coercion Strong_Functor_Category_Mor_to_nat_trans : Strong_Functor_Category_Mor >-> nat_trans.
 
   Lemma Strong_Functor_Category_Mor_eq (FF GG : actionbased_strong_functor Mon_V actn actn')
         (sη sη' : Strong_Functor_Category_Mor FF GG) :

@@ -129,7 +129,7 @@ Section BinaryCoproduct.
   Definition actegory_bincoprod_distributor : UU := bifunctor_bincoprod_distributor BCP BCP Act.
 
   Definition actegory_bincoprod_distributor_to_data (δ : actegory_bincoprod_distributor) : actegory_bincoprod_distributor_data := pr1 δ.
-  Coercion actegory_bincoprod_distributor_to_data : actegory_bincoprod_distributor >-> actegory_bincoprod_distributor_data.
+  #[reversible] Coercion actegory_bincoprod_distributor_to_data : actegory_bincoprod_distributor >-> actegory_bincoprod_distributor_data.
 
   Definition bincoprod_functor_lineator_data (δ : actegory_bincoprod_distributor) :
     lineator_data Mon_V (actegory_binprod Mon_V Act Act) Act (bincoproduct_functor BCP).
@@ -286,7 +286,7 @@ Section Coproduct.
 
   Definition actegory_coprod_distributor_to_data (δ : actegory_coprod_distributor) :
     actegory_coprod_distributor_data := pr1 δ.
-  Coercion actegory_coprod_distributor_to_data :
+  #[reversible] Coercion actegory_coprod_distributor_to_data :
     actegory_coprod_distributor >-> actegory_coprod_distributor_data.
 
   Definition coprod_functor_lineator_data (δ : actegory_coprod_distributor_data) :

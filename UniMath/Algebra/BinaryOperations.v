@@ -425,7 +425,7 @@ Definition make_isgrop {X : UU} {opp : binop X} (is1 : ismonoidop opp) (is2 : in
   isgrop opp := tpair (λ is : ismonoidop opp, invstruct opp is) is1 is2.
 
 Definition pr1isgrop (X : UU) (opp : binop X) : isgrop opp -> ismonoidop opp := @pr1 _ _.
-Coercion pr1isgrop : isgrop >-> ismonoidop.
+#[reversible] Coercion pr1isgrop : isgrop >-> ismonoidop.
 
 Definition grinv_is {X : UU} {opp : binop X} (is : isgrop opp) : X -> X := pr1 (pr2 is).
 
@@ -611,7 +611,7 @@ Definition make_isabmonoidop {X : UU} {opp : binop X} (H1 : ismonoidop opp) (H2 
 
 Definition pr1isabmonoidop (X : UU) (opp : binop X) : isabmonoidop opp -> ismonoidop opp :=
   @pr1 _ _.
-Coercion pr1isabmonoidop : isabmonoidop >-> ismonoidop.
+#[reversible] Coercion pr1isabmonoidop : isabmonoidop >-> ismonoidop.
 
 Definition commax_is {X : UU} {opp : binop X} (is : isabmonoidop opp) : iscomm opp := pr2 is.
 
@@ -722,11 +722,11 @@ Definition make_isabgrop {X : UU} {opp : binop X} (H1 : isgrop opp) (H2 : iscomm
   isabgrop opp := make_dirprod H1 H2.
 
 Definition pr1isabgrop (X : UU) (opp : binop X) : isabgrop opp -> isgrop opp := @pr1 _ _.
-Coercion pr1isabgrop : isabgrop >-> isgrop.
+#[reversible] Coercion pr1isabgrop : isabgrop >-> isgrop.
 
 Definition isabgroptoisabmonoidop (X : UU) (opp : binop X) : isabgrop opp -> isabmonoidop opp :=
   λ is : _, make_dirprod (pr1 (pr1 is)) (pr2 is).
-Coercion isabgroptoisabmonoidop : isabgrop >-> isabmonoidop.
+#[reversible] Coercion isabgroptoisabmonoidop : isabgrop >-> isabmonoidop.
 
 Lemma isapropisabgrop {X : hSet} (opp : binop X) : isaprop (isabgrop opp).
 Proof.
@@ -1015,7 +1015,7 @@ Proof.
     + simpl. apply (ringmultx0_is).
   - apply (ringdistraxs_is is).
 Defined.
-Coercion isringopstoisrigops : isringops >-> isrigops.
+#[reversible] Coercion isringopstoisrigops : isringops >-> isrigops.
 
 (** *)
 
@@ -1024,7 +1024,7 @@ Definition iscommrigops {X : UU} (opp1 opp2 : binop X) : UU :=
 
 Definition pr1iscommrigops (X : UU) (opp1 opp2 : binop X) :
   iscommrigops opp1 opp2 -> isrigops opp1 opp2 := @pr1 _ _.
-Coercion pr1iscommrigops : iscommrigops >-> isrigops.
+#[reversible] Coercion pr1iscommrigops : iscommrigops >-> isrigops.
 
 Definition rigiscommop2_is {X : UU} {opp1 opp2 : binop X} (is : iscommrigops opp1 opp2) :
   iscomm opp2 := pr2 is.
@@ -1043,7 +1043,7 @@ Definition iscommringops {X : UU} (opp1 opp2 : binop X) : UU :=
 
 Definition pr1iscommringops (X : UU) (opp1 opp2 : binop X) :
   iscommringops opp1 opp2 -> isringops opp1 opp2 := @pr1 _ _.
-Coercion pr1iscommringops : iscommringops >-> isringops.
+#[reversible] Coercion pr1iscommringops : iscommringops >-> isringops.
 
 Definition ringiscommop2_is {X : UU} {opp1 opp2 : binop X} (is : iscommringops opp1 opp2) :
   iscomm opp2 := pr2 is.
@@ -1058,7 +1058,7 @@ Defined.
 Definition iscommringopstoiscommrigops (X : UU) (opp1 opp2 : binop X)
            (is : iscommringops opp1 opp2) : iscommrigops opp1 opp2 :=
   make_dirprod (isringopstoisrigops _ _ _ (pr1 is)) (pr2 is).
-Coercion iscommringopstoiscommrigops : iscommringops >-> iscommrigops.
+#[reversible] Coercion iscommringopstoiscommrigops : iscommringops >-> iscommrigops.
 
 (** **** Transfer properties of binary operations relative to weak equivalences *)
 
@@ -1532,7 +1532,7 @@ Definition make_setwithbinop (X : hSet) (opp : binop X) : setwithbinop :=
   tpair (λ X : hSet, binop X) X opp.
 
 Definition pr1setwithbinop : setwithbinop -> hSet := @pr1 _ (λ X : hSet, binop X).
-Coercion pr1setwithbinop : setwithbinop >-> hSet.
+#[reversible] Coercion pr1setwithbinop : setwithbinop >-> hSet.
 
 Definition op {X : setwithbinop} : binop X := pr2 X.
 
@@ -1590,7 +1590,7 @@ Definition make_binopfun {X Y : setwithbinop} (f : X -> Y) (is : isbinopfun f) :
   tpair _ f is.
 
 Definition pr1binopfun (X Y : setwithbinop) : binopfun X Y -> (X -> Y) := @pr1 _ _.
-Coercion pr1binopfun : binopfun >-> Funclass.
+#[reversible] Coercion pr1binopfun : binopfun >-> Funclass.
 
 Definition binopfunisbinopfun {X Y : setwithbinop} (f : binopfun X Y) : isbinopfun f := pr2 f.
 
@@ -1623,11 +1623,11 @@ Definition make_binopmono {X Y : setwithbinop} (f : incl X Y) (is : isbinopfun f
   binopmono X Y := tpair _  f is.
 
 Definition pr1binopmono (X Y : setwithbinop) : binopmono X Y -> incl X Y := @pr1 _ _.
-Coercion pr1binopmono : binopmono >-> incl.
+#[reversible] Coercion pr1binopmono : binopmono >-> incl.
 
 Definition binopincltobinopfun (X Y : setwithbinop) :
   binopmono X Y -> binopfun X Y := λ f, make_binopfun (pr1 (pr1 f)) (pr2 f).
-Coercion binopincltobinopfun : binopmono >-> binopfun.
+#[reversible] Coercion binopincltobinopfun : binopmono >-> binopfun.
 
 Definition binopmonocomp {X Y Z : setwithbinop} (f : binopmono X Y) (g : binopmono Y Z) :
   binopmono X Z := make_binopmono (inclcomp (pr1 f) (pr1 g)) (isbinopfuncomp f g).
@@ -1638,7 +1638,7 @@ Definition make_binopiso {X Y : setwithbinop} (f : X ≃ Y) (is : isbinopfun f) 
   binopiso X Y := tpair _  f is.
 
 Definition pr1binopiso (X Y : setwithbinop) : binopiso X Y -> X ≃ Y := @pr1 _ _.
-Coercion pr1binopiso : binopiso >-> weq.
+#[reversible] Coercion pr1binopiso : binopiso >-> weq.
 
 Lemma isasetbinopiso (X Y : setwithbinop) : isaset (binopiso X Y).
 Proof.
@@ -1652,7 +1652,7 @@ Opaque isasetbinopiso.
 
 Definition binopisotobinopmono (X Y : setwithbinop) :
   binopiso X Y -> binopmono X Y := λ f, make_binopmono (weqtoincl (pr1 f)) (pr2 f).
-Coercion binopisotobinopmono : binopiso >-> binopmono.
+#[reversible] Coercion binopisotobinopmono : binopiso >-> binopmono.
 
 Definition binopisocomp {X Y Z : setwithbinop} (f : binopiso X Y) (g : binopiso Y Z) :
   binopiso X Z := make_binopiso (weqcomp (pr1 f) (pr1 g)) (isbinopfuncomp f g).
@@ -1983,7 +1983,7 @@ Definition subsetswithbinopconstr {X : setwithbinop} :
 
 Definition pr1subsetswithbinop (X : setwithbinop) : subsetswithbinop X -> hsubtype X :=
   @pr1 _ (λ A : hsubtype X, issubsetwithbinop (@op X) A).
-Coercion pr1subsetswithbinop : subsetswithbinop >-> hsubtype.
+#[reversible] Coercion pr1subsetswithbinop : subsetswithbinop >-> hsubtype.
 
 Definition pr2subsetswithbinop {X : setwithbinop} (Y : subsetswithbinop X) :
   issubsetwithbinop (@op X) (pr1subsetswithbinop X Y) := pr2 Y.
@@ -2002,7 +2002,7 @@ Proof.
                    (A -> A -> A)).
   simpl. unfold binop. apply subopp.
 Defined.
-Coercion carrierofasubsetwithbinop : subsetswithbinop >-> setwithbinop.
+#[reversible] Coercion carrierofasubsetwithbinop : subsetswithbinop >-> setwithbinop.
 
 
 (** **** Relations compatible with a binary operation and quotient objects *)
@@ -2071,7 +2071,7 @@ Definition make_binophrel {X : setwithbinop} :
 
 Definition pr1binophrel (X : setwithbinop) : binophrel X -> hrel X :=
   @pr1 _ (λ R : hrel X, isbinophrel R).
-Coercion pr1binophrel : binophrel >-> hrel.
+#[reversible] Coercion pr1binophrel : binophrel >-> hrel.
 
 Definition binophrel_resp_left {X : setwithbinop} (R : binophrel X)
            {a b : X} (c : X) (r : R a b) : R (op c a) (op c b) :=
@@ -2088,7 +2088,7 @@ Definition make_binoppo {X : setwithbinop} :
   tpair (λ R : po X, isbinophrel R).
 
 Definition pr1binoppo (X : setwithbinop) : binoppo X -> po X := @pr1 _ (λ R : po X, isbinophrel R).
-Coercion pr1binoppo : binoppo >-> po.
+#[reversible] Coercion pr1binoppo : binoppo >-> po.
 
 Definition binopeqrel (X : setwithbinop) : UU := total2 (λ R : eqrel X, isbinophrel R).
 
@@ -2098,7 +2098,7 @@ Definition make_binopeqrel {X : setwithbinop} :
 
 Definition pr1binopeqrel (X : setwithbinop) : binopeqrel X -> eqrel X :=
   @pr1 _ (λ R : eqrel X, isbinophrel R).
-Coercion pr1binopeqrel : binopeqrel >-> eqrel.
+#[reversible] Coercion pr1binopeqrel : binopeqrel >-> eqrel.
 
 Definition binopeqrel_resp_left {X : setwithbinop} (R : binopeqrel X)
            {a b : X} (c : X) (r : R a b) : R (op c a) (op c b) :=
@@ -2439,7 +2439,7 @@ Definition make_setwith2binop (X : hSet) (opps : (binop X) × (binop X)) :
 
 Definition pr1setwith2binop : setwith2binop -> hSet :=
   @pr1 _ (λ X : hSet, (binop X) × (binop X)).
-Coercion pr1setwith2binop : setwith2binop >-> hSet.
+#[reversible] Coercion pr1setwith2binop : setwith2binop >-> hSet.
 
 Definition op1 {X : setwith2binop} : binop X := pr1 (pr2 X).
 
@@ -2490,7 +2490,7 @@ Definition make_twobinopfun {X Y : setwith2binop} (f : X -> Y) (is : istwobinopf
   twobinopfun X Y := tpair _ f is.
 
 Definition pr1twobinopfun (X Y : setwith2binop) : twobinopfun X Y -> (X -> Y) := @pr1 _ _.
-Coercion pr1twobinopfun : twobinopfun >-> Funclass.
+#[reversible] Coercion pr1twobinopfun : twobinopfun >-> Funclass.
 
 Definition binop1fun {X Y : setwith2binop} (f : twobinopfun X Y) :
   binopfun (setwithbinop1 X) (setwithbinop1 Y) :=
@@ -2542,11 +2542,11 @@ Definition make_twobinopmono {X Y : setwith2binop} (f : incl X Y) (is : istwobin
   twobinopmono X Y := tpair _  f is.
 
 Definition pr1twobinopmono (X Y : setwith2binop) : twobinopmono X Y -> incl X Y := @pr1 _ _.
-Coercion pr1twobinopmono : twobinopmono >-> incl.
+#[reversible] Coercion pr1twobinopmono : twobinopmono >-> incl.
 
 Definition twobinopincltotwobinopfun (X Y : setwith2binop) :
   twobinopmono X Y -> twobinopfun X Y := λ f, make_twobinopfun (pr1 (pr1 f)) (pr2 f).
-Coercion twobinopincltotwobinopfun : twobinopmono >-> twobinopfun.
+#[reversible] Coercion twobinopincltotwobinopfun : twobinopmono >-> twobinopfun.
 
 Definition binop1mono {X Y : setwith2binop} (f : twobinopmono X Y) :
   binopmono (setwithbinop1 X) (setwithbinop1 Y) :=
@@ -2565,11 +2565,11 @@ Definition make_twobinopiso {X Y : setwith2binop} (f : X ≃ Y) (is : istwobinop
   twobinopiso X Y := tpair _  f is.
 
 Definition pr1twobinopiso (X Y : setwith2binop) : twobinopiso X Y -> X ≃ Y := @pr1 _ _.
-Coercion pr1twobinopiso : twobinopiso >-> weq.
+#[reversible] Coercion pr1twobinopiso : twobinopiso >-> weq.
 
 Definition twobinopisototwobinopmono (X Y : setwith2binop) :
   twobinopiso X Y -> twobinopmono X Y := λ f, make_twobinopmono (weqtoincl (pr1 f)) (pr2 f).
-Coercion twobinopisototwobinopmono : twobinopiso >-> twobinopmono.
+#[reversible] Coercion twobinopisototwobinopmono : twobinopiso >-> twobinopmono.
 
 Definition twobinopisototwobinopfun {X Y : setwith2binop} (f : twobinopiso X Y) :
   twobinopfun X Y := make_twobinopfun f (pr2 f).
@@ -2820,7 +2820,7 @@ Definition subsetswith2binopconstr {X : setwith2binop} :
 
 Definition pr1subsetswith2binop (X : setwith2binop) : subsetswith2binop X -> hsubtype X :=
   @pr1 _ (λ A : hsubtype X, issubsetwith2binop A).
-Coercion pr1subsetswith2binop : subsetswith2binop >-> hsubtype.
+#[reversible] Coercion pr1subsetswith2binop : subsetswith2binop >-> hsubtype.
 
 Definition totalsubsetwith2binop (X : setwith2binop) : subsetswith2binop X.
 Proof.
@@ -2840,7 +2840,7 @@ Proof.
                                             (pr2 (pr2 A) a a')) : (A -> A -> A)).
   simpl. apply (make_dirprod subopp1 subopp2).
 Defined.
-Coercion carrierofsubsetwith2binop : subsetswith2binop >-> setwith2binop.
+#[reversible] Coercion carrierofsubsetwith2binop : subsetswith2binop >-> setwith2binop.
 
 
 (** **** Quotient objects *)
@@ -2872,7 +2872,7 @@ Definition make_twobinophrel {X : setwith2binop} :
 
 Definition pr1twobinophrel (X : setwith2binop) : twobinophrel X -> hrel X :=
   @pr1 _ (λ R : hrel X, is2binophrel R).
-Coercion pr1twobinophrel : twobinophrel >-> hrel.
+#[reversible] Coercion pr1twobinophrel : twobinophrel >-> hrel.
 
 Definition twobinoppo (X : setwith2binop) : UU := total2 (λ R : po X, is2binophrel R).
 
@@ -2882,7 +2882,7 @@ Definition make_twobinoppo {X : setwith2binop} :
 
 Definition pr1twobinoppo (X : setwith2binop) : twobinoppo X -> po X :=
   @pr1 _ (λ R : po X, is2binophrel R).
-Coercion pr1twobinoppo : twobinoppo >-> po.
+#[reversible] Coercion pr1twobinoppo : twobinoppo >-> po.
 
 Definition twobinopeqrel (X : setwith2binop) : UU := total2 (λ R : eqrel X, is2binophrel R).
 
@@ -2892,7 +2892,7 @@ Definition make_twobinopeqrel {X : setwith2binop} :
 
 Definition pr1twobinopeqrel (X : setwith2binop) : twobinopeqrel X -> eqrel X :=
   @pr1 _ (λ R : eqrel X, is2binophrel R).
-Coercion pr1twobinopeqrel : twobinopeqrel >-> eqrel.
+#[reversible] Coercion pr1twobinopeqrel : twobinopeqrel >-> eqrel.
 
 Definition setwith2binopquot {X : setwith2binop} (R : twobinopeqrel X) : setwith2binop.
 Proof.

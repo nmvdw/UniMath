@@ -90,7 +90,7 @@ Defined.
 Local Notation τ := tau_from_alg.
 
 (*
-Coercion functor_from_algebra_ob (X : algebra_ob _ Id_H) : functor C C  := pr1 X.
+#[reversible] Coercion functor_from_algebra_ob (X : algebra_ob _ Id_H) : functor C C  := pr1 X.
 *)
 
 Local Notation "f ⊕ g" := (BinCoproductOfArrows _ (CPEndC _ _ ) (CPEndC _ _ ) f g).
@@ -272,7 +272,7 @@ variables and behaves homomorphically elsewhere, as instructed by the pre-streng
 Definition heterogeneous_substitution : UU := ∑ (T: algebra_ob Id_H),
   ∑ (θ : @PrestrengthForSignatureAtPoint C C C H (ptd_from_alg T)), bracket_at θ T (identity _).
 
-Coercion alg_from_hetsubst (T : heterogeneous_substitution) : algebra_ob Id_H := pr1 T.
+#[reversible] Coercion alg_from_hetsubst (T : heterogeneous_substitution) : algebra_ob Id_H := pr1 T.
 Definition θ_from_hetsubst (T : heterogeneous_substitution) : @PrestrengthForSignatureAtPoint C C C H (ptd_from_alg T)
   := pr1 (pr2 T).
 
@@ -336,7 +336,7 @@ Arguments bracket_parts {_} _ _ .
 (** the notion of a heterogeneous substitution system that asks for more operations to uniquely exist *)
 Definition hss : UU := ∑ (T: algebra_ob Id_H), bracket H θ T.
 
-Coercion hetsubst_from_hss (T : hss) : heterogeneous_substitution H := pr1 T,, (nat_trans_fix_snd_arg _ _ _ _ _ θ (ptd_from_alg (pr1 T)) ,, pr2 T _ (identity _)).
+#[reversible] Coercion hetsubst_from_hss (T : hss) : heterogeneous_substitution H := pr1 T,, (nat_trans_fix_snd_arg _ _ _ _ _ θ (ptd_from_alg (pr1 T)) ,, pr2 T _ (identity _)).
 
 
 Definition fbracket (T : hss) {Z : Ptd} (f : Z --> ptd_from_alg T)
@@ -680,7 +680,7 @@ Definition ishssMor {T T' : hss} (β : algebra_mor _ T T') : UU
 Definition hssMor (T T' : hss) : UU
   := ∑ β : algebra_mor _ T T', ishssMor β.
 
-Coercion ptd_mor_from_hssMor (T T' : hss) (β : hssMor T T') : algebra_mor _ T T' := pr1 β.
+#[reversible] Coercion ptd_mor_from_hssMor (T T' : hss) (β : hssMor T T') : algebra_mor _ T T' := pr1 β.
 
 (*
 Definition isAlgMor_hssMor {T T' : hss} (β : hssMor T T')

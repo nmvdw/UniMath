@@ -129,7 +129,7 @@ Definition profunctor_point
   : hSet
   := pr1 P (y ,, x).
 
-Coercion profunctor_point : profunctor >-> Funclass.
+#[reversible] Coercion profunctor_point : profunctor >-> Funclass.
 
 Definition profunctor_on_morphisms
            {C₁ C₂ : category}
@@ -355,7 +355,7 @@ Section Dinatural.
       is_dinatural dinatural_transformation_get_data := pr2 d.
   End Accessors.
 
-  Coercion dinatural_transformation_get_data : dinatural_transformation >-> Funclass.
+  #[reversible] Coercion dinatural_transformation_get_data : dinatural_transformation >-> Funclass.
 
   (** See below for the non-local notation *)
   Local Notation "F ⇏ G" := (dinatural_transformation F G) (at level 39) : cat.
@@ -427,7 +427,7 @@ Section Ends.
   Definition wedge_pr (w : HSET) (W : wedge w) :
     ∏ a : C, w --> F a a := (pr1 W).
 
-  Coercion wedge_pr : wedge >-> Funclass.
+  #[reversible] Coercion wedge_pr : wedge >-> Funclass.
 
   (** *** Ends *)
 
@@ -446,10 +446,10 @@ Section Ends.
   (** **** Accessors/coercions *)
 
   Definition end_ob (e : End) : ob HSET_univalent_category  := pr1 e.
-  Coercion end_ob : End >-> ob.
+  #[reversible] Coercion end_ob : End >-> ob.
 
   Definition end_wedge (e : End) : wedge e := pr1 (pr2 e).
-  Coercion end_wedge : End >-> wedge.
+  #[reversible] Coercion end_wedge : End >-> wedge.
 
   (** *** Cowedges *)
   (** *** Coends *)

@@ -162,14 +162,14 @@ Definition inv_psfunctor_of_is_biequivalence
   : psfunctor D C
   := pr1 e.
 
-Coercion unit_counit_from_is_biequivalence
+#[reversible] Coercion unit_counit_from_is_biequivalence
            {C D : bicat} {F : psfunctor C D}
            (e : is_biequivalence F)
   : is_biequivalence_unit_counit F
       (inv_psfunctor_of_is_biequivalence e)
   := pr12 e.
 
-Coercion adjoints_from_is_biequivalence
+#[reversible] Coercion adjoints_from_is_biequivalence
            {C D : bicat} {F : psfunctor C D}
            (e : is_biequivalence F)
   : is_biequivalence_adjoints e
@@ -178,12 +178,12 @@ Coercion adjoints_from_is_biequivalence
 Definition biequivalence (C D : bicat) : UU
   := ∑ F : psfunctor C D, is_biequivalence F.
 
-Coercion psfunctor_of_biequivalence {C D : bicat}
+#[reversible] Coercion psfunctor_of_biequivalence {C D : bicat}
          (e : biequivalence C D)
   : psfunctor C D
   := pr1 e.
 
-Coercion is_biequivalence_of_biequivalence {C D : bicat} (e : biequivalence C D)
+#[reversible] Coercion is_biequivalence_of_biequivalence {C D : bicat} (e : biequivalence C D)
   : is_biequivalence (psfunctor_of_biequivalence e)
   := pr2 e.
 

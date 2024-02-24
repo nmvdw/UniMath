@@ -93,7 +93,7 @@ Section def_pseudo_element.
   Definition PseudoOb {c : A} (P : PseudoElem c) : ob A := pr1 P.
 
   Definition PseudoMor {c : A} (P : PseudoElem c) : A⟦PseudoOb P, c⟧ := pr2 P.
-  Coercion PseudoMor : PseudoElem >-> precategory_morphisms.
+  #[reversible] Coercion PseudoMor : PseudoElem >-> precategory_morphisms.
 
   Definition PseudoIm {c d : A} (P : PseudoElem c) (f : c --> d) : PseudoElem d :=
     make_PseudoElem (P · f).
@@ -218,7 +218,7 @@ Section def_pseudo_element.
 
   Definition PFiber_Elem {c d : ob A} {f : c --> d} {b : PseudoElem d} (P : PFiber f b) :
     PseudoElem c := pr1 P.
-  Coercion PFiber_Elem : PFiber >-> PseudoElem.
+  #[reversible] Coercion PFiber_Elem : PFiber >-> PseudoElem.
 
   Definition PFiber_Eq {c d : ob A} {f : c --> d} {b : PseudoElem d} (P : PFiber f b) :
     PEq (PseudoIm P f) b := pr2 P.
@@ -499,7 +499,7 @@ Section def_pseudo_element.
 
   Definition PDiffElem {x y : ob A} {a a' : PseudoElem x} {f : x --> y}
              {H : PEq (PseudoIm a f) (PseudoIm a' f)} (PD : PDiff f H) : PseudoElem x := pr1 PD.
-  Coercion PDiffElem : PDiff >-> PseudoElem.
+  #[reversible] Coercion PDiffElem : PDiff >-> PseudoElem.
 
   Definition PDiffIm {x y : ob A} {a a' : PseudoElem x} {f : x --> y}
              {H : PEq (PseudoIm a f) (PseudoIm a' f)} (PD : PDiff f H) :

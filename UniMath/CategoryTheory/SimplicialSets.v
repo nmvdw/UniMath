@@ -40,7 +40,7 @@ Proof.
   exact e.
 Defined.
 
-Coercion monfunstnpr1 : monfunstn >-> Funclass .
+#[reversible] Coercion monfunstnpr1 : monfunstn >-> Funclass .
 
 Lemma isasetmonfunstn n m : isaset ( monfunstn n m ) .
 Proof.

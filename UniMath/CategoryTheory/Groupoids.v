@@ -50,7 +50,7 @@ Definition make_pregroupoid (C : category) (is : is_pregroupoid C) : pregroupoid
 Definition pregroupoid_to_precategory : pregroupoid -> category := pr1.
 Definition pregroupoid_is_pregroupoid :
   ∏ gpd : pregroupoid, is_pregroupoid (pr1 gpd) := pr2.
-Coercion pregroupoid_to_precategory : pregroupoid >-> category.
+#[reversible] Coercion pregroupoid_to_precategory : pregroupoid >-> category.
 
 (** A category is a groupoid when all of its arrows are [iso]s. *)
 Definition groupoid : UU := ∑ C : category, is_pregroupoid C.
@@ -60,10 +60,10 @@ Definition make_groupoid (C : category) (is : is_pregroupoid C) : groupoid := (C
 Definition groupoid_to_category : groupoid -> category := pr1.
 Definition groupoid_is_pregroupoid :
   ∏ gpd : groupoid, is_pregroupoid (pr1 gpd) := pr2.
-Coercion groupoid_to_category : groupoid >-> category.
+#[reversible] Coercion groupoid_to_category : groupoid >-> category.
 Definition groupoid_to_pregroupoid :
   groupoid → pregroupoid := λ gpd, make_pregroupoid gpd (groupoid_is_pregroupoid gpd).
-Coercion groupoid_to_pregroupoid : groupoid >-> pregroupoid.
+#[reversible] Coercion groupoid_to_pregroupoid : groupoid >-> pregroupoid.
 
 Definition univalent_groupoid : UU := ∑ C : univalent_category, is_pregroupoid C.
 
@@ -72,14 +72,14 @@ Definition make_univalent_groupoid (C : univalent_category) (is : is_pregroupoid
   univalent_groupoid := (C,, is).
 Definition univalent_groupoid_to_univalent_category :
   univalent_groupoid -> univalent_category := pr1.
-Coercion univalent_groupoid_to_univalent_category :
+#[reversible] Coercion univalent_groupoid_to_univalent_category :
   univalent_groupoid >-> univalent_category.
 Definition univalent_groupoid_is_pregroupoid :
   ∏ ugpd : univalent_groupoid, is_pregroupoid (pr1 ugpd) := pr2.
 Definition univalent_groupoid_to_groupoid :
   univalent_groupoid -> groupoid :=
   λ ugpd, make_groupoid ugpd (univalent_groupoid_is_pregroupoid ugpd).
-Coercion univalent_groupoid_to_groupoid :
+#[reversible] Coercion univalent_groupoid_to_groupoid :
   univalent_groupoid >-> groupoid.
 
 (** An alternative characterization of univalence for groupoids *)
@@ -219,7 +219,7 @@ Definition discrete_category_to_univalent_groupoid :
   λ disc, make_univalent_groupoid
             (make_univalent_category (pr1 disc) (dirprod_pr2 (dirprod_pr2 (pr2 disc))))
             (dirprod_pr1 (dirprod_pr2 (pr2 disc))).
-Coercion discrete_category_to_univalent_groupoid :
+#[reversible] Coercion discrete_category_to_univalent_groupoid :
   discrete_category >-> univalent_groupoid.
 Definition discrete_category_is_discrete :
   ∏ C : discrete_category, is_discrete C := pr2.

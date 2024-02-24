@@ -61,7 +61,7 @@ Section CategoryOfComonoids.
 
   Definition comonoid_ob (m : comonoid_data)
     : ob V := pr1 m.
-  Coercion comonoid_ob : comonoid_data >-> ob.
+  #[reversible] Coercion comonoid_ob : comonoid_data >-> ob.
 
   Definition comonoid_comult (m : comonoid_data)
     : V⟦m , m ⊗ m⟧ := pr12 m.
@@ -124,7 +124,7 @@ Section CategoryOfComonoids.
     : comonoid_data
     := pr1 m ,, pr12 m.
 
-  Coercion comonoid_to_data : comonoid >-> comonoid_data.
+  #[reversible] Coercion comonoid_to_data : comonoid >-> comonoid_data.
 
   Definition comonoid_to_law_assoc (m : comonoid)
     : comonoid_laws_assoc m := pr2 (pr222 m).
@@ -223,7 +223,7 @@ Section CategoryOfCommutativeComonoids.
     (m : commutative_comonoid) : comonoid V
     := pr1 m ,, pr12 m.
 
-  Coercion commutative_comonoid_to_comonoid
+  #[reversible] Coercion commutative_comonoid_to_comonoid
     : commutative_comonoid >-> comonoid.
 
   Definition commutative_comonoid_is_commutative (m : commutative_comonoid)

@@ -39,7 +39,7 @@ Section Pullback.
          (π₂ : p --> b₂),
        invertible_2cell (π₁ · f) (π₂ · g).
 
-  Coercion pb_cone_obj
+  #[reversible] Coercion pb_cone_obj
            (p : pb_cone)
     : B
     := pr1 p.
@@ -90,7 +90,7 @@ Section Pullback.
        • (θ^-1 ▹ g)
        • rassociator _ _ _.
 
-  Coercion pb_1cell_1cell
+  #[reversible] Coercion pb_1cell_1cell
            {p q : pb_cone}
            (φ : pb_1cell p q)
     : p --> q
@@ -194,7 +194,7 @@ Section Pullback.
        ×
        ((η ▹ pb_cone_pr2 q) • pb_1cell_pr2 ψ = pb_1cell_pr2 φ).
 
-  Coercion pb_2cell_2cell
+  #[reversible] Coercion pb_2cell_2cell
            {p q : pb_cone}
            {φ ψ : pb_1cell p q}
            (η : pb_2cell φ ψ)
@@ -665,7 +665,7 @@ Definition bicat_with_pb
   : UU
   := ∑ (B : bicat), has_pb B.
 
-Coercion bicat_with_pb_to_bicat
+#[reversible] Coercion bicat_with_pb_to_bicat
          (B : bicat_with_pb)
   : bicat
   := pr1 B.

@@ -69,7 +69,7 @@ Definition ob_strict_double_cat
   : setcategory
   := pr111 C.
 
-Coercion ob_strict_double_cat : strict_double_cat >-> setcategory.
+#[reversible] Coercion ob_strict_double_cat : strict_double_cat >-> setcategory.
 
 Definition isaset_ob_strict_double_cat
            (C : strict_double_cat)
@@ -888,7 +888,7 @@ Definition strict_double_functor_ver
   : C₁ ⟶ C₂
   := pr111 F.
 
-Coercion strict_double_functor_ver : strict_double_functor >-> functor.
+#[reversible] Coercion strict_double_functor_ver : strict_double_functor >-> functor.
 
 Definition strict_double_functor_ver_mor
            {C₁ C₂ : strict_double_cat}

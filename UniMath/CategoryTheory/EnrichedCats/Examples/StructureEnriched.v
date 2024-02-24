@@ -122,7 +122,7 @@ Section FixAStructure.
     : P (homset x y)
     := pr1 SC x y.
 
-  Coercion struct_enrichment_to_data : struct_enrichment >-> Funclass.
+  #[reversible] Coercion struct_enrichment_to_data : struct_enrichment >-> Funclass.
 
   Proposition struct_enrichment_comp
               {C : category}

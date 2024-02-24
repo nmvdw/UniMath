@@ -86,7 +86,7 @@ Section Disp_Nat_Trans.
     R' x  xx -->[ a x ] R x xx
     := pr1 b x xx.
 
-  Coercion disp_nat_trans_pr1 : disp_nat_trans >-> Funclass.
+  #[reversible] Coercion disp_nat_trans_pr1 : disp_nat_trans >-> Funclass.
 
   Definition disp_nat_trans_ax
              {C' C : precategory_data}
@@ -781,7 +781,7 @@ Definition disp_nat_z_iso_to_trans {α: nat_z_iso F G}
 (µ : disp_nat_z_iso DF DG α) : disp_nat_trans α DF DG
   := pr1 µ.
 
-Coercion disp_nat_z_iso_to_trans : disp_nat_z_iso >-> disp_nat_trans.
+#[reversible] Coercion disp_nat_z_iso_to_trans : disp_nat_z_iso >-> disp_nat_trans.
 
 End disp_nat_iso.
 

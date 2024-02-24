@@ -149,7 +149,7 @@ Definition pstrans_from_cat_into_cat_data_to_ob
   : F x --> G x
   := pr1 τ x.
 
-Coercion pstrans_from_cat_into_cat_data_to_ob : pstrans_from_cat_into_cat_data >-> Funclass.
+#[reversible] Coercion pstrans_from_cat_into_cat_data_to_ob : pstrans_from_cat_into_cat_data >-> Funclass.
 
 Definition pstrans_from_cat_into_cat_data_nat
            {C : category}

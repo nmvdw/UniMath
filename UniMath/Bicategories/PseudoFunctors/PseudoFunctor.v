@@ -66,7 +66,7 @@ Definition make_psfunctor
   : psfunctor C D
   := (F ,, (HF ,, Fcells)).
 
-Coercion psfunctor_to_psfunctor_data
+#[reversible] Coercion psfunctor_to_psfunctor_data
          {C D : bicat}
          (F : psfunctor C D)
   : psfunctor_data C D

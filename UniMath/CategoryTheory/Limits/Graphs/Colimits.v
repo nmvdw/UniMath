@@ -77,7 +77,7 @@ Definition constant_diagram
 
 End diagram_def.
 
-Coercion graph_from_precategory : precategory >-> graph.
+#[reversible] Coercion graph_from_precategory : precategory >-> graph.
 
 
 (** * Definition of colimits *)

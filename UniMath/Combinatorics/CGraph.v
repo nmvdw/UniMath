@@ -67,7 +67,7 @@ Definition make_cgraph
   := tpair _ G (make_dirprod h k).
 
 Definition precgraph_of_cgraph : cgraph → precgraph := pr1.
-Coercion precgraph_of_cgraph : cgraph >-> precgraph.
+#[reversible] Coercion precgraph_of_cgraph : cgraph >-> precgraph.
 
 Definition isaset_node (G : cgraph)
   : isaset (node G)

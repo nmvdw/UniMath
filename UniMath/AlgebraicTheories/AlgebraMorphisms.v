@@ -36,7 +36,7 @@ Definition algebra_morphism_to_function
   : A → A'
   := pr1 F.
 
-Coercion algebra_morphism_to_function :
+#[reversible] Coercion algebra_morphism_to_function :
   algebra_morphism >-> Funclass.
 
 Definition make_algebra_morphism

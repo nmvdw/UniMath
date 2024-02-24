@@ -26,7 +26,7 @@ Definition make_precategory_ob_mor (ob : UU)(mor : ob -> ob -> UU) :
     precategory_ob_mor := tpair _ ob mor.
 
 Definition ob (C : precategory_ob_mor) : UU := @pr1 _ _ C.
-Coercion ob : precategory_ob_mor >-> UU.
+#[reversible] Coercion ob : precategory_ob_mor >-> UU.
 
 Definition precategory_morphisms { C : precategory_ob_mor } :
        C ->  C -> UU := pr2 C.
@@ -71,7 +71,7 @@ Definition make_precategory_data (C : precategory_ob_mor)
 
 Definition precategory_ob_mor_from_precategory_data (C : precategory_data) :
      precategory_ob_mor := pr1 C.
-Coercion precategory_ob_mor_from_precategory_data :
+#[reversible] Coercion precategory_ob_mor_from_precategory_data :
   precategory_data >-> precategory_ob_mor.
 
 Definition identity {C : precategory_data}
@@ -147,7 +147,7 @@ Definition make_precategory_one_assoc (C : precategory_data) (H : is_precategory
 
 Definition precategory_data_from_precategory (C : precategory) :
        precategory_data := pr1 C.
-Coercion precategory_data_from_precategory : precategory >-> precategory_data.
+#[reversible] Coercion precategory_data_from_precategory : precategory >-> precategory_data.
 
 Definition has_homsets (C : precategory_ob_mor) : UU := ∏ a b : C, isaset (a --> b).
 
@@ -160,8 +160,8 @@ Qed.
 Definition category := ∑ C:precategory, has_homsets C.
 Definition make_category C h : category := C,,h.
 Definition category_to_precategory : category -> precategory := pr1.
-Coercion category_to_precategory : category >-> precategory.
-Coercion homset_property (C : category) : has_homsets C := pr2 C.
+#[reversible] Coercion category_to_precategory : category >-> precategory.
+#[reversible] Coercion homset_property (C : category) : has_homsets C := pr2 C.
 
 Definition homset
            {C : category}

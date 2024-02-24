@@ -160,7 +160,7 @@ Section def_triangles.
     (make_MorphismPair f g),,h.
 
   Definition TriMP (D : Tri) : MorphismPair A := pr1 D.
-  Coercion TriMP : Tri >-> MorphismPair.
+  #[reversible] Coercion TriMP : Tri >-> MorphismPair.
 
   (** Follows the naming convention Mor1, Mor2, for MorphismPair *)
   Definition Mor3 (D : Tri) : A⟦Ob3 D, (AddEquiv1 T) (Ob1 D)⟧ := pr2 D.
@@ -176,7 +176,7 @@ Section def_triangles.
     TriMor D1 D2 := (M,,H).
 
   Definition TriMor_Mors {D1 D2 : Tri} (DTM : TriMor D1 D2) : MPMor D1 D2 := pr1 DTM.
-  Coercion TriMor_Mors : TriMor >-> MPMor.
+  #[reversible] Coercion TriMor_Mors : TriMor >-> MPMor.
 
   Local Lemma TriMorId_comms {x y : ob A} (f : x --> y) : identity x · f = f · identity y.
   Proof.
@@ -361,10 +361,10 @@ Section def_triangles.
     (M,,H).
 
   Definition TriIsoMor {D1 D2 : Tri} (I : TriIso D1 D2) : TriMor D1 D2 := pr1 I.
-  Coercion TriIsoMor : TriIso >-> TriMor.
+  #[reversible] Coercion TriIsoMor : TriIso >-> TriMor.
 
   Definition TriIso_is_iso {D1 D2 : Tri} (I : TriIso D1 D2) : TriMor_is_iso I := pr2 I.
-  Coercion TriIso_is_iso : TriIso >-> TriMor_is_iso.
+  #[reversible] Coercion TriIso_is_iso : TriIso >-> TriMor_is_iso.
 
   (** *** Composition of isomorphisms *)
 
@@ -548,7 +548,7 @@ Section def_triangles.
 
   Definition ConeDataOb {A : CategoryWithAdditiveStructure} {T : AddEquiv A A} {x y : ob A} (C : ConeData T x y) :
     ob A := pr1 C.
-  Coercion ConeDataOb : ConeData >-> ob.
+  #[reversible] Coercion ConeDataOb : ConeData >-> ob.
 
   Definition ConeData1 {A : CategoryWithAdditiveStructure} {T : AddEquiv A A} {x y : ob A} (C : ConeData T x y) :
     A⟦y, C⟧ := dirprod_pr1 (pr2 C).
@@ -583,7 +583,7 @@ Section def_pretriang_data.
   Defined.
 
   Definition PreTriangData_Additive (PTD : PreTriangData) : CategoryWithAdditiveStructure := pr1 (pr1 PTD).
-  Coercion PreTriangData_Additive : PreTriangData >-> CategoryWithAdditiveStructure.
+  #[reversible] Coercion PreTriangData_Additive : PreTriangData >-> CategoryWithAdditiveStructure.
 
   Definition Trans {PTD : PreTriangData} : AddEquiv PTD PTD := pr2 (pr1 PTD).
 
@@ -627,7 +627,7 @@ Section def_pretriangulated_data.
     DTri := (T,,H).
 
   Definition DTriTri (D : DTri) : Tri := pr1 D.
-  Coercion DTriTri : DTri >-> Tri.
+  #[reversible] Coercion DTriTri : DTri >-> Tri.
 
   Definition DTriisDTri (D : DTri) : isDTri D := pr2 D.
 
@@ -647,7 +647,7 @@ Section def_pretriangulated_data.
 
   Definition TExt_Mor {D1 D2 : DTri} {f1 : Ob1 (DTriTri D1) --> Ob1 D2} {f2 : Ob2 D1 --> Ob2 D2}
              {H : f1 · Mor1 D2 = Mor1 D1 · f2} (TE : TExt H) : PTD⟦Ob3 D1, Ob3 D2⟧ := pr1 TE.
-  Coercion TExt_Mor : TExt >-> precategory_morphisms.
+  #[reversible] Coercion TExt_Mor : TExt >-> precategory_morphisms.
 
   Definition TExtComm1 {D1 D2 : DTri} {f1 : Ob1 D1 --> Ob1 D2} {f2 : Ob2 D1 --> Ob2 D2}
              {H : f1 · Mor1 D2 = Mor1 D1 · f2} (TE : TExt H) :
@@ -760,10 +760,10 @@ Section def_pretrangulated.
 
   (** Accessor functions for pretriangulated categories *)
   Definition PreTriang_PreTriangData (PT : PreTriang) : PreTriangData := pr1 PT.
-  Coercion PreTriang_PreTriangData : PreTriang >-> PreTriangData.
+  #[reversible] Coercion PreTriang_PreTriangData : PreTriang >-> PreTriangData.
 
   Definition PreTriang_isPreTriang (PT : PreTriang) : isPreTriang PT := pr2 PT.
-  Coercion PreTriang_isPreTriang : PreTriang >-> isPreTriang.
+  #[reversible] Coercion PreTriang_isPreTriang : PreTriang >-> isPreTriang.
 
 End def_pretrangulated.
 Arguments Trans {PTD} : simpl never.
@@ -899,7 +899,7 @@ Section def_triangulated.
               (H3 : isDTri (make_Tri (f1 · g1) h2 h3)), ∥ Octa H1 H2 H3 ∥) : Triang := (PT,,H).
 
   Definition Triang_PreTriang (TR : Triang) : PreTriang := pr1 TR.
-  Coercion Triang_PreTriang : Triang >-> PreTriang.
+  #[reversible] Coercion Triang_PreTriang : Triang >-> PreTriang.
 
   Definition Octahedral {TR : Triang} {x1 x2 y1 y2 z1 z2 : ob TR}
              {f1 : x1 --> y1} {f2 : y1 --> z2} {f3 : z2 --> (AddEquiv1 Trans x1)}

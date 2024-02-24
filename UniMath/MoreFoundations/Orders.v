@@ -90,9 +90,9 @@ Definition StrongOrder (X : UU) := ∑ R : hrel X, isStrongOrder R.
 Definition make_StrongOrder {X : UU} (R : hrel X) (is : isStrongOrder R) : StrongOrder X :=
   R,,is.
 Definition pr1StrongOrder {X : UU} : StrongOrder X → hrel X := pr1.
-Coercion  pr1StrongOrder : StrongOrder >-> hrel.
+#[reversible] Coercion  pr1StrongOrder : StrongOrder >-> hrel.
 Definition pr2StrongOrder {X : UU} {R : StrongOrder X} : isStrongOrder R := pr2 R.
-Coercion pr2StrongOrder : StrongOrder >-> isStrongOrder.
+#[reversible] Coercion pr2StrongOrder : StrongOrder >-> isStrongOrder.
 
 Definition StrongOrder_bck {X Y : UU} (f : Y → X)
            (gt : StrongOrder X) : StrongOrder Y :=

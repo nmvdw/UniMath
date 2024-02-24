@@ -49,7 +49,7 @@ Definition presheaf_morphism_to_function
   : P n → P' n
   := pr1 f n.
 
-Coercion presheaf_morphism_to_function : presheaf_morphism >-> Funclass.
+#[reversible] Coercion presheaf_morphism_to_function : presheaf_morphism >-> Funclass.
 
 Definition mor_op
   {T : algebraic_theory}

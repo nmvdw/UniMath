@@ -64,7 +64,7 @@ Section ClassifyingDiscreteOpfibration.
     : B
     := pr1 pf.
 
-  Coercion mor_of_disc_sopfib_of
+  #[reversible] Coercion mor_of_disc_sopfib_of
            {x : B}
            {f : x --> s}
            (pf : disc_sopfib_of f)

@@ -143,7 +143,7 @@ Qed.
   Definition Signature_category_ob_to_functor_data (sig : Signature_category) :
     functor_data [C, D', hsD'] [C, D, hsD]
     := pr1 (pr1 sig).
-  Coercion Signature_category_ob_to_functor_data : Signature_category >-> functor_data.
+  #[reversible] Coercion Signature_category_ob_to_functor_data : Signature_category >-> functor_data.
 *)
 
   Definition SignatureMor : Signature C D D' → Signature C D D' → UU.
@@ -163,7 +163,7 @@ Qed.
     intro f.
     exact (pr1 f).
   Defined.
-  Coercion SignatureMor_to_nat_trans : SignatureMor >-> nat_trans.
+  #[reversible] Coercion SignatureMor_to_nat_trans : SignatureMor >-> nat_trans.
 
   Lemma SignatureMor_eq (Ht Ht' : Signature C D D') (f g : SignatureMor Ht Ht') :
     (pr1 f: pr1 Ht ⟹ pr1 Ht') = (pr1 g: pr1 Ht ⟹ pr1 Ht') -> f = g.

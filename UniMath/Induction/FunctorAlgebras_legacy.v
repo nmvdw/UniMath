@@ -52,7 +52,7 @@ Definition algebra_ob : UU := ∑ X : C, F X --> X.
    thus removing coercion globally
 *)
 Definition alg_carrier (X : algebra_ob) : C := pr1 X.
-Local Coercion alg_carrier : algebra_ob >-> ob.
+Local #[reversible] Coercion alg_carrier : algebra_ob >-> ob.
 
 Definition alg_map (X : algebra_ob) : F X --> X := pr2 X.
 
@@ -75,7 +75,7 @@ Definition is_algebra_mor (X Y : algebra_ob) (f : alg_carrier X --> alg_carrier 
 Definition algebra_mor (X Y : algebra_ob) : UU :=
   ∑ f : X --> Y, is_algebra_mor X Y f.
 
-Coercion mor_from_algebra_mor (X Y : algebra_ob) (f : algebra_mor X Y) : X --> Y := pr1 f.
+#[reversible] Coercion mor_from_algebra_mor (X Y : algebra_ob) (f : algebra_mor X Y) : X --> Y := pr1 f.
 
 
 Lemma algebra_mor_commutes (X Y : algebra_ob) (f : algebra_mor X Y)
@@ -442,7 +442,7 @@ Section Nats.
 
   Definition nat_ob_carrier (N : nat_ob) : ob C :=
     alg_carrier _ (InitialObject N).
-  Local Coercion nat_ob_carrier : nat_ob >-> ob.
+  Local #[reversible] Coercion nat_ob_carrier : nat_ob >-> ob.
 
   (** We have an arrow alg_map : (F N = 1 + N) --> N,
       so by the η-rule (UMP) for the coproduct, we can assume that it

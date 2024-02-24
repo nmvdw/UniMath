@@ -55,7 +55,7 @@ Section Equifiers.
     : equifier_cone
     := i ,, m ,, α.
 
-  Coercion equifier_cone_ob
+  #[reversible] Coercion equifier_cone_ob
            (cone : equifier_cone)
     : B
     := pr1 cone.
@@ -87,7 +87,7 @@ Section Equifiers.
     : equifier_1cell cone₁ cone₂
     := k ,, α.
 
-  Coercion equifier_1cell_mor
+  #[reversible] Coercion equifier_1cell_mor
            {cone₁ cone₂ : equifier_cone}
            (u : equifier_1cell cone₁ cone₂)
     : cone₁ --> cone₂

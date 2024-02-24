@@ -378,7 +378,7 @@ Section Least.
     : least_of_family p -> I
   := pr1.
   (* Would be nice to make [least_of_family_index] a coercion, but can’t since its target is an arbitrary type. The best we can do instead is [realise_least_of_family]: *)
-  Coercion realise_least_of_family {I} (p : I -> P)
+  #[reversible] Coercion realise_least_of_family {I} (p : I -> P)
     : least_of_family p -> P
   := fun ih => p (pr1 ih).
 
@@ -437,7 +437,7 @@ Section Greatest.
     : greatest_of_family p -> I
   := pr1.
   (* Would be nice to make [greatest_of_family_index] a coercion, but can’t since its target is an arbitrary type. The best we can do instead is [realise_greatest_of_family]: *)
-  Coercion realise_greatest_of_family {I} (p : I -> P)
+  #[reversible] Coercion realise_greatest_of_family {I} (p : I -> P)
     : greatest_of_family p -> P
   := fun ih => p (pr1 ih).
 
@@ -597,12 +597,12 @@ Section Chains.
   Definition Chain (P : Poset) : UU
   := ∑ (I : UU), ∑ (p : I -> P), is_chain p.
 
-  Coercion chain_index {P} (C : Chain P) : UU
+  #[reversible] Coercion chain_index {P} (C : Chain P) : UU
   := pr1 C.
 
   Definition chain_family {P} (C : Chain P) : C -> P
   := pr1 (pr2 C).
-  Coercion chain_family : Chain >-> Funclass.
+  #[reversible] Coercion chain_family : Chain >-> Funclass.
 
   Definition chain_property {P} (C : Chain P) : is_chain C
   := pr2 (pr2 C).
@@ -627,10 +627,10 @@ Section Chains.
   Definition Chain_hsubtype (P : Poset) : UU
   := ∑ A : hsubtype P, is_chain (pr1carrier A).
 
-  Coercion pr1_Chain_hsubtype {P} : Chain_hsubtype P -> hsubtype P
+  #[reversible] Coercion pr1_Chain_hsubtype {P} : Chain_hsubtype P -> hsubtype P
   := pr1.
 
-  Coercion Chain_of_Chain_hsubtype (P : Poset)
+  #[reversible] Coercion Chain_of_Chain_hsubtype (P : Poset)
     : Chain_hsubtype P -> Chain P.
   Proof.
     intros C. exact (carrier C,, (pr1carrier C,, pr2 C)).
@@ -659,12 +659,12 @@ Section Directed.
   Definition Directed_family (P : Poset) : UU
   := ∑ (I : UU), ∑ (p : I -> P), isdirected p.
 
-  Coercion directed_index {P} (C : Directed_family P) : UU
+  #[reversible] Coercion directed_index {P} (C : Directed_family P) : UU
   := pr1 C.
 
   Definition directed_family {P} (C : Directed_family P) : C -> P
   := pr1 (pr2 C).
-  Coercion directed_family : Directed_family >-> Funclass.
+  #[reversible] Coercion directed_family : Directed_family >-> Funclass.
 
   Definition directed_property {P} (C : Directed_family P) : isdirected C
   := pr2 (pr2 C).
@@ -698,10 +698,10 @@ Section Directed.
   Definition Directed_hsubtype (P : Poset) : UU
   := ∑ A : hsubtype P, isdirected (pr1carrier A).
 
-  Coercion pr1_Directed_hsubtype {P} : Directed_hsubtype P -> hsubtype P
+  #[reversible] Coercion pr1_Directed_hsubtype {P} : Directed_hsubtype P -> hsubtype P
   := pr1.
 
-  Coercion Directed_of_Directed_hsubtype (P : Poset)
+  #[reversible] Coercion Directed_of_Directed_hsubtype (P : Poset)
     : Directed_hsubtype P -> Directed_family P.
   Proof.
     intros C. exact (carrier C,, (pr1carrier C,, pr2 C)).
@@ -968,7 +968,7 @@ Definition Progressive_map (P : Poset) := carrier (@isprogressive P).
 
 Definition pr1_Progressive_map {P : Poset} : Progressive_map P -> (P -> P)
 := pr1carrier _.
-Coercion pr1_Progressive_map : Progressive_map >-> Funclass.
+#[reversible] Coercion pr1_Progressive_map : Progressive_map >-> Funclass.
 
 Definition progressive_property {P} (f : Progressive_map P)
   : isprogressive f
@@ -1017,7 +1017,7 @@ Definition isfixedpoint {P : Poset} (f : P -> P) : hsubtype P
 
 Definition Fixedpoint {P : Poset} (f : P -> P) : UU := carrier (isfixedpoint f).
 
-Coercion pr1_Fixedpoint {P : Poset} {f : P -> P} : Fixedpoint f -> P
+#[reversible] Coercion pr1_Fixedpoint {P : Poset} {f : P -> P} : Fixedpoint f -> P
 := pr1carrier _.
 
 Definition fixedpoint_property  {P : Poset} {f : P -> P} (x : Fixedpoint f)
@@ -1030,7 +1030,7 @@ Definition ispostfixedpoint {P : Poset} (f : P -> P) : hsubtype P
 Definition Postfixedpoint {P : Poset} (f : P -> P) : UU
   := carrier (ispostfixedpoint f).
 
-Coercion pr1_Postfixedpoint {P : Poset} {f : P -> P} : Postfixedpoint f -> P
+#[reversible] Coercion pr1_Postfixedpoint {P : Poset} {f : P -> P} : Postfixedpoint f -> P
 := pr1carrier _.
 
 Definition postfixedpoint_property  {P : Poset} {f : P -> P} (x : Postfixedpoint f)

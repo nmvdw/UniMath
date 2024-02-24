@@ -54,7 +54,7 @@ Section SplitMonic.
     - abstract (apply split_monic_is_monic; exact (pr2 m)).
   Defined.
 
-  Coercion split_monic_to_monic : split_monic >-> Monic.
+  #[reversible] Coercion split_monic_to_monic : split_monic >-> Monic.
 
   (** The chosen section is not necessarily unique *)
   Lemma isaset_is_split_monic (m : A --> B) :
@@ -82,7 +82,7 @@ Section SplitMonic.
       (that [C]) has homsets, we just coerce to an arrow instead. *)
   Definition merely_split_monic_to_morphism (m : merely_split_monic) : A --> B :=
     pr1 m.
-  Coercion merely_split_monic_to_morphism :
+  #[reversible] Coercion merely_split_monic_to_morphism :
     merely_split_monic >-> precategory_morphisms.
 
   Lemma isaset_merely_split_monic (m : A --> B) :

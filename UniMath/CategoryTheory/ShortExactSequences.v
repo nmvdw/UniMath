@@ -269,7 +269,7 @@ Section def_shortexactseqs.
   (** Accessor functions *)
   Definition ShortShortExact_ShortShortExactData (SSE : ShortShortExact) :
     ShortShortExactData A (to_Zero A) := pr1 SSE.
-  Coercion ShortShortExact_ShortShortExactData : ShortShortExact >-> ShortShortExactData.
+  #[reversible] Coercion ShortShortExact_ShortShortExactData : ShortShortExact >-> ShortShortExactData.
 
   Definition ShortShortExact_isKernel (SSE : ShortShortExact) :
     isKernel (to_Zero A) (KernelArrow (Image SSE)) (Mor2 SSE) (Image_Eq SSE) := pr2 SSE.
@@ -304,7 +304,7 @@ Section def_shortexactseqs.
 
   (** Accessor functions *)
   Definition LeftShortExact_ShortShortExact (LSE : LeftShortExact) : ShortShortExact := pr1 LSE.
-  Coercion LeftShortExact_ShortShortExact : LeftShortExact >-> ShortShortExact.
+  #[reversible] Coercion LeftShortExact_ShortShortExact : LeftShortExact >-> ShortShortExact.
 
   Definition isMonic (LSE : LeftShortExact) : isMonic (Mor1 LSE) := pr2 LSE.
 
@@ -321,7 +321,7 @@ Section def_shortexactseqs.
 
   (** Accessor functions *)
   Definition RightShortExact_ShortShortExact (RSE : RightShortExact) : ShortShortExact := pr1 RSE.
-  Coercion RightShortExact_ShortShortExact : RightShortExact >-> ShortShortExact.
+  #[reversible] Coercion RightShortExact_ShortShortExact : RightShortExact >-> ShortShortExact.
 
   Definition isEpi (RSE : RightShortExact) : isEpi (Mor2 RSE) := pr2 RSE.
 
@@ -345,7 +345,7 @@ Section def_shortexactseqs.
     - exact (pr1 SE).
     - exact (dirprod_pr1 (pr2 SE)).
   Defined.
-  Coercion ShortExact_LeftShortExact : ShortExact >-> LeftShortExact.
+  #[reversible] Coercion ShortExact_LeftShortExact : ShortExact >-> LeftShortExact.
 
   Definition ShortExact_RightShortExact (SE : ShortExact) : RightShortExact.
   Proof.
@@ -353,7 +353,7 @@ Section def_shortexactseqs.
     - exact (pr1 SE).
     - exact (dirprod_pr2 (pr2 SE)).
   Defined.
-  Coercion ShortExact_RightShortExact : ShortExact >-> RightShortExact.
+  #[reversible] Coercion ShortExact_RightShortExact : ShortExact >-> RightShortExact.
 
 End def_shortexactseqs.
 Arguments Image [A] _.

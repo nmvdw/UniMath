@@ -45,7 +45,7 @@ Definition make_graph (G : pregraph)
   := G,, make_dirprod h k.
 
 Definition pregraph_of_graph : graph → pregraph := pr1.
-Coercion pregraph_of_graph : graph >-> pregraph.
+#[reversible] Coercion pregraph_of_graph : graph >-> pregraph.
 
 Definition isaset_vertex (G : graph)
   : isaset (vertex G)

@@ -67,7 +67,7 @@ Definition disp_pscomponent_of (αα : disp_pstrans_data)
   : ∏ (x : B₁) (xx : D₁ x), FF₁ x xx -->[ α x] FF₂ x xx
   := pr1 αα.
 
-Coercion disp_pscomponent_of : disp_pstrans_data >-> Funclass.
+#[reversible] Coercion disp_pscomponent_of : disp_pstrans_data >-> Funclass.
 
 Definition disp_psnaturality_of (αα : disp_pstrans_data)
            {x y : B₁}
@@ -154,7 +154,7 @@ End DispPstransLaws.
 Definition disp_pstrans : UU
   := ∑ αα : disp_pstrans_data, is_disp_pstrans αα.
 
-Coercion disp_pstrans_to_disp_pstrans_data (αα : disp_pstrans)
+#[reversible] Coercion disp_pstrans_to_disp_pstrans_data (αα : disp_pstrans)
   : disp_pstrans_data
   := pr1 αα.
 

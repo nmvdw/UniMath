@@ -62,7 +62,7 @@ Section BasisInDCPO.
     : UU
     := ∑ (B : UU), B → X.
 
-  Coercion dcpo_basis_data_to_type
+  #[reversible] Coercion dcpo_basis_data_to_type
            (B : dcpo_basis_data)
     : UU
     := pr1 B.
@@ -73,7 +73,7 @@ Section BasisInDCPO.
     : X
     := pr2 B b.
 
-  Coercion dcpo_basis_data_to_dcpo : dcpo_basis_data >-> Funclass.
+  #[reversible] Coercion dcpo_basis_data_to_dcpo : dcpo_basis_data >-> Funclass.
 
   Definition make_dcpo_basis_data
              (B : UU)
@@ -114,12 +114,12 @@ Section BasisInDCPO.
     : dcpo_basis
     := B ,, HB.
 
-  Coercion dcpo_basis_to_data
+  #[reversible] Coercion dcpo_basis_to_data
            (B : dcpo_basis)
     : dcpo_basis_data
     := pr1 B.
 
-  Coercion dcpo_basis_to_laws
+  #[reversible] Coercion dcpo_basis_to_laws
            (B : dcpo_basis)
     : dcpo_basis_laws B
     := pr2 B.

@@ -28,7 +28,7 @@ Definition prebicat_2cell_struct (C : precategory_ob_mor)
 Definition prebicat_1_id_comp_cells : UU
   := ∑ (C : precategory_data), prebicat_2cell_struct C.
 
-Coercion precat_data_from_prebicat_1_id_comp_cells (C : prebicat_1_id_comp_cells)
+#[reversible] Coercion precat_data_from_prebicat_1_id_comp_cells (C : prebicat_1_id_comp_cells)
   : precategory_data
   := pr1 C.
 
@@ -76,7 +76,7 @@ Definition make_prebicat_data C (str : prebicat_2_id_comp_struct C)
 (** Data projections.                                                                  *)
 (* ----------------------------------------------------------------------------------- *)
 
-Coercion prebicat_cells_1_id_comp_from_prebicat_data (C : prebicat_data)
+#[reversible] Coercion prebicat_cells_1_id_comp_from_prebicat_data (C : prebicat_data)
   : prebicat_1_id_comp_cells
   := pr1 C.
 
@@ -217,8 +217,8 @@ Qed.
 
 Definition prebicat : UU := ∑ C : prebicat_data, prebicat_laws C.
 
-Coercion prebicat_data_from_bicat (C : prebicat) : prebicat_data := pr1 C.
-Coercion prebicat_laws_from_bicat (C : prebicat) : prebicat_laws C := pr2 C.
+#[reversible] Coercion prebicat_data_from_bicat (C : prebicat) : prebicat_data := pr1 C.
+#[reversible] Coercion prebicat_laws_from_bicat (C : prebicat) : prebicat_laws C := pr2 C.
 
 (* ----------------------------------------------------------------------------------- *)
 (** Laws projections.                                                                  *)
@@ -424,7 +424,7 @@ Proof.
       * exact rwhisk.
 Defined.
 
-Coercion prebicat_of_bicat (C : bicat)
+#[reversible] Coercion prebicat_of_bicat (C : bicat)
   : prebicat
   := pr1 C.
 
@@ -575,12 +575,12 @@ Definition make_invertible_2cell {C : prebicat_data}
   : invertible_2cell f g
   := η,, inv_η.
 
-Coercion cell_from_invertible_2cell {C : prebicat_data}
+#[reversible] Coercion cell_from_invertible_2cell {C : prebicat_data}
          {a b : C} {f g : a --> b} (η : invertible_2cell f g)
   : f ==> g
   := pr1 η.
 
-Coercion property_from_invertible_2cell {C : prebicat_data}
+#[reversible] Coercion property_from_invertible_2cell {C : prebicat_data}
          {a b : C} {f g : a --> b}
          (η : invertible_2cell f g)
   : is_invertible_2cell η

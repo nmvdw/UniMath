@@ -86,7 +86,7 @@ Section TheDefinitions.
   Definition lineator_lax : UU := ∑ (ld : lineator_data), lineator_laxlaws ld.
 
   Definition lineator_lindata (ll : lineator_lax) : lineator_data := pr1 ll.
-  Coercion lineator_lindata : lineator_lax >-> lineator_data.
+  #[reversible] Coercion lineator_lindata : lineator_lax >-> lineator_data.
 
   Definition lineator_linlaws (ll : lineator_lax) : lineator_laxlaws ll := pr2 ll.
 
@@ -215,7 +215,7 @@ Section TheDefinitions.
   Definition lineator : UU := ∑ (ll : lineator_lax), lineator_strongly ll.
 
   Definition lineator_lineatorlax (lin : lineator) : lineator_lax := pr1 lin.
-  Coercion lineator_lineatorlax : lineator >-> lineator_lax.
+  #[reversible] Coercion lineator_lineatorlax : lineator >-> lineator_lax.
 
   Definition lineator_linstrongly (lin : lineator) : lineator_strongly lin := pr2 lin.
 

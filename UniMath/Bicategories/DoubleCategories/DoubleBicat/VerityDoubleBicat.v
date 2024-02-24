@@ -160,7 +160,7 @@ Definition make_ver_sq_bicat
   : ver_sq_bicat
   := B ,, D.
 
-Coercion ver_bicat_of_ver_sq_bicat
+#[reversible] Coercion ver_bicat_of_ver_sq_bicat
          (B : ver_sq_bicat)
   : bicat
   := pr1 B.
@@ -240,7 +240,7 @@ Definition make_ver_bicat_sq_bicat
   : ver_bicat_sq_bicat
   := B ,, I ,, J ,, H ,, K.
 
-Coercion ver_bicat_to_ver_bicat
+#[reversible] Coercion ver_bicat_to_ver_bicat
          (B : ver_bicat_sq_bicat)
   : ver_sq_bicat
   := pr1 B.
@@ -295,7 +295,7 @@ Definition ver_bicat_sq_bicat_ver_id_comp
   := ∑ (B : ver_bicat_sq_bicat),
      ver_bicat_sq_bicat_ver_id_comp_sq B.
 
-Coercion ver_bicat_sq_bicat_ver_id_comp_to_ver_bicat_sq_bicat
+#[reversible] Coercion ver_bicat_sq_bicat_ver_id_comp_to_ver_bicat_sq_bicat
          (B : ver_bicat_sq_bicat_ver_id_comp)
   : ver_bicat_sq_bicat
   := pr1 B.
@@ -411,7 +411,7 @@ Definition make_ver_bicat_sq_id_comp_whisker
   : ver_bicat_sq_id_comp_whisker
   := B ,, W.
 
-Coercion ver_bicat_sq_id_comp_whisker_to_ver_bicat_sq_bicat_ver_id_comp
+#[reversible] Coercion ver_bicat_sq_id_comp_whisker_to_ver_bicat_sq_bicat_ver_id_comp
          (B : ver_bicat_sq_id_comp_whisker)
   : ver_bicat_sq_bicat_ver_id_comp
   := pr1 B.
@@ -997,7 +997,7 @@ Definition make_verity_double_bicat
   : verity_double_bicat
   := B ,, H.
 
-Coercion verity_double_bicat_to_ver_bicat_sq_id_comp_whisker
+#[reversible] Coercion verity_double_bicat_to_ver_bicat_sq_id_comp_whisker
          (B : verity_double_bicat)
   : ver_bicat_sq_id_comp_whisker
   := pr1 B.

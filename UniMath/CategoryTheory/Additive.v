@@ -48,7 +48,7 @@ Section def_additive.
   Definition CategoryWithAdditiveStructure : UU := ∑ PA : PreAdditive, AdditiveStructure PA.
 
   Definition Additive_PreAdditive (A : CategoryWithAdditiveStructure) : PreAdditive := pr1 A.
-  Coercion Additive_PreAdditive : CategoryWithAdditiveStructure >-> PreAdditive.
+  #[reversible] Coercion Additive_PreAdditive : CategoryWithAdditiveStructure >-> PreAdditive.
 
   Definition make_Additive (PA : PreAdditive) (H : AdditiveStructure PA) : CategoryWithAdditiveStructure.
   Proof.
@@ -64,7 +64,7 @@ Section def_additive.
 
   Definition AdditiveCategory : UU := ∑ PA : PreAdditive, isAdditive PA.
 
-  Coercion Additive_to_PreAdditive (A : AdditiveCategory) : PreAdditive := pr1 A.
+  #[reversible] Coercion Additive_to_PreAdditive (A : AdditiveCategory) : PreAdditive := pr1 A.
 
   (** Accessor functions. *)
   Definition to_AdditiveStructure (A : CategoryWithAdditiveStructure) : AdditiveStructure A := pr2 A.

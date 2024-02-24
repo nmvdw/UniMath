@@ -105,7 +105,7 @@ Definition make_factorization_1cell
   : factorization_1cell L R f
   := a ,, l ,, r ,, Ll ,, Rr ,, τ.
 
-Coercion factorization_1cell_ob
+#[reversible] Coercion factorization_1cell_ob
          {B : bicat}
          {L R : ∏ (x y : B), x --> y → hProp}
          {x y : B}

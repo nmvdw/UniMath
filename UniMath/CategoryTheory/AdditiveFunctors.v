@@ -98,7 +98,7 @@ Section def_additivefunctor.
   (** Accessor functions *)
   Definition AdditiveFunctor_Functor {A B : CategoryWithAdditiveStructure} (F : AdditiveFunctor A B) :
     functor A B := pr1 F.
-  Coercion AdditiveFunctor_Functor : AdditiveFunctor >-> functor.
+  #[reversible] Coercion AdditiveFunctor_Functor : AdditiveFunctor >-> functor.
 
   Definition AdditiveFunctor_isAdditiveFunctor {A B : CategoryWithAdditiveStructure} (F : AdditiveFunctor A B) :
     isAdditiveFunctor (AdditiveFunctor_Functor F) := pr2 F.
@@ -455,7 +455,7 @@ Section def_additive_equivalence.
 
   Definition AddEquiv_are_adjoints {A1 A2 : CategoryWithAdditiveStructure} (AE : AddEquiv A1 A2) :
     are_adjoints (AddEquiv1 AE) (AddEquiv2 AE) := pr2 (pr1 AE).
-  Coercion AddEquiv_are_adjoints : AddEquiv >-> are_adjoints.
+  #[reversible] Coercion AddEquiv_are_adjoints : AddEquiv >-> are_adjoints.
 
   Definition AddEquivUnit {A1 A2 : CategoryWithAdditiveStructure} (AE : AddEquiv A1 A2) :
     nat_trans (functor_identity A1) (functor_composite (AddEquiv1 AE) (AddEquiv2 AE)) :=

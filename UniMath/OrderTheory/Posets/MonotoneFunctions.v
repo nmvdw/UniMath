@@ -53,7 +53,7 @@ Definition monotone_function_to_function
   : X₁ → X₂
   := pr1 f.
 
-Coercion monotone_function_to_function : monotone_function >-> Funclass.
+#[reversible] Coercion monotone_function_to_function : monotone_function >-> Funclass.
 
 Proposition eq_monotone_function
             {X₁ X₂ : hSet}

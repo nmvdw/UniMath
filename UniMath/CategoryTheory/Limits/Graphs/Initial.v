@@ -73,7 +73,7 @@ use tpair.
 Defined.
 
 Definition InitialObject (O : Initial) : C := colim O.
-(* Coercion InitialObject : Initial >-> ob. *)
+(* #[reversible] Coercion InitialObject : Initial >-> ob. *)
 
 Definition InitialArrow (O : Initial) (b : C) : C⟦InitialObject O,b⟧ :=
   colimArrow _ _ (initCocone b).

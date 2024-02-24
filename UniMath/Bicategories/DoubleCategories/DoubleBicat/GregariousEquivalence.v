@@ -77,7 +77,7 @@ Section GregariousEquivalence.
        ×
        left_adjoint_equivalence v.
 
-  Coercion is_gregarious_equivalence_to_are_companions
+  #[reversible] Coercion is_gregarious_equivalence_to_are_companions
            {x y : B}
            {h : x --> y}
            {v : x -|-> y}
@@ -148,14 +148,14 @@ Section GregariousEquivalence.
     : is_hor_gregarious_equivalence h
     := Hh ,, (v ,, c) ,, Hv.
 
-  Coercion is_hor_gregarious_equivalence_to_mor
+  #[reversible] Coercion is_hor_gregarious_equivalence_to_mor
            {x y : B}
            {h : x --> y}
            (v : is_hor_gregarious_equivalence h)
     : hor_companion h
     := pr12 v.
 
-  Coercion is_hor_gregarious_equivalence_to_is_left_adjoint_equivalence
+  #[reversible] Coercion is_hor_gregarious_equivalence_to_is_left_adjoint_equivalence
            {x y : B}
            {h : x --> y}
            (v : is_hor_gregarious_equivalence h)

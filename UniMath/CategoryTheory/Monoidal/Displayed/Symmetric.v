@@ -408,7 +408,7 @@ Section DisplayedSymmetric.
     exact (pr2 DB).
   Defined.
 
-  Coercion disp_symmetric_to_braiding : disp_symmetric >-> disp_braiding.
+  #[reversible] Coercion disp_symmetric_to_braiding : disp_symmetric >-> disp_braiding.
 
   Definition total_symmetric
     {B : symmetric M}

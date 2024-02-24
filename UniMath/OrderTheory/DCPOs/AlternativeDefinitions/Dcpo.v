@@ -110,7 +110,7 @@ Qed.
 
 Definition dcpo := ∑ (X : Poset), isdirectedcomplete X.
 Definition dcpoposet : dcpo -> Poset := pr1.
-Coercion dcpoposet : dcpo >-> Poset.
+#[reversible] Coercion dcpoposet : dcpo >-> Poset.
 Definition dcpoisdirectedcomplete (D : dcpo) : isdirectedcomplete D := pr2 D.
 Definition make_dcpo (X : Poset) (i : isdirectedcomplete X) : dcpo := (X,,i).
 
@@ -161,7 +161,7 @@ Proof.
   intros [f isdcpomor].
   exists f. exact (pr1 isdcpomor).
 Defined.
-Coercion dcpomorphism_posetmorphism : dcpomorphism >-> posetmorphism.
+#[reversible] Coercion dcpomorphism_posetmorphism : dcpomorphism >-> posetmorphism.
 
 Lemma dcpomorphism_preservesorder {D D' : dcpo} (f : dcpomorphism D D') :
   isaposetmorphism f.
@@ -430,7 +430,7 @@ End morphismsofdcpos_formdcpo.
 Section dcpowithbottom.
 Definition dcpowithbottom := ∑ (D : dcpo), ∑ (l : D), isMinimal l.
 Definition dcpowithbottom_dcpo : dcpowithbottom -> dcpo := pr1.
-Coercion dcpowithbottom_dcpo : dcpowithbottom >-> dcpo.
+#[reversible] Coercion dcpowithbottom_dcpo : dcpowithbottom >-> dcpo.
 Definition dcpowithbottom_isMinimal (D : dcpowithbottom) := (pr2 (pr2 D)).
 Definition dcpowithbottom_bottom (D : dcpowithbottom) := pr1 (pr2 D).
 

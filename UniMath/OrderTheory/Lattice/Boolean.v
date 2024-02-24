@@ -62,7 +62,7 @@ Section Accessors.
 
 End Accessors.
 
-Coercion boolean_algebra_lattice : boolean_algebra >-> bounded_lattice.
+#[reversible] Coercion boolean_algebra_lattice : boolean_algebra >-> bounded_lattice.
 
 (** Every Boolean algebra has eponentials (is a Heyting algebra). *)
 Section Heyting.

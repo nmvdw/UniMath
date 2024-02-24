@@ -37,7 +37,7 @@ Section Tensor.
     ∑ T : tensor_data C, tensor_ax T.
 
   Definition tensor_to_data {C : category} (T : tensor C) : tensor_data C := pr1 T.
-  Coercion tensor_to_data : tensor >-> tensor_data.
+  #[reversible] Coercion tensor_to_data : tensor >-> tensor_data.
 
   Definition tensor_to_ax {C : category} (T : tensor C) : tensor_ax T := pr2 T.
 
@@ -59,7 +59,7 @@ Section Tensor.
 
   Definition preservestensor_into_preservestensordata {C D : category} {TC : tensor C} {TD : tensor D} {F : functor C D} (pt : preserves_tensor TC TD F)
     : preserves_tensor_data TC TD F := pr1 pt.
-  Coercion preservestensor_into_preservestensordata : preserves_tensor >-> preserves_tensor_data.
+  #[reversible] Coercion preservestensor_into_preservestensordata : preserves_tensor >-> preserves_tensor_data.
 
   Lemma identityfunctor_preserves_tensor_data {C : category} (T : tensor C)
     : preserves_tensor_data T T (functor_identity C).
@@ -232,11 +232,11 @@ Section TensorUnit.
 
   Definition tensor_unit_to_tensor {C : category} (tu : tensor_unit C)
     : tensor C := pr1 tu.
-  Coercion tensor_unit_to_tensor : tensor_unit >-> tensor.
+  #[reversible] Coercion tensor_unit_to_tensor : tensor_unit >-> tensor.
 
   Definition tensor_unit_to_unit {C : category} (tu : tensor_unit C)
     : ob C := pr2 tu.
-  Coercion tensor_unit_to_unit : tensor_unit >-> ob.
+  #[reversible] Coercion tensor_unit_to_unit : tensor_unit >-> ob.
 
   Definition functor_tensor_unit {C D : category}
              (tuC : tensor_unit C) (tuD : tensor_unit D)
@@ -250,7 +250,7 @@ Section TensorUnit.
              {F : functor C D}
              (ptu : functor_tensor_unit tuC tuD F)
     : preserves_tensor tuC tuD F := pr1 ptu.
-  Coercion functor_tensor_unit_to_preserves_tensor : functor_tensor_unit >-> preserves_tensor.
+  #[reversible] Coercion functor_tensor_unit_to_preserves_tensor : functor_tensor_unit >-> preserves_tensor.
 
   Definition functor_tensor_unit_to_preserves_unit
              {C D : category}
@@ -258,7 +258,7 @@ Section TensorUnit.
              {F : functor C D}
              (ptu : functor_tensor_unit tuC tuD F)
     : preserves_unit tuC tuD F := pr2 ptu.
-  Coercion functor_tensor_unit_to_preserves_unit : functor_tensor_unit >-> preserves_unit.
+  #[reversible] Coercion functor_tensor_unit_to_preserves_unit : functor_tensor_unit >-> preserves_unit.
 
   Definition identity_functor_tensor_unit {C : category}
              (tu : tensor_unit C)
@@ -777,17 +777,17 @@ Section UnitorsAssociator.
   Definition unitors_associator_to_lunitor {C : category}
              {tu : tensor_unit C} (ua : unitors_associator tu)
     : lunitor tu := pr1 ua.
-  (* Coercion unitors_associator_to_lunitor : unitors_associator >-> lunitor. *)
+  (* #[reversible] Coercion unitors_associator_to_lunitor : unitors_associator >-> lunitor. *)
 
   Definition unitors_associator_to_runitor {C : category}
              {tu : tensor_unit C} (ua : unitors_associator tu)
     : runitor tu := pr12 ua.
-  (* Coercion unitors_associator_to_runitor : unitors_associator >-> runitor. *)
+  (* #[reversible] Coercion unitors_associator_to_runitor : unitors_associator >-> runitor. *)
 
   Definition unitors_associator_to_associator {C : category}
              {tu : tensor_unit C} (ua : unitors_associator tu)
     : associator tu := pr22 ua.
-  (* Coercion unitors_associator_to_associator : unitors_associator >-> associator. *)
+  (* #[reversible] Coercion unitors_associator_to_associator : unitors_associator >-> associator. *)
 
   Definition functor_unitors_associator {C D : category}
              {tuC : tensor_unit C} {tuD : tensor_unit D}
@@ -813,7 +813,7 @@ Section UnitorsAssociator.
              (puaF : functor_unitors_associator uaC uaD ptuF)
     : preserves_lunitor ptuF (pr1 uaC) (pr1 uaD) := pr1 puaF.
     (* : preserves_lunitor ptuF (pr1 uaC) uaD := pr1 puaF. *)
-  Coercion functor_unitors_associator_to_preserves_lunitor
+  #[reversible] Coercion functor_unitors_associator_to_preserves_lunitor
     : functor_unitors_associator >-> preserves_lunitor.
 
   Definition functor_unitors_associator_to_preserves_runitor
@@ -825,7 +825,7 @@ Section UnitorsAssociator.
              {ptuF : functor_tensor_unit tuC tuD F}
              (puaF : functor_unitors_associator uaC uaD ptuF)
     : preserves_runitor ptuF (pr12 uaC) (pr12 uaD) := pr12 puaF.
-  Coercion functor_unitors_associator_to_preserves_runitor
+  #[reversible] Coercion functor_unitors_associator_to_preserves_runitor
     : functor_unitors_associator >-> preserves_runitor.
 
   Definition functor_unitors_associator_to_preserves_associator
@@ -837,7 +837,7 @@ Section UnitorsAssociator.
              {ptuF : functor_tensor_unit tuC tuD F}
              (puaF : functor_unitors_associator uaC uaD ptuF)
     : preserves_associator ptuF (pr22 uaC) (pr22 uaD) := pr22 puaF.
-  Coercion functor_unitors_associator_to_preserves_associator
+  #[reversible] Coercion functor_unitors_associator_to_preserves_associator
     : functor_unitors_associator >-> preserves_associator.
 
   Definition identity_functor_unitors_associator {C : category}
@@ -1058,14 +1058,14 @@ Section MonoidalSigmaStructure.
   Definition tensor_unit_unitors_associator_to_tensor_unit
              {C : category} (tuua : tensor_unit_unitors_associator C)
     : tensor_unit C := pr1 tuua.
-  Coercion tensor_unit_unitors_associator_to_tensor_unit
+  #[reversible] Coercion tensor_unit_unitors_associator_to_tensor_unit
     : tensor_unit_unitors_associator >-> tensor_unit.
 
   Definition tensor_unit_unitors_associator_to_unitors_associator
              {C : category} (tuua : tensor_unit_unitors_associator C)
     : unitors_associator (tensor_unit_unitors_associator_to_tensor_unit tuua)
     := pr2 tuua.
-  Coercion tensor_unit_unitors_associator_to_unitors_associator
+  #[reversible] Coercion tensor_unit_unitors_associator_to_unitors_associator
     : tensor_unit_unitors_associator >-> unitors_associator.
 
   Definition mon_structure (C : category) : UU
@@ -1074,7 +1074,7 @@ Section MonoidalSigmaStructure.
   Definition mon_structure_to_tensor_unit_unitors_associator
              {C : category} (lm : mon_structure C)
     : tensor_unit_unitors_associator C := pr1 lm.
-  Coercion mon_structure_to_tensor_unit_unitors_associator
+  #[reversible] Coercion mon_structure_to_tensor_unit_unitors_associator
     : mon_structure >-> tensor_unit_unitors_associator.
   Definition mon_structure_triangle_pentagon
              {C : category} (lm : mon_structure C)
@@ -1097,7 +1097,7 @@ Section MonoidalFunctorSigmaStructure.
              {tuuaD : tensor_unit_unitors_associator D}
              (ftuua : functor_tensor_unit_unitors_associator F tuuaC tuuaD)
     : functor_tensor_unit tuuaC tuuaD F := pr1 ftuua.
-  Coercion functor_tensor_unit_unitors_associator_to_tensor_unit
+  #[reversible] Coercion functor_tensor_unit_unitors_associator_to_tensor_unit
     : functor_tensor_unit_unitors_associator >-> functor_tensor_unit.
 
   Definition functor_tensor_unit_unitors_associator_to_unitors_associator
@@ -1107,7 +1107,7 @@ Section MonoidalFunctorSigmaStructure.
              (ftuua : functor_tensor_unit_unitors_associator F tuuaC tuuaD)
     : functor_unitors_associator tuuaC tuuaD (functor_tensor_unit_unitors_associator_to_tensor_unit ftuua)
     := pr2 ftuua.
-  Coercion functor_tensor_unit_unitors_associator_to_unitors_associator
+  #[reversible] Coercion functor_tensor_unit_unitors_associator_to_unitors_associator
     : functor_tensor_unit_unitors_associator >-> functor_unitors_associator.
 
   Definition functor_lax_monoidal

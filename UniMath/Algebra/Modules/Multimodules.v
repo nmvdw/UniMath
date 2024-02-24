@@ -44,7 +44,7 @@ Definition multimodule {I : UU} (rings : I -> ring) : UU
 Definition pr1multimodule {I : UU} {rings : I -> ring} (MM : multimodule rings) : abgr
   := pr1 MM.
 
-Coercion pr1multimodule : multimodule >-> abgr.
+#[reversible] Coercion pr1multimodule : multimodule >-> abgr.
 
 Definition pr2multimodule {I : UU} {rings : I -> ring} (MM : multimodule rings)
   : ∏ i : I, module_struct (rings i) (pr1multimodule MM) := (pr1 (pr2 MM)).
@@ -102,7 +102,7 @@ Definition make_multilinearfun {I : UU} {rings : I -> ring} {MM NN : multimodule
 Definition pr1multilinearfun {I : UU} {rings : I -> ring} {MM NN : multimodule rings}
            (f : multilinearfun MM NN) : MM -> NN := pr1 f.
 
-Coercion pr1multilinearfun : multilinearfun >-> Funclass.
+#[reversible] Coercion pr1multilinearfun : multilinearfun >-> Funclass.
 
 Definition ith_linearfun {I : UU} {rings : I -> ring} {MM NN : multimodule rings}
            (f : multilinearfun MM NN) (i : I) :
@@ -144,7 +144,7 @@ Definition make_multimodulefun {I : UU} {rings : I -> ring}
 Definition pr1multimodulefun {I : UU} {rings : I -> ring}
            {MM NN : multimodule rings} (f : multimodulefun MM NN) : MM -> NN := pr1 f.
 
-Coercion pr1multimodulefun : multimodulefun >-> Funclass.
+#[reversible] Coercion pr1multimodulefun : multimodulefun >-> Funclass.
 
 Definition ith_modulefun {I : UU} {rings : I -> ring} {MM NN : multimodule rings}
            (f : multimodulefun MM NN) (i : I) :

@@ -430,7 +430,7 @@ Definition hor_companion
   : UU
   := ∑ (v : x -|-> y), are_companions h v.
 
-Coercion mor_of_hor_companion
+#[reversible] Coercion mor_of_hor_companion
          {B : verity_double_bicat}
          {x y : B}
          {h : x --> y}
@@ -438,7 +438,7 @@ Coercion mor_of_hor_companion
   : x -|-> y
   := pr1 c.
 
-Coercion are_companions_hor_companion
+#[reversible] Coercion are_companions_hor_companion
          {B : verity_double_bicat}
          {x y : B}
          {h : x --> y}

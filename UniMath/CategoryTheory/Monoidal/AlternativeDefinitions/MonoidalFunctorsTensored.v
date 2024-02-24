@@ -62,7 +62,7 @@ Definition monoidal_functor_map :=
 Definition monoidal_functor_map_funclass (μ : monoidal_functor_map) :
   ∏ x : ob (Mon_C ⊠ Mon_C), monoidal_functor_map_dom x -->  monoidal_functor_map_codom x
   := pr1 μ.
-Coercion monoidal_functor_map_funclass : monoidal_functor_map >-> Funclass.
+#[reversible] Coercion monoidal_functor_map_funclass : monoidal_functor_map >-> Funclass.
 
 Definition monoidal_functor_associativity (μ : monoidal_functor_map) :=
   ∏ (x y z : Mon_C),
@@ -88,7 +88,7 @@ Definition make_lax_monoidal_functor (F : Mon_C ⟶ Mon_D) (ϵ : I_D --> F I_C)
   (F,, (ϵ,, (μ,, (Hass,, Hunit)))).
 
 Definition lax_monoidal_functor_functor (lmF : lax_monoidal_functor) : Mon_C ⟶ Mon_D := pr1 lmF.
-Coercion lax_monoidal_functor_functor : lax_monoidal_functor >-> functor.
+#[reversible] Coercion lax_monoidal_functor_functor : lax_monoidal_functor >-> functor.
 
 Definition lax_monoidal_functor_ϵ (lmF : lax_monoidal_functor) :
   I_D -->  lax_monoidal_functor_functor lmF I_C
@@ -115,7 +115,7 @@ Definition strong_monoidal_functor : UU :=
 
 Definition strong_monoidal_functor_lax_monoidal_functor (smF : strong_monoidal_functor) : lax_monoidal_functor
   := pr1 smF.
-Coercion strong_monoidal_functor_lax_monoidal_functor : strong_monoidal_functor >-> lax_monoidal_functor.
+#[reversible] Coercion strong_monoidal_functor_lax_monoidal_functor : strong_monoidal_functor >-> lax_monoidal_functor.
 
 Definition strong_monoidal_functor_ϵ_is_z_iso (smF : strong_monoidal_functor) :
   is_z_isomorphism (lax_monoidal_functor_ϵ smF)

@@ -194,7 +194,7 @@ Section InternalStreetOpFibration.
     : UU
     := internal_sopfib_opcleaving × lwhisker_is_opcartesian.
 
-  Coercion internal_sopfib_to_opcleaving
+  #[reversible] Coercion internal_sopfib_to_opcleaving
            (H : internal_sopfib)
     : internal_sopfib_opcleaving
     := pr1 H.
@@ -800,7 +800,7 @@ Definition make_mor_of_internal_sopfib_over
   : mor_of_internal_sopfib_over p₁ p₂ fb
   := (fe ,, fc ,, f_com).
 
-Coercion mor_of_internal_sopfib_over_to_mor
+#[reversible] Coercion mor_of_internal_sopfib_over_to_mor
          {B : bicat}
          {e₁ b₁ : B}
          {p₁ : e₁ --> b₁}
@@ -920,7 +920,7 @@ Definition make_cell_of_internal_sopfib_over
   : cell_of_internal_sopfib_over γ fe ge
   := (γe ,, p).
 
-Coercion cell_of_cell_of_internal_sopfib_over
+#[reversible] Coercion cell_of_cell_of_internal_sopfib_over
          {B : bicat}
          {b₁ b₂ e₁ e₂ : B}
          {fb gb : b₁ --> b₂}

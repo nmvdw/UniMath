@@ -72,7 +72,7 @@ Section DaggerFunctors.
              (F : dagger_functor dagC dagD)
     : functor C D
     := pr1 F.
-  Coercion dagger_functor_to_functor : dagger_functor >-> functor.
+  #[reversible] Coercion dagger_functor_to_functor : dagger_functor >-> functor.
 
   Definition dagger_functor_to_is_dagger_functor
              {C D : category}

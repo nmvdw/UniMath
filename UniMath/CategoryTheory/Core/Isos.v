@@ -42,7 +42,7 @@ Qed.
 
 Definition iso {C: precategory_data} (a b : C) := ∑ f : a --> b, is_iso f.
 Definition morphism_from_iso {C : precategory_data} {a b : C} (f : iso a b) : a --> b := pr1 f.
-Coercion morphism_from_iso : iso >-> precategory_morphisms.
+#[reversible] Coercion morphism_from_iso : iso >-> precategory_morphisms.
 
 Definition iso_is_iso {C : precategory_data} {a b : C} (f : iso a b) : is_iso f := pr2 f.
 
@@ -446,7 +446,7 @@ Definition is_z_isomorphism_mor {C : precategory_data} {a b : C} {f : a --> b}
 Definition is_z_isomorphism_is_inverse_in_precat {C : precategory_data} {a b : C}
            {f : a --> b} (I : is_z_isomorphism f) :
   is_inverse_in_precat f (is_z_isomorphism_mor I) := pr2 I.
-Coercion is_z_isomorphism_is_inverse_in_precat : is_z_isomorphism >-> is_inverse_in_precat.
+#[reversible] Coercion is_z_isomorphism_is_inverse_in_precat : is_z_isomorphism >-> is_inverse_in_precat.
 
 Definition is_z_isomorphism_inv {C : precategory_data} {a b : C} {f : a --> b}
            (I : is_z_isomorphism f) : is_z_isomorphism (is_z_isomorphism_mor I).
@@ -504,7 +504,7 @@ Definition make_z_iso' {C : precategory_data} {a b : C} (f : a --> b) (H : is_z_
   z_iso a b := (f,,H).
 
 Definition z_iso_mor {C : precategory_data} {a b : ob C} (f : z_iso a b) : a --> b := pr1 f.
-Coercion z_iso_mor : z_iso >-> precategory_morphisms.
+#[reversible] Coercion z_iso_mor : z_iso >-> precategory_morphisms.
 
 Definition inv_from_z_iso {C : precategory_data} {a b : C} (i : z_iso a b) : b --> a :=
   is_z_isomorphism_mor (pr2 i).
@@ -513,7 +513,7 @@ Definition inv_from_z_iso {C : precategory_data} {a b : C} (i : z_iso a b) : b -
 
 Definition z_iso_is_inverse_in_precat {C : precategory_data} {a b : C} (i : z_iso a b) :
   is_inverse_in_precat i (inv_from_z_iso i) := pr2 i.
-Coercion z_iso_is_inverse_in_precat : z_iso >-> is_inverse_in_precat.
+#[reversible] Coercion z_iso_is_inverse_in_precat : z_iso >-> is_inverse_in_precat.
 
 Definition z_iso_inv {C : precategory_data} {a b : C} (I : z_iso a b) : z_iso b a.
 Proof.
@@ -646,7 +646,7 @@ Qed.
 
 Definition morphism_from_z_iso {C : precategory_data} (a b : ob C)
    (f : z_iso a b) : a --> b := pr1 f.
-Coercion morphism_from_z_iso : z_iso >-> precategory_morphisms.
+#[reversible] Coercion morphism_from_z_iso : z_iso >-> precategory_morphisms.
 
 Lemma isaset_z_iso {C : category} (a b : ob C) : isaset (z_iso a b).
 Proof.

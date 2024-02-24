@@ -364,7 +364,7 @@ Section MonoidalSections.
              (sm : smonoidal_lax sd)
     : smonoidal_data sd := pr1 sm.
 
-  Coercion smonoidal_sdata : smonoidal_lax >-> smonoidal_data.
+  #[reversible] Coercion smonoidal_sdata : smonoidal_lax >-> smonoidal_data.
 
   Definition smonoidal_slaxlaws
              {sd : section_disp D}
@@ -430,7 +430,7 @@ Section MonoidalSections.
              (sm : smonoidal sd)
     : smonoidal_lax sd
     := pr1 sm.
-  Coercion smonoidal_smonoidallax : smonoidal >-> smonoidal_lax.
+  #[reversible] Coercion smonoidal_smonoidallax : smonoidal >-> smonoidal_lax.
 
   Definition smonoidal_smonoidalstronglaws
              {sd : section_disp D}

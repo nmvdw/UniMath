@@ -52,7 +52,7 @@ Proof.
   intros H d'' hh.
   apply H.
 Defined.
-Coercion pre'_implies_pre : is_pre'cartesian >-> is_precartesian.
+#[reversible] Coercion pre'_implies_pre : is_pre'cartesian >-> is_precartesian.
 
 Definition pre_implies_pre'
     {C : category} {D : disp_cat C}
@@ -190,7 +190,7 @@ Definition object_of_precartesian_lift
     (fd : precartesian_lift d f)
   : D c'
 := pr1 fd.
-Coercion object_of_precartesian_lift : precartesian_lift >-> ob_disp.
+#[reversible] Coercion object_of_precartesian_lift : precartesian_lift >-> ob_disp.
 
 Definition object_of_pre'cartesian_lift
     {C : category} {D : disp_cat C}
@@ -198,7 +198,7 @@ Definition object_of_pre'cartesian_lift
     (fd : pre'cartesian_lift d f)
   : D c'
 := pr1 fd.
-Coercion object_of_pre'cartesian_lift : pre'cartesian_lift >-> ob_disp.
+#[reversible] Coercion object_of_pre'cartesian_lift : pre'cartesian_lift >-> ob_disp.
 
 Definition mor_disp_of_precartesian_lift
     {C : category} {D : disp_cat C}
@@ -206,7 +206,7 @@ Definition mor_disp_of_precartesian_lift
     (fd : precartesian_lift d f)
   : (fd : D c') -->[f] d
   := pr1 (pr2 fd).
-Coercion mor_disp_of_precartesian_lift : precartesian_lift >-> mor_disp.
+#[reversible] Coercion mor_disp_of_precartesian_lift : precartesian_lift >-> mor_disp.
 
 Definition mor_disp_of_pre'cartesian_lift
     {C : category} {D : disp_cat C}
@@ -214,7 +214,7 @@ Definition mor_disp_of_pre'cartesian_lift
     (fd : pre'cartesian_lift d f)
   : (fd : D c') -->[f] d
   := pr1 (pr2 fd).
-Coercion mor_disp_of_pre'cartesian_lift : pre'cartesian_lift >-> mor_disp.
+#[reversible] Coercion mor_disp_of_pre'cartesian_lift : pre'cartesian_lift >-> mor_disp.
 
 Definition precartesian_lift_is_precartesian
     {C : category} {D : disp_cat C}
@@ -222,7 +222,7 @@ Definition precartesian_lift_is_precartesian
     (fd : precartesian_lift d f)
   : is_precartesian fd
 := pr2 (pr2 fd).
-Coercion precartesian_lift_is_precartesian : precartesian_lift >-> is_precartesian.
+#[reversible] Coercion precartesian_lift_is_precartesian : precartesian_lift >-> is_precartesian.
 
 Definition pre'cartesian_lift_is_pre'cartesian
     {C : category} {D : disp_cat C}
@@ -230,7 +230,7 @@ Definition pre'cartesian_lift_is_pre'cartesian
     (fd : pre'cartesian_lift d f)
   : is_pre'cartesian fd
 := pr2 (pr2 fd).
-Coercion pre'cartesian_lift_is_pre'cartesian : pre'cartesian_lift >-> is_pre'cartesian.
+#[reversible] Coercion pre'cartesian_lift_is_pre'cartesian : pre'cartesian_lift >-> is_pre'cartesian.
 
 Definition pre'_implies_precartesian_lift
     {C : category} {D : disp_cat C}
@@ -242,7 +242,7 @@ Proof.
   apply pre'_implies_pre.
   exact (pr2 (pr2 fd)).
 Defined.
-Coercion pre'_implies_precartesian_lift : pre'cartesian_lift >-> precartesian_lift.
+#[reversible] Coercion pre'_implies_precartesian_lift : pre'cartesian_lift >-> precartesian_lift.
 
 Definition pre_implies_pre'cartesian_lift
     {C : category} {D : disp_cat C}
@@ -277,7 +277,7 @@ Proof.
   apply pre_implies_pre'cartesian_lift.
   apply H.
 Defined.
-Coercion pre_implies_pre'cleaving : precleaving >-> pre'cleaving.
+#[reversible] Coercion pre_implies_pre'cleaving : precleaving >-> pre'cleaving.
 
 Definition pre'_implies_precleaving
     {C : category} (D : disp_cat C)
@@ -312,7 +312,7 @@ Proof.
   apply pre'_implies_precleaving.
   exact (pr2 F).
 Defined.
-Coercion pre'_implies_prefibration : pre'fibration >-> prefibration.
+#[reversible] Coercion pre'_implies_prefibration : pre'fibration >-> prefibration.
 
 Definition pre_implies_pre'fibration
     (C : category)

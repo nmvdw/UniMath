@@ -87,7 +87,7 @@ Definition sub_precategory_comp (C : category) (C':sub_precategories C) :
 Definition precategory_object_from_sub_precategory_object (C:category)
          (C':sub_precategories C) (a : sub_ob C') :
     ob C := pr1 a.
-Coercion precategory_object_from_sub_precategory_object :
+#[reversible] Coercion precategory_object_from_sub_precategory_object :
      sub_ob >-> ob.
 
 (** A morphism of a subprecategory is also a morphism of the original precategory. *)
@@ -95,7 +95,7 @@ Coercion precategory_object_from_sub_precategory_object :
 Definition precategory_morphism_from_sub_precategory_morphism (C:category)
           (C':sub_precategories C) (a b : ob C)
            (f : sub_precategory_morphisms C' a b) : a --> b := pr1 f .
-Coercion precategory_morphism_from_sub_precategory_morphism :
+#[reversible] Coercion precategory_morphism_from_sub_precategory_morphism :
          sub_precategory_morphisms >-> precategory_morphisms.
 
 (** *** A sub-precategory forms a precategory. *)
@@ -108,7 +108,7 @@ Proof.
 Defined.
 
 (*
-Coercion sub_precategory_ob_mor : sub_precategories >-> precategory_ob_mor.
+#[reversible] Coercion sub_precategory_ob_mor : sub_precategories >-> precategory_ob_mor.
 *)
 
 
@@ -190,7 +190,7 @@ Definition carrier_of_sub_category (C : category) (C' : sub_precategories C)
   : category
   := make_category _ (has_homsets_carrier_of_subcategory C C').
 
-Coercion carrier_of_sub_category : sub_precategories >-> category.
+#[reversible] Coercion carrier_of_sub_category : sub_precategories >-> category.
 
 (** An object satisfying the predicate is an object of the subprecategory *)
 Definition precategory_object_in_subcat {C : category} {C':sub_precategories C}

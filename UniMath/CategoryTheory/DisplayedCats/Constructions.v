@@ -395,7 +395,7 @@ Section Sections.
              (F : section_disp_data D) (x : C)
     := pr1 F x : D x.
 
-  Coercion section_disp_on_objects : section_disp_data >-> Funclass.
+  #[reversible] Coercion section_disp_on_objects : section_disp_data >-> Funclass.
 
   Definition section_disp_on_morphisms {C} {D : disp_cat C}
              (F : section_disp_data D) {x y : C} (f : x --> y)
@@ -416,7 +416,7 @@ Section Sections.
   Definition section_disp_data_from_section_disp {C} {D : disp_cat C}
              (F : section_disp D) := pr1 F.
 
-  Coercion section_disp_data_from_section_disp
+  #[reversible] Coercion section_disp_data_from_section_disp
     : section_disp >-> section_disp_data.
 
   Definition section_disp_id {C} {D : disp_cat C} (F : section_disp D)
@@ -561,7 +561,7 @@ Definition section_nat_trans_data_from_section_nat_trans_disp_funclass
     {F F': section_disp D}
     (nt : section_nat_trans_disp F F') :
   ∏ x : ob C, F x -->[identity _]  F' x := section_nt_disp_data_from_section_nt_disp nt.
-Coercion section_nat_trans_data_from_section_nat_trans_disp_funclass :
+#[reversible] Coercion section_nat_trans_data_from_section_nat_trans_disp_funclass :
     section_nat_trans_disp >-> Funclass.
 
 Definition section_nt_disp_axioms_from_section_nt_disp

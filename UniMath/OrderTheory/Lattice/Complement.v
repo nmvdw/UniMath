@@ -21,7 +21,7 @@ Section Def.
     ∑ y : X, (x ⊕ y = ⊤) × (x ⊗ y = ⊥).
 
   Definition complement_to_element {x : X} (y : complement x) : X := pr1 y.
-  Coercion complement_to_element : complement >-> pr1hSet.
+  #[reversible] Coercion complement_to_element : complement >-> pr1hSet.
 
   Definition complement_top_axiom (x : X) (y : complement x) : x ⊕ y = ⊤ :=
     dirprod_pr1 (pr2 y).

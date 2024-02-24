@@ -28,11 +28,11 @@ Qed.
 
 Definition aprel (X : UU) := ∑ ap : hrel X, isaprel ap.
 Definition aprel_pr1 {X : UU} (ap : aprel X) : hrel X := pr1 ap.
-Coercion aprel_pr1 : aprel >-> hrel.
+#[reversible] Coercion aprel_pr1 : aprel >-> hrel.
 
 Definition apSet := ∑ X : hSet, aprel X.
 Definition apSet_pr1 (X : apSet) : hSet := pr1 X.
-Coercion apSet_pr1 : apSet >-> hSet.
+#[reversible] Coercion apSet_pr1 : apSet >-> hSet.
 Arguments apSet_pr1 X: simpl never.
 Definition apSet_pr2 (X : apSet) : aprel X := pr2 X.
 Declare Scope ap_scope.
@@ -71,11 +71,11 @@ Definition istightap {X : UU} (ap : hrel X) :=
 
 Definition tightap (X : UU) := ∑ ap : hrel X, istightap ap.
 Definition tightap_aprel {X : UU} (ap : tightap X) : aprel X := pr1 ap ,, (pr1 (pr2 ap)).
-Coercion tightap_aprel : tightap >-> aprel.
+#[reversible] Coercion tightap_aprel : tightap >-> aprel.
 
 Definition tightapSet := ∑ X : hSet, tightap X.
 Definition tightapSet_apSet (X : tightapSet) : apSet := pr1 X ,, (tightap_aprel (pr2 X)).
-Coercion tightapSet_apSet : tightapSet >-> apSet.
+#[reversible] Coercion tightapSet_apSet : tightapSet >-> apSet.
 
 Definition tightapSet_rel (X : tightapSet) : hrel X := (pr1 (pr2 X)).
 Declare Scope tap_scope.
@@ -180,18 +180,18 @@ Qed.
 
 Definition apbinop (X : tightapSet) := ∑ op : binop X, isapbinop op.
 Definition apbinop_pr1 {X : tightapSet} (op : apbinop X) : binop X := pr1 op.
-Coercion apbinop_pr1 : apbinop >-> binop.
+#[reversible] Coercion apbinop_pr1 : apbinop >-> binop.
 
 Definition apsetwithbinop := ∑ X : tightapSet, apbinop X.
 Definition apsetwithbinop_pr1 (X : apsetwithbinop) : tightapSet := pr1 X.
-Coercion apsetwithbinop_pr1 : apsetwithbinop >-> tightapSet.
+#[reversible] Coercion apsetwithbinop_pr1 : apsetwithbinop >-> tightapSet.
 Definition apsetwithbinop_setwithbinop : apsetwithbinop -> setwithbinop :=
   λ X : apsetwithbinop, (apSet_pr1 (apsetwithbinop_pr1 X)),, (pr1 (pr2 X)).
 Definition op {X : apsetwithbinop} : binop X := op (X := apsetwithbinop_setwithbinop X).
 
 Definition apsetwith2binop := ∑ X : tightapSet, apbinop X × apbinop X.
 Definition apsetwith2binop_pr1 (X : apsetwith2binop) : tightapSet := pr1 X.
-Coercion apsetwith2binop_pr1 : apsetwith2binop >-> tightapSet.
+#[reversible] Coercion apsetwith2binop_pr1 : apsetwith2binop >-> tightapSet.
 Definition apsetwith2binop_setwith2binop : apsetwith2binop -> setwith2binop :=
   λ X : apsetwith2binop,
         apSet_pr1 (apsetwith2binop_pr1 X),, pr1 (pr1 (pr2 X)),, pr1 (pr2 (pr2 X)).

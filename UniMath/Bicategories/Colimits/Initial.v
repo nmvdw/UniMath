@@ -395,7 +395,7 @@ Definition bicat_with_biinitial
   : UU
   := ∑ (B : bicat), biinitial_obj B.
 
-Coercion bicat_with_biinitial_to_bicat
+#[reversible] Coercion bicat_with_biinitial_to_bicat
          (B : bicat_with_biinitial)
   : bicat
   := pr1 B.
@@ -535,7 +535,7 @@ Definition bicat_with_strict_biinitial
   : UU
   := ∑ (B : bicat), strict_biinitial_obj B.
 
-Coercion bicat_with_strict_biinitial_to_bicat
+#[reversible] Coercion bicat_with_strict_biinitial_to_bicat
          (B : bicat_with_strict_biinitial)
   : bicat
   := pr1 B.

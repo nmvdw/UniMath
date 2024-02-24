@@ -477,7 +477,7 @@ Qed.
 Definition preZFS : UU := ∑ (T : Tree), ispreZFS T.
 
 Definition Ve (X : preZFS) : hSet := pr111 X.
-Coercion Ve : preZFS >-> hSet.
+#[reversible] Coercion Ve : preZFS >-> hSet.
 
 Definition Ed (X : preZFS) : (Ve X) → (Ve X) → hProp := pr1 (pr2 (pr1 (pr1 X))).
 
@@ -858,7 +858,7 @@ Qed.
 Definition ZFS : UU := ∑ (X : preZFS), hasuniquerepbranch X.
 
 Definition pr1ZFS (X : ZFS) : preZFS := pr1 X.
-Coercion pr1ZFS : ZFS >-> preZFS.
+#[reversible] Coercion pr1ZFS : ZFS >-> preZFS.
 
 Definition ZFS_iso (x y : ZFS) := preZFS_iso x y.
 

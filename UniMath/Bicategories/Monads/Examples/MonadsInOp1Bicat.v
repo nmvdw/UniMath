@@ -51,7 +51,7 @@ Section MonadOpMor.
     : mnd_opmor_data
     := f ,, α.
 
-  Coercion mor_of_mnd_opmor_data
+  #[reversible] Coercion mor_of_mnd_opmor_data
            (f : mnd_opmor_data)
     : ob_of_mnd m₁ --> ob_of_mnd m₂
     := pr1 f.
@@ -98,7 +98,7 @@ Section MonadOpMor.
     : mnd_opmor
     := f ,, Hf.
 
-  Coercion mnd_opmor_to_mnd_opmor_data
+  #[reversible] Coercion mnd_opmor_to_mnd_opmor_data
            (f : mnd_opmor)
     : mnd_opmor_data
     := pr1 f.
@@ -149,7 +149,7 @@ Definition mnd_opcell
   : UU
   := ∑ (α : f₁ ==> f₂), is_mnd_opcell α.
 
-Coercion mnd_opcell_to_cell
+#[reversible] Coercion mnd_opcell_to_cell
          {B : bicat}
          {m₁ m₂ : mnd B}
          {f₁ f₂ : mnd_opmor m₁ m₂}

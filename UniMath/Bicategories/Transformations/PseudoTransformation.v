@@ -54,7 +54,7 @@ Definition pscomponent_of
   : ∏ (X : C), F X --> G X
   := pr111 η.
 
-Coercion pscomponent_of : pstrans >-> Funclass.
+#[reversible] Coercion pscomponent_of : pstrans >-> Funclass.
 
 Definition psnaturality_of
            {C D : bicat}

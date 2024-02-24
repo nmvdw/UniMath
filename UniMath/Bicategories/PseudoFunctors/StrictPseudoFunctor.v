@@ -56,7 +56,7 @@ Definition make_strict_psfunctor
   : strict_psfunctor C D
   := (F ,, HF).
 
-Coercion strict_psfunctor_to_strict_psfunctor_data
+#[reversible] Coercion strict_psfunctor_to_strict_psfunctor_data
          {C D : bicat}
          (F : strict_psfunctor C D)
   : strict_psfunctor_data C D

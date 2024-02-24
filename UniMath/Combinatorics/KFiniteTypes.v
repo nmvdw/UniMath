@@ -52,7 +52,7 @@ Section kuratowski_structure.
   Definition kfinstruct_map {X : UU} (f : kfinstruct X)
     : ⟦ kfinstruct_cardinality f ⟧ -> X
     := pr12 f.
-  Coercion kfinstruct_map : kfinstruct >-> Funclass.
+  #[reversible] Coercion kfinstruct_map : kfinstruct >-> Funclass.
 
   Definition issurjective_kfinstruct {X : UU}
     (f : kfinstruct X) : issurjective f

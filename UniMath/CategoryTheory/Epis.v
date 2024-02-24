@@ -49,7 +49,7 @@ Section def_epi.
 
   (** Gets the arrow out of Epi. *)
   Definition EpiArrow {x y : C} (E : Epi x y) : C⟦x, y⟧ := pr1 E.
-  Coercion EpiArrow : Epi >-> precategory_morphisms.
+  #[reversible] Coercion EpiArrow : Epi >-> precategory_morphisms.
 
   Definition EpiisEpi {x y : C} (E : Epi x y) : isEpi E := pr2 E.
 

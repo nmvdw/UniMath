@@ -155,7 +155,7 @@ Definition hasPullbacks := ∏ (a b c : C) (f : C⟦b, a⟧) (g : C⟦c, a⟧),
 
 Definition PullbackObject {a b c : C} {f : C⟦b, a⟧} {g : C⟦c, a⟧}:
    Pullback f g -> C := λ H, lim H.
-(* Coercion PullbackObject : Pullback >-> ob. *)
+(* #[reversible] Coercion PullbackObject : Pullback >-> ob. *)
 
 Definition PullbackPr1 {a b c : C} {f : C⟦b, a⟧} {g : C⟦c, a⟧}
    (Pb : Pullback f g) : C⟦lim Pb, b⟧ := limOut Pb One.

@@ -1518,7 +1518,7 @@ Section Main.
     Definition parameterized_distributivity_bicat_nat : UU := H ⟹ H'.
     Definition parameterized_distributivity_bicat_nat_funclass (δ : parameterized_distributivity_bicat_nat):
       ∏ v : V, H v --> H' v := pr1 δ.
-    Coercion parameterized_distributivity_bicat_nat_funclass : parameterized_distributivity_bicat_nat >-> Funclass.
+    #[reversible] Coercion parameterized_distributivity_bicat_nat_funclass : parameterized_distributivity_bicat_nat >-> Funclass.
 
     Definition param_distr_bicat_triangle_eq_variant0 (δ : parameterized_distributivity_bicat_nat): UU :=
       δ I_{Mon_V} = param_distr_bicat_triangle_eq_variant0_RHS.

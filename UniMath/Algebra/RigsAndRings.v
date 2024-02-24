@@ -87,7 +87,7 @@ Definition make_rig {X : setwith2binop} (is : isrigops (@op1 X) (@op2 X)) : rig 
 
 Definition pr1rig : rig -> setwith2binop :=
   @pr1 _ (λ X : setwith2binop, isrigops (@op1 X) (@op2 X)).
-Coercion pr1rig : rig >-> setwith2binop.
+#[reversible] Coercion pr1rig : rig >-> setwith2binop.
 
 Definition rigaxs (X : rig) : isrigops (@op1 X) (@op2 X) := pr2 X.
 
@@ -189,7 +189,7 @@ Opaque isasetrigfun.
 Definition rigfunconstr {X Y : rig} {f : X -> Y} (is : isrigfun f) : rigfun X Y := tpair _ f is.
 
 Definition pr1rigfun (X Y : rig) : rigfun X Y  -> (X -> Y) := @pr1 _ _.
-Coercion pr1rigfun : rigfun >-> Funclass.
+#[reversible] Coercion pr1rigfun : rigfun >-> Funclass.
 
 Definition rigaddfun {X Y : rig} (f : rigfun X Y) :
   monoidfun (rigaddabmonoid X) (rigaddabmonoid Y) := monoidfunconstr (pr1 (pr2 f)).
@@ -222,7 +222,7 @@ Definition rigiso (X Y : rig) : UU := total2 (λ f : X ≃ Y, isrigfun f).
 Definition make_rigiso {X Y : rig} (f : X ≃ Y) (is : isrigfun f) : rigiso X Y := tpair _  f is.
 
 Definition pr1rigiso (X Y : rig) : rigiso X Y -> X ≃ Y := @pr1 _ _.
-Coercion pr1rigiso : rigiso >-> weq.
+#[reversible] Coercion pr1rigiso : rigiso >-> weq.
 
 Definition rigisoisrigfun {X Y : rig} (f : rigiso X Y) : isrigfun f := pr2 f.
 
@@ -397,7 +397,7 @@ Definition pr1subrig (X : rig) : @subrig X -> hsubtype X :=
 
 Definition subrigtosubsetswith2binop (X : rig) : subrig X -> @subsetswith2binop X :=
   λ A : _, make_subsetswith2binop (pr1 A) (make_dirprod (pr1 (pr1 (pr2 A))) (pr1 (pr2 (pr2 A)))).
-Coercion subrigtosubsetswith2binop : subrig >-> subsetswith2binop.
+#[reversible] Coercion subrigtosubsetswith2binop : subrig >-> subsetswith2binop.
 
 Definition rigaddsubmonoid {X : rig} : subrig X -> @subabmonoid (rigaddabmonoid X) :=
   λ A : _, @make_submonoid (rigaddabmonoid X) (pr1 A) (pr1 (pr2 A)).
@@ -424,7 +424,7 @@ Defined.
 
 Definition carrierofasubrig (X : rig) (A : subrig X) : rig.
 Proof. intros. split with A. apply isrigcarrier. Defined.
-Coercion carrierofasubrig : subrig >-> rig.
+#[reversible] Coercion carrierofasubrig : subrig >-> rig.
 
 (** **** Quotient objects *)
 
@@ -571,7 +571,7 @@ Proof.
 Defined.
 
 Definition commrigtorig : commrig -> rig := λ X : _, @make_rig (pr1 X) (pr1 (pr2 X)).
-Coercion commrigtorig : commrig >-> rig.
+#[reversible] Coercion commrigtorig : commrig >-> rig.
 
 Definition rigcomm2 (X : commrig) : iscomm (@op2 X) := pr2 (pr2 X).
 
@@ -735,7 +735,7 @@ Definition make_ring {X : setwith2binop} (is : isringops (@op1 X) (@op2 X)) : ri
 
 Definition pr1ring : ring -> setwith2binop :=
   @pr1 _ (λ X : setwith2binop, isringops (@op1 X) (@op2 X)).
-Coercion pr1ring : ring >-> setwith2binop.
+#[reversible] Coercion pr1ring : ring >-> setwith2binop.
 
 Definition ringaxs (X : ring) : isringops (@op1 X) (@op2 X) := pr2 X.
 
@@ -792,7 +792,7 @@ Definition ringmultwithminus1 (X : ring) : ∏ x : X, paths (op2 ringminus1 x) (
   ringmultwithminus1_is (ringaxs X).
 
 Definition ringaddabgr (X : ring) : abgr := make_abgr (make_setwithbinop X op1) (ringop1axs X).
-Coercion ringaddabgr : ring >-> abgr.
+#[reversible] Coercion ringaddabgr : ring >-> abgr.
 
 Definition ringmultmonoid (X : ring) : monoid := make_monoid (make_setwithbinop X op2) (ringop2axs X).
 
@@ -808,7 +808,7 @@ Notation " - x " := (ringinv1 x) : ring_scope.
 Delimit Scope ring_scope with ring.
 
 Definition ringtorig (X : ring) : rig := @make_rig _ (pr2 X).
-Coercion ringtorig : ring >-> rig.
+#[reversible] Coercion ringtorig : ring >-> rig.
 
 (** **** Homomorphisms of rings *)
 
@@ -1407,7 +1407,7 @@ Definition pr1subring (X : ring) : @subring X -> hsubtype X :=
 Definition subringtosubsetswith2binop (X : ring) : subring X -> @subsetswith2binop X :=
   λ A : _, make_subsetswith2binop
               (pr1 A) (make_dirprod (pr1 (pr1 (pr1 (pr2 A)))) (pr1 (pr2 (pr2 A)))).
-Coercion subringtosubsetswith2binop : subring >-> subsetswith2binop.
+#[reversible] Coercion subringtosubsetswith2binop : subring >-> subsetswith2binop.
 
 Definition addsubgr {X : ring} : subring X -> @subgr X :=
   λ A : _, @make_subgr X (pr1 A) (pr1 (pr2 A)).
@@ -1430,7 +1430,7 @@ Defined.
 
 Definition carrierofasubring (X : ring) (A : subring X) : ring.
 Proof. intros. split with A. apply isringcarrier. Defined.
-Coercion carrierofasubring : subring >-> ring.
+#[reversible] Coercion carrierofasubring : subring >-> ring.
 
 
 (** **** Quotient objects *)
@@ -1946,7 +1946,7 @@ Definition commringconstr {X : hSet} (opp1 opp2 : binop X)
                (make_dirprod (make_dirprod (make_dirprod (make_dirprod ax11 ax12) ax21) dax) ax22).
 
 Definition commringtoring : commring -> ring := λ X : _, @make_ring (pr1 X) (pr1 (pr2 X)).
-Coercion commringtoring : commring >-> ring.
+#[reversible] Coercion commringtoring : commring >-> ring.
 
 Definition ringcomm2 (X : commring) : iscomm (@op2 X) := pr2 (pr2 X).
 
@@ -1957,7 +1957,7 @@ Definition ringmultabmonoid (X : commring) : abmonoid :=
   make_abmonoid (make_setwithbinop X op2) (make_dirprod (ringop2axs X) (ringcomm2 X)).
 
 Definition commringtocommrig (X : commring) : commrig := make_commrig _ (pr2 X).
-Coercion commringtocommrig : commring >-> commrig.
+#[reversible] Coercion commringtocommrig : commring >-> commrig.
 
 
 (** **** (X = Y) ≃ (ringiso X Y)

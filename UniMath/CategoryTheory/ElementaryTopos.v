@@ -81,7 +81,7 @@ Definition Topos_PowerObject : PowerObject (Topos_BinProducts) (Topos_SubobjectC
 
 End ToposAccessor.
 
-Coercion Topos_category : Topos >->category.
+#[reversible] Coercion Topos_category : Topos >->category.
 
 Section Topos.
 

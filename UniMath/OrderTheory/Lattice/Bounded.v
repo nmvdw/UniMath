@@ -17,7 +17,7 @@ Definition make_bounded_lattice {X : hSet} {l : lattice X} {bot top : X} :
   bounded_latticeop l bot top → bounded_lattice X := λ bl, l,, bot,, top,, bl.
 
 Definition bounded_lattice_to_lattice X : bounded_lattice X → lattice X := pr1.
-Coercion bounded_lattice_to_lattice : bounded_lattice >-> lattice.
+#[reversible] Coercion bounded_lattice_to_lattice : bounded_lattice >-> lattice.
 
 Definition Lbot {X : hSet} (is : bounded_lattice X) : X := pr1 (pr2 is).
 Definition Ltop {X : hSet} (is : bounded_lattice X) : X := pr1 (pr2 (pr2 is)).

@@ -71,19 +71,19 @@ Section displayedmonoidalcategories.
           (displayedleftunitor_data dtd i) × (displayedrightunitor_data dtd i) × (displayedassociator_data dtd).
 
   Definition displayedtensordata_from_dispmoncatdata (DMD : displayedmonoidalcat_data) : displayedtensor_data := pr1 DMD.
-  Coercion displayedtensordata_from_dispmoncatdata : displayedmonoidalcat_data >-> displayedtensor_data.
+  #[reversible] Coercion displayedtensordata_from_dispmoncatdata : displayedmonoidalcat_data >-> displayedtensor_data.
 
   Definition displayedunit_from_dispmoncatdata (DMD : displayedmonoidalcat_data) : D I := pr1 (pr2 DMD).
-  Coercion displayedunit_from_dispmoncatdata : displayedmonoidalcat_data >-> ob_disp.
+  #[reversible] Coercion displayedunit_from_dispmoncatdata : displayedmonoidalcat_data >-> ob_disp.
 
   Definition displayedleftunitordata_from_dispmoncatdata (DMD : displayedmonoidalcat_data) : displayedleftunitor_data DMD DMD := pr1 (pr2 (pr2 DMD)).
-  Coercion displayedleftunitordata_from_dispmoncatdata : displayedmonoidalcat_data >-> displayedleftunitor_data.
+  #[reversible] Coercion displayedleftunitordata_from_dispmoncatdata : displayedmonoidalcat_data >-> displayedleftunitor_data.
 
   Definition displayedrightunitordata_from_dispmoncatdata (DMD : displayedmonoidalcat_data) : displayedrightunitor_data DMD DMD := pr1 (pr2 (pr2 (pr2 DMD))).
-  Coercion displayedrightunitordata_from_dispmoncatdata : displayedmonoidalcat_data >-> displayedrightunitor_data.
+  #[reversible] Coercion displayedrightunitordata_from_dispmoncatdata : displayedmonoidalcat_data >-> displayedrightunitor_data.
 
   Definition displayedassociatordata_from_dispmoncatdata (DMD : displayedmonoidalcat_data) : displayedassociator_data DMD := pr2 (pr2 (pr2 (pr2 DMD))).
-  Coercion displayedassociatordata_from_dispmoncatdata : displayedmonoidalcat_data >-> displayedassociator_data.
+  #[reversible] Coercion displayedassociatordata_from_dispmoncatdata : displayedmonoidalcat_data >-> displayedassociator_data.
 
 
   (** PROPERTIES **)
@@ -131,33 +131,33 @@ Section displayedmonoidalcategories.
                              (displayedtriangle_identity DMD DMD DMD) × (displayedpentagon_identity DMD).
 
   Definition displayedtensorid_from_monoidallaws {DMD : displayedmonoidalcat_data} (DML : displayedmonoidal_laws DMD) : displayedtensor_id DMD := pr1 DML.
-Coercion displayedtensorid_from_monoidallaws : displayedmonoidal_laws >-> displayedtensor_id.
+#[reversible] Coercion displayedtensorid_from_monoidallaws : displayedmonoidal_laws >-> displayedtensor_id.
 
 Definition displayedtensorcomp_from_monoidallaws {DMD : displayedmonoidalcat_data} (DML : displayedmonoidal_laws DMD) : displayedtensor_comp DMD := pr1 (pr2 DML).
-Coercion displayedtensorcomp_from_monoidallaws : displayedmonoidal_laws >-> displayedtensor_comp.
+#[reversible] Coercion displayedtensorcomp_from_monoidallaws : displayedmonoidal_laws >-> displayedtensor_comp.
 
 Definition displayedassociatornaturality_from_monoidallaws {DMD : displayedmonoidalcat_data} (DML : displayedmonoidal_laws DMD) : displayedassociator_naturality DMD := pr1 (pr2 (pr2 DML)).
-Coercion displayedassociatornaturality_from_monoidallaws : displayedmonoidal_laws >-> displayedassociator_naturality.
+#[reversible] Coercion displayedassociatornaturality_from_monoidallaws : displayedmonoidal_laws >-> displayedassociator_naturality.
 
 Definition displayedassociatorisiso_from_monoidallaws {DMD : displayedmonoidalcat_data} (DML : displayedmonoidal_laws DMD) : displayedassociator_is_nat_iso DMD := pr1 (pr2 (pr2 (pr2 DML))).
-Coercion displayedassociatorisiso_from_monoidallaws : displayedmonoidal_laws >-> displayedassociator_is_nat_iso.
+#[reversible] Coercion displayedassociatorisiso_from_monoidallaws : displayedmonoidal_laws >-> displayedassociator_is_nat_iso.
 
 Definition displayedleftunitornaturality_from_monoidallaws {DMD : displayedmonoidalcat_data} (DML : displayedmonoidal_laws DMD) : displayedleftunitor_naturality DMD := pr1 (pr2 (pr2 (pr2 (pr2 DML)))).
-Coercion displayedleftunitornaturality_from_monoidallaws : displayedmonoidal_laws >-> displayedleftunitor_naturality.
+#[reversible] Coercion displayedleftunitornaturality_from_monoidallaws : displayedmonoidal_laws >-> displayedleftunitor_naturality.
 
 Definition displayedleftunitorisiso_from_monoidallaws {DMD : displayedmonoidalcat_data} (DML : displayedmonoidal_laws DMD) : displayedleftunitor_is_nat_iso DMD := pr1 (pr2 (pr2 (pr2 (pr2 (pr2 DML))))).
-Coercion displayedleftunitorisiso_from_monoidallaws : displayedmonoidal_laws >-> displayedleftunitor_is_nat_iso.
+#[reversible] Coercion displayedleftunitorisiso_from_monoidallaws : displayedmonoidal_laws >-> displayedleftunitor_is_nat_iso.
 
 Definition displayedrightunitornaturality_from_monoidallaws{DMD : displayedmonoidalcat_data} (DML : displayedmonoidal_laws DMD) : displayedrightunitor_naturality DMD := pr1 (pr2 (pr2 (pr2 (pr2 (pr2 (pr2 DML)))))).
-Coercion displayedrightunitornaturality_from_monoidallaws : displayedmonoidal_laws >-> displayedrightunitor_naturality.
+#[reversible] Coercion displayedrightunitornaturality_from_monoidallaws : displayedmonoidal_laws >-> displayedrightunitor_naturality.
 
 Definition displayedrightunitorisiso_from_monoidallaws {DMD : displayedmonoidalcat_data} (DML : displayedmonoidal_laws DMD) : displayedrightunitor_is_nat_iso DMD := pr1 (pr2 (pr2 (pr2 (pr2 (pr2 (pr2 (pr2 DML))))))).
-Coercion displayedrightunitorisiso_from_monoidallaws : displayedmonoidal_laws >-> displayedrightunitor_is_nat_iso.
+#[reversible] Coercion displayedrightunitorisiso_from_monoidallaws : displayedmonoidal_laws >-> displayedrightunitor_is_nat_iso.
 
 Definition displayedtriangleidentity_from_monoidallaws {DMD : displayedmonoidalcat_data} (DML : displayedmonoidal_laws DMD) : displayedtriangle_identity DMD DMD DMD := pr1 (pr2 (pr2 (pr2 (pr2 (pr2 (pr2 (pr2 (pr2 DML)))))))).
-Coercion displayedtriangleidentity_from_monoidallaws : displayedmonoidal_laws >-> displayedtriangle_identity.
+#[reversible] Coercion displayedtriangleidentity_from_monoidallaws : displayedmonoidal_laws >-> displayedtriangle_identity.
 
 Definition displayedpentagonidentity_from_monoidallaws {DMD : displayedmonoidalcat_data} (DML : displayedmonoidal_laws DMD) : displayedpentagon_identity DMD := pr2 (pr2 (pr2 (pr2 (pr2 (pr2 (pr2 (pr2 (pr2 DML)))))))).
-Coercion displayedpentagonidentity_from_monoidallaws : displayedmonoidal_laws >-> displayedpentagon_identity.
+#[reversible] Coercion displayedpentagonidentity_from_monoidallaws : displayedmonoidal_laws >-> displayedpentagon_identity.
 
 End displayedmonoidalcategories.

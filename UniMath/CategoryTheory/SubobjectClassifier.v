@@ -105,8 +105,8 @@ Section Accessors.
 
 End Accessors.
 
-Coercion subobject_classifier_object : subobject_classifier >-> ob.
-Coercion true : subobject_classifier >-> Monic.
+#[reversible] Coercion subobject_classifier_object : subobject_classifier >-> ob.
+#[reversible] Coercion true : subobject_classifier >-> Monic.
 
 (** The arrow Goldblatt calls [true! := (! : X -> T) · true] *)
 Definition const_true {C : category} {T : Terminal C} (X : ob C)

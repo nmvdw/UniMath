@@ -84,7 +84,7 @@ Definition actionbased_strength_nat : UU := nat_trans actionbased_strength_dom a
 Definition actionbased_strength_nat_funclass (ϛ : actionbased_strength_nat):
   ∏ x : ob (A ⊠ Mon_V), actionbased_strength_dom x --> actionbased_strength_codom x
   := pr1 ϛ.
-Coercion actionbased_strength_nat_funclass : actionbased_strength_nat >-> Funclass.
+#[reversible] Coercion actionbased_strength_nat_funclass : actionbased_strength_nat >-> Funclass.
 
 Definition actionbased_strength_triangle_eq (ϛ : actionbased_strength_nat) :=
   ∏ (a : A), (ϛ (a, I)) · (#F (ϱ a)) = ϱ' (F a).
@@ -199,13 +199,13 @@ Qed.
 Definition actionbased_strength_to_nat {F : A ⟶ A'} (FF : actionbased_strength F) :
   actionbased_strength_nat F
   := pr1 FF.
-Coercion actionbased_strength_to_nat : actionbased_strength >-> actionbased_strength_nat.
+#[reversible] Coercion actionbased_strength_to_nat : actionbased_strength >-> actionbased_strength_nat.
 
 (*
 Definition actionbased_strength_to_nat_trans {F : A ⟶ A'} (FF : actionbased_strength F) :
   nat_trans (actionbased_strength_dom F) (actionbased_strength_codom F)
   := pr1 FF.
-Coercion actionbased_strength_to_nat_trans : actionbased_strength >-> nat_trans.
+#[reversible] Coercion actionbased_strength_to_nat_trans : actionbased_strength >-> nat_trans.
  *)
 Identity Coercion actionbased_strength_nat_to_nat_trans : actionbased_strength_nat >-> nat_trans.
 
@@ -307,7 +307,7 @@ Definition actionbased_strong_functor {A A' : category} (actn : action Mon_V A)(
   := ∑ (F : A ⟶ A'), actionbased_strength actn actn' F.
 
 Definition actionbased_strong_functor_to_functor (A A' : category) (actn : action Mon_V A)(actn' : action Mon_V A') (FF : actionbased_strong_functor actn actn') : A ⟶ A' := pr1 FF.
-Coercion actionbased_strong_functor_to_functor : actionbased_strong_functor >-> functor.
+#[reversible] Coercion actionbased_strong_functor_to_functor : actionbased_strong_functor >-> functor.
 
 Definition ab_strong_functor_strength {A A' : category} (actn : action Mon_V A)(actn' : action Mon_V A')
            (FF : actionbased_strong_functor actn actn') : actionbased_strength_nat actn actn' FF
@@ -362,7 +362,7 @@ Section Param_Distr.
     Definition parameterized_distributivity_nat_funclass (δ : parameterized_distributivity_nat):
       ∏ v : ob (Mon_V), param_distributivity_dom v --> param_distributivity_codom v
       := pr1 δ.
-    Coercion parameterized_distributivity_nat_funclass : parameterized_distributivity_nat >-> Funclass.
+    #[reversible] Coercion parameterized_distributivity_nat_funclass : parameterized_distributivity_nat >-> Funclass.
 
 Section The_Laws.
 
@@ -545,7 +545,7 @@ End The_Laws.
 Definition parameterized_distributivity_to_nat (sδ : parameterized_distributivity) :
   parameterized_distributivity_nat
   := pr1 sδ.
-Coercion parameterized_distributivity_to_nat : parameterized_distributivity >-> parameterized_distributivity_nat.
+#[reversible] Coercion parameterized_distributivity_to_nat : parameterized_distributivity >-> parameterized_distributivity_nat.
 
 Identity Coercion parameterized_distributivity_nat_to_nat_trans : parameterized_distributivity_nat >-> nat_trans.
 
@@ -709,7 +709,7 @@ Section Param_Distr.
   Definition parameterized_distributivity'_nat_funclass (δ : parameterized_distributivity'_nat):
     ∏ v : V, param_distributivity'_dom v --> param_distributivity'_codom v
     := pr1 δ.
-  Coercion parameterized_distributivity'_nat_funclass : parameterized_distributivity'_nat >-> Funclass.
+  #[reversible] Coercion parameterized_distributivity'_nat_funclass : parameterized_distributivity'_nat >-> Funclass.
 
 Section The_Laws.
 
@@ -857,7 +857,7 @@ End The_Laws.
 Definition parameterized_distributivity'_to_nat (sδ : parameterized_distributivity') :
   parameterized_distributivity'_nat
   := pr1 sδ.
-Coercion parameterized_distributivity'_to_nat : parameterized_distributivity' >-> parameterized_distributivity'_nat.
+#[reversible] Coercion parameterized_distributivity'_to_nat : parameterized_distributivity' >-> parameterized_distributivity'_nat.
 
 Identity Coercion parameterized_distributivity'_nat_to_nat_trans : parameterized_distributivity'_nat >-> nat_trans.
 
@@ -907,7 +907,7 @@ Section RelativeStrengths_Natural_Transformation.
   Definition rel_strength_nat_funclass (ϛ : rel_strength_nat):
   ∏ x : ob (Mon_W ⊠ Mon_V), rel_strength_dom x --> rel_strength_codom x
   := pr1 ϛ.
-  Coercion rel_strength_nat_funclass : rel_strength_nat >-> Funclass.
+  #[reversible] Coercion rel_strength_nat_funclass : rel_strength_nat >-> Funclass.
 
   (** the following looks like a pentagon but is of the nature of a triangle equation *)
   Definition rel_strength_pentagon_eq (ϛ : rel_strength_nat) :=
@@ -929,12 +929,12 @@ Definition rel_strength (F : Mon_V ⟶ Mon_V): UU :=
 Definition rel_strength_to_rel_strength_nat {F : Mon_V ⟶ Mon_V} (str : rel_strength F) :
   rel_strength_nat F
   := pr1 str.
-Coercion rel_strength_to_rel_strength_nat : rel_strength >-> rel_strength_nat.
+#[reversible] Coercion rel_strength_to_rel_strength_nat : rel_strength >-> rel_strength_nat.
 
 (* Definition rel_strength_to_nat_trans {F : Mon_V ⟶ Mon_V} (str : rel_strength F) :
   nat_trans (rel_strength_dom F) (rel_strength_codom F)
   := pr1 str.
-Coercion rel_strength_to_nat_trans : rel_strength >-> nat_trans. *)
+#[reversible] Coercion rel_strength_to_nat_trans : rel_strength >-> nat_trans. *)
 
 Identity Coercion rel_strength_nat_to_nat_trans : rel_strength_nat >-> nat_trans.
 

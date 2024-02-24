@@ -89,7 +89,7 @@ Definition hor_id
   : UU
   := ∑ (I : hor_id_data D), hor_id_laws I.
 
-Coercion hor_id_to_data
+#[reversible] Coercion hor_id_to_data
          {C : category}
          {D : twosided_disp_cat C C}
          (I : hor_id D)
@@ -224,7 +224,7 @@ Definition hor_comp
   : UU
   := ∑ (Cm : hor_comp_data D), hor_comp_laws Cm.
 
-Coercion hor_comp_to_data
+#[reversible] Coercion hor_comp_to_data
          {C : category}
          {D : twosided_disp_cat C C}
          (Cm : hor_comp D)

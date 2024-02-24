@@ -22,7 +22,7 @@ Definition Wtype (A: UU) (B: ∏ x: A, UU): UU
           (x : A) (f : B x → U)
         , w_ind P e_s (w_sup x f) = e_s x f (λ u, w_ind P e_s (f u))).
 
-Coercion w_carrier {A: UU} {B: ∏ x: A, UU} (W: Wtype A B): UU := pr1 W.
+#[reversible] Coercion w_carrier {A: UU} {B: ∏ x: A, UU} (W: Wtype A B): UU := pr1 W.
 
 Section W.
 

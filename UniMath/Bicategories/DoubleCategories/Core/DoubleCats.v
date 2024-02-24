@@ -66,7 +66,7 @@ Definition ob_double_cat
   : category
   := pr1 C.
 
-Coercion ob_double_cat : double_cat >-> category.
+#[reversible] Coercion ob_double_cat : double_cat >-> category.
 
 Definition ver_mor_double_cat
            {C : double_cat}
@@ -373,7 +373,7 @@ Definition globular_iso_square
   : UU
   := iso_twosided_disp (identity_z_iso _) (identity_z_iso _) h₁ h₂.
 
-Coercion globular_iso_square_to_hor_mor
+#[reversible] Coercion globular_iso_square_to_hor_mor
           {C : double_cat}
           {x y : C}
           {h₁ h₂ : x -->h y}

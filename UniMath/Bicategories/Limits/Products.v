@@ -41,7 +41,7 @@ Section Product.
     : UU
     := ∑ (p : B), p --> b₁ × p --> b₂.
 
-  Coercion binprod_cone_obj
+  #[reversible] Coercion binprod_cone_obj
            (p : binprod_cone)
     : B
     := pr1 p.
@@ -76,7 +76,7 @@ Section Product.
          (φ · binprod_cone_pr2 q)
          (binprod_cone_pr2 p).
 
-  Coercion binprod_1cell_1cell
+  #[reversible] Coercion binprod_1cell_1cell
            {p q : binprod_cone}
            (φ : binprod_1cell p q)
     : p --> q
@@ -704,7 +704,7 @@ Definition bicat_with_binprod
   : UU
   := ∑ (B : bicat), has_binprod B.
 
-Coercion bicat_with_binprod_to_bicat
+#[reversible] Coercion bicat_with_binprod_to_bicat
          (B : bicat_with_binprod)
   : bicat
   := pr1 B.

@@ -109,14 +109,14 @@ Definition make_PreFilter {X : UU} (F : (X → hProp) → hProp)
   F,, Himpl,, isfilter_finite_intersection_carac F Htrue Hand.
 
 Definition pr1PreFilter (X : UU) (F : PreFilter X) : (X → hProp) → hProp := pr1 F.
-Coercion pr1PreFilter : PreFilter >-> Funclass.
+#[reversible] Coercion pr1PreFilter : PreFilter >-> Funclass.
 
 Definition isFilter {X : UU} (F : (X → hProp) → hProp) :=
   isPreFilter F × isfilter_notempty F.
 Definition Filter (X : UU) := ∑ F : (X → hProp) → hProp, isFilter F.
 Definition pr1Filter (X : UU) (F : Filter X) : PreFilter X :=
   pr1 F,, pr1 (pr2 F).
-Coercion pr1Filter : Filter >-> PreFilter.
+#[reversible] Coercion pr1Filter : Filter >-> PreFilter.
 Definition make_Filter {X : UU} (F : (X → hProp) → hProp)
            (Himp : isfilter_imply F)
            (Htrue : isfilter_htrue F)
@@ -1245,7 +1245,7 @@ End base.
 Definition BaseOfPreFilter (X : UU) :=
   ∑ (base : (X → hProp) → hProp), isBaseOfPreFilter base.
 Definition pr1BaseOfPreFilter {X : UU} : BaseOfPreFilter X → ((X → hProp) → hProp) := pr1.
-Coercion pr1BaseOfPreFilter : BaseOfPreFilter >-> Funclass.
+#[reversible] Coercion pr1BaseOfPreFilter : BaseOfPreFilter >-> Funclass.
 
 Definition BaseOfFilter (X : UU) :=
   ∑ (base : (X → hProp) → hProp), isBaseOfFilter base.
@@ -1257,7 +1257,7 @@ Proof.
   - apply (pr1 (pr2 base)).
   - apply (pr1 (pr2 (pr2 base))).
 Defined.
-Coercion pr1BaseOfFilter : BaseOfFilter >-> BaseOfPreFilter.
+#[reversible] Coercion pr1BaseOfFilter : BaseOfFilter >-> BaseOfPreFilter.
 
   Lemma BaseOfPreFilter_and {X : UU} (base : BaseOfPreFilter X) :
   ∏ A B : X → hProp, base A → base B → ∃ C : X → hProp, base C × (∏ x, C x → A x ∧ B x).

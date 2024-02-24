@@ -78,4 +78,4 @@ Definition braided_monoidal_cat_second_hexagon_eq := pr2 (pr2 (pr2 M)).
 
 End Braided_Monoidal_Cat_Acessors.
 
-Coercion braided_monoidal_cat_monoidal_cat : braided_monoidal_cat >-> monoidal_cat.
+#[reversible] Coercion braided_monoidal_cat_monoidal_cat : braided_monoidal_cat >-> monoidal_cat.

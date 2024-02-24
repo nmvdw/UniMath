@@ -195,7 +195,7 @@ Section InternalStreetFibration.
     : UU
     := internal_sfib_cleaving × lwhisker_is_cartesian.
 
-  Coercion internal_sfib_to_cleaving
+  #[reversible] Coercion internal_sfib_to_cleaving
            (H : internal_sfib)
     : internal_sfib_cleaving
     := pr1 H.
@@ -1084,7 +1084,7 @@ Definition make_mor_of_internal_sfib_over
   : mor_of_internal_sfib_over p₁ p₂ fb
   := (fe ,, fc ,, f_com).
 
-Coercion mor_of_internal_sfib_over_to_mor
+#[reversible] Coercion mor_of_internal_sfib_over_to_mor
          {B : bicat}
          {e₁ b₁ : B}
          {p₁ : e₁ --> b₁}
@@ -1204,7 +1204,7 @@ Definition make_cell_of_internal_sfib_over
   : cell_of_internal_sfib_over γ fe ge
   := (γe ,, p).
 
-Coercion cell_of_cell_of_internal_sfib_over
+#[reversible] Coercion cell_of_cell_of_internal_sfib_over
          {B : bicat}
          {b₁ b₂ e₁ e₂ : B}
          {fb gb : b₁ --> b₂}

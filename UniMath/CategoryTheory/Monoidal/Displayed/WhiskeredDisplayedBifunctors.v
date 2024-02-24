@@ -406,7 +406,7 @@ Section DisplayedBifunctor.
     : disp_bifunctor_data F DA DB DC
     := pr1 DF.
 
-  Coercion disp_bifunctordata_from_disp_bifunctor : disp_bifunctor >-> disp_bifunctor_data.
+  #[reversible] Coercion disp_bifunctordata_from_disp_bifunctor : disp_bifunctor >-> disp_bifunctor_data.
 
   Definition is_disp_bifunctor_from_disp_bifunctor
              {A B C : category}

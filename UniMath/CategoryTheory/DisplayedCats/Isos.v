@@ -39,12 +39,12 @@ Section Isos.
   Definition mor_disp_from_z_iso {C : precategory} {D : disp_cat_data C}
              {x y : C} {f : z_iso x y}{xx : D x} {yy : D y}
              (i : z_iso_disp f xx yy) : _ -->[ _ ] _ := pr1 i.
-  Coercion mor_disp_from_z_iso : z_iso_disp >-> mor_disp.
+  #[reversible] Coercion mor_disp_from_z_iso : z_iso_disp >-> mor_disp.
 
   Definition is_z_iso_disp_from_z_iso {C : precategory} {D : disp_cat_data C}
              {x y : C} {f : z_iso x y}{xx : D x} {yy : D y}
              (i : z_iso_disp f xx yy) : is_z_iso_disp f i := pr2 i.
-  Coercion is_z_iso_disp_from_z_iso : z_iso_disp >-> is_z_iso_disp.
+  #[reversible] Coercion is_z_iso_disp_from_z_iso : z_iso_disp >-> is_z_iso_disp.
 
   Definition inv_mor_disp_from_z_iso {C : precategory} {D : disp_cat_data C}
              {x y : C} {f : z_iso x y}{xx : D x} {yy : D y}

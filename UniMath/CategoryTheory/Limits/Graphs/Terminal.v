@@ -66,7 +66,7 @@ use tpair.
 Defined.
 
 Definition TerminalObject (T : Terminal) : C := lim T.
-(* Coercion TerminalObject : Terminal >-> ob. *)
+(* #[reversible] Coercion TerminalObject : Terminal >-> ob. *)
 
 Definition TerminalArrow (T : Terminal) (b : C) : C⟦b,TerminalObject T⟧ :=
   limArrow _ _ (termCone b).

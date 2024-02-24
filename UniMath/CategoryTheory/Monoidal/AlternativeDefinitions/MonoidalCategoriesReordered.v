@@ -9,10 +9,10 @@ Section MonoidalStructReordered.
   Definition tensor_unit (C : category) : UU := bifunctor C C C × C.
   Definition tensor_unit_to_tensor {C : category} (tu : tensor_unit C)
     : bifunctor C C C := pr1 tu.
-  Coercion tensor_unit_to_tensor : tensor_unit >-> bifunctor.
+  #[reversible] Coercion tensor_unit_to_tensor : tensor_unit >-> bifunctor.
   Definition tensor_unit_to_unit {C : category} (tu : tensor_unit C)
     : ob C := pr2 tu.
-  Coercion tensor_unit_to_unit : tensor_unit >-> ob.
+  #[reversible] Coercion tensor_unit_to_unit : tensor_unit >-> ob.
 
   (* Unitors and associators *)
   Definition laxleftunitor {C : category} (tu : tensor_unit C) : UU
@@ -20,7 +20,7 @@ Section MonoidalStructReordered.
   Definition laxleftunitor_to_lunitor_data
              {C : category} {tu : tensor_unit C} (lu : laxleftunitor tu)
     : leftunitor_data tu tu := pr1 lu.
-  Coercion laxleftunitor_to_lunitor_data : laxleftunitor >-> leftunitor_data.
+  #[reversible] Coercion laxleftunitor_to_lunitor_data : laxleftunitor >-> leftunitor_data.
   Definition laxleftunitor_to_lunitor_nat
              {C : category} {tu : tensor_unit C} (lu : laxleftunitor tu)
     : leftunitor_nat lu := pr2 lu.
@@ -30,7 +30,7 @@ Section MonoidalStructReordered.
   Definition laxrightunitor_to_runitor_data
              {C : category} {tu : tensor_unit C} (ru : laxrightunitor tu)
     : rightunitor_data tu tu := pr1 ru.
-  Coercion laxrightunitor_to_runitor_data : laxrightunitor >-> rightunitor_data.
+  #[reversible] Coercion laxrightunitor_to_runitor_data : laxrightunitor >-> rightunitor_data.
   Definition laxrightunitor_to_runitor_nat
              {C : category} {tu : tensor_unit C} (ru : laxrightunitor tu)
     : rightunitor_nat ru := pr2 ru.
@@ -42,7 +42,7 @@ Section MonoidalStructReordered.
   Definition laxassociator_to_associator_data
              {C : category} {tu : tensor_unit C} (α : laxassociator tu)
     : associator_data tu := pr1 α.
-  Coercion laxassociator_to_associator_data : laxassociator >-> associator_data.
+  #[reversible] Coercion laxassociator_to_associator_data : laxassociator >-> associator_data.
   Definition laxassociator_to_associator_nat_left
              {C : category} {tu : tensor_unit C} (α : laxassociator tu)
     : associator_nat_leftwhisker α := pr12 α.
@@ -58,7 +58,7 @@ Section MonoidalStructReordered.
   Definition tensor_unit_unitors_associator_to_tensor_unit
              {C : category} (tuua : tensor_unit_unitors_associator C)
     : tensor_unit C := pr1 tuua.
-  Coercion tensor_unit_unitors_associator_to_tensor_unit
+  #[reversible] Coercion tensor_unit_unitors_associator_to_tensor_unit
     : tensor_unit_unitors_associator >-> tensor_unit.
   Definition tensor_unit_unitors_associator_laxleftunitor
              {C : category} (tuua : tensor_unit_unitors_associator C)
@@ -79,7 +79,7 @@ Section MonoidalStructReordered.
              {C : category} {M : tensor_unit_unitors_associator C}
              (lui : lax_monoidal_leftunitor_inverse M)
     : leftunitorinv_data M M := pr1 lui.
-  Coercion lax_monoidal_leftunitor_inverse_to_inverse_data
+  #[reversible] Coercion lax_monoidal_leftunitor_inverse_to_inverse_data
     : lax_monoidal_leftunitor_inverse >-> leftunitorinv_data.
   Definition lax_monoidal_leftunitor_inverse_to_inverse_law
              {C : category} {M : tensor_unit_unitors_associator C}
@@ -95,7 +95,7 @@ Section MonoidalStructReordered.
              {C : category} {M : tensor_unit_unitors_associator C}
              (lui : lax_monoidal_rightunitor_inverse M)
     : rightunitorinv_data M M := pr1 lui.
-  Coercion lax_monoidal_rightunitor_inverse_to_inverse_data
+  #[reversible] Coercion lax_monoidal_rightunitor_inverse_to_inverse_data
     : lax_monoidal_rightunitor_inverse >-> rightunitorinv_data.
   Definition lax_monoidal_rightunitor_inverse_to_inverse_law
              {C : category} {M : tensor_unit_unitors_associator C}
@@ -111,7 +111,7 @@ Section MonoidalStructReordered.
              {C : category} {M : tensor_unit_unitors_associator C}
              (lui : lax_monoidal_associator_inverse M)
     : associatorinv_data M := pr1 lui.
-  Coercion lax_monoidal_associator_inverse_to_inverse_data
+  #[reversible] Coercion lax_monoidal_associator_inverse_to_inverse_data
     : lax_monoidal_associator_inverse >-> associatorinv_data.
   Definition lax_monoidal_associator_inverse_to_inverse_law
              {C : category} {M : tensor_unit_unitors_associator C} (lui : lax_monoidal_associator_inverse M)
@@ -172,7 +172,7 @@ Section MonoidalStructReordered.
   Definition monoidal_struct_to_tensor_unit_unitors_associator
              {C : category} (M : monoidal_struct C)
     : tensor_unit_unitors_associator C := pr1 M.
-  Coercion monoidal_struct_to_tensor_unit_unitors_associator
+  #[reversible] Coercion monoidal_struct_to_tensor_unit_unitors_associator
     : monoidal_struct >-> tensor_unit_unitors_associator.
 
   Definition monoidal_struct_to_pentagontriangle

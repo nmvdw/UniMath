@@ -972,12 +972,12 @@ Section EnrichedCats.
     : UU
     := bicat_of_enriched_cats.
 
-  Coercion enriched_cat_to_univalent_category
+  #[reversible] Coercion enriched_cat_to_univalent_category
            (E : enriched_cat)
     : univalent_category
     := pr1 E.
 
-  Coercion enriched_cat_to_enrichment
+  #[reversible] Coercion enriched_cat_to_enrichment
            (E : enriched_cat)
     : enrichment E V
     := pr2 E.
@@ -993,7 +993,7 @@ Section EnrichedCats.
     : UU
     := E₁ --> E₂.
 
-  Coercion enriched_functor_to_functor
+  #[reversible] Coercion enriched_functor_to_functor
            {E₁ E₂ : enriched_cat}
            (F : enriched_functor E₁ E₂)
     : E₁ ⟶ E₂
@@ -1018,14 +1018,14 @@ Section EnrichedCats.
     : UU
     := F ==> G.
 
-  Coercion enriched_nat_trans_to_nat_trans
+  #[reversible] Coercion enriched_nat_trans_to_nat_trans
            {E₁ E₂ : enriched_cat}
            {F G : enriched_functor E₁ E₂}
            (τ : enriched_nat_trans F G)
     : F ⟹ G
     := pr1 τ.
 
-  Coercion enriched_nat_trans_enrichment
+  #[reversible] Coercion enriched_nat_trans_enrichment
            {E₁ E₂ : enriched_cat}
            {F G : enriched_functor E₁ E₂}
            (τ : enriched_nat_trans F G)

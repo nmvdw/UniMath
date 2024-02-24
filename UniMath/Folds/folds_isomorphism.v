@@ -83,7 +83,7 @@ Definition folds_iso (a b : C) := ∑ i : folds_iso_data a b, folds_iso_prop i.
 
 Definition folds_iso_data_from_folds_iso {a b : C} : folds_iso a b → folds_iso_data a b
   := λ i, pr1 i.
-Coercion folds_iso_data_from_folds_iso : folds_iso >-> folds_iso_data.
+#[reversible] Coercion folds_iso_data_from_folds_iso : folds_iso >-> folds_iso_data.
 
 Lemma folds_iso_eq {a b : C} (i i' : folds_iso a b) :
   folds_iso_data_from_folds_iso i = folds_iso_data_from_folds_iso i' → i = i'.

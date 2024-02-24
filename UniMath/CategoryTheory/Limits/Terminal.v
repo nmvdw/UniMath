@@ -38,7 +38,7 @@ Qed.
 Definition Terminal : UU := ∑ a, isTerminal a.
 
 Definition TerminalObject (T : Terminal) : C := pr1 T.
-Coercion TerminalObject : Terminal >-> ob.
+#[reversible] Coercion TerminalObject : Terminal >-> ob.
 
 Definition TerminalArrow (T : Terminal) (b : C) : b --> T := pr1 (pr2 T b).
 

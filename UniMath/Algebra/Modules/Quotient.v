@@ -27,13 +27,13 @@ Section quotmod_rel.
   Definition module_eqrel : UU :=
     ∑ E : eqrel M, isbinophrel E × isactionhrel E.
   Definition hrelmodule_eqrel (E : module_eqrel) : eqrel M := pr1 E.
-  Coercion hrelmodule_eqrel : module_eqrel >-> eqrel.
+  #[reversible] Coercion hrelmodule_eqrel : module_eqrel >-> eqrel.
 
   Definition binophrelmodule_eqrel (E : module_eqrel) : binopeqrel M := make_binopeqrel E (pr1 (pr2 E)).
-  Coercion binophrelmodule_eqrel : module_eqrel >-> binopeqrel.
+  #[reversible] Coercion binophrelmodule_eqrel : module_eqrel >-> binopeqrel.
 
   Definition isactionhrelmodule_eqrel (E : module_eqrel) : isactionhrel E := pr2 (pr2 E).
-  Coercion isactionhrelmodule_eqrel : module_eqrel >-> isactionhrel.
+  #[reversible] Coercion isactionhrelmodule_eqrel : module_eqrel >-> isactionhrel.
 
   Definition make_module_eqrel (E : eqrel M) : isbinophrel E -> isactionhrel E -> module_eqrel :=
     λ H0 H1, (E,,(H0,,H1)).

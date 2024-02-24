@@ -47,7 +47,7 @@ Definition makeAction {G:gr} (X:hSet) (ac:ActionStructure G X) :=
   X,,ac : Action G.
 
 Definition ac_set {G:gr} (X:Action G) := pr1 X.
-Coercion ac_set : Action >-> hSet.
+#[reversible] Coercion ac_set : Action >-> hSet.
 Definition ac_type {G:gr} (X:Action G) := pr1hSet (ac_set X).
 Definition ac_str {G:gr} (X:Action G) := pr2 X : ActionStructure G (ac_set X).
 Definition ac_mult {G:gr} (X:Action G) := act_mult (pr2 X).
@@ -117,7 +117,7 @@ Definition ActionMap {G:gr} (X Y:Action G) := total2 (@is_equivariant _ X Y).
 
 Definition underlyingFunction {G:gr} {X Y:Action G} (f:ActionMap X Y) := pr1 f.
 
-Coercion underlyingFunction : ActionMap >-> Funclass.
+#[reversible] Coercion underlyingFunction : ActionMap >-> Funclass.
 
 Definition equivariance {G:gr} {X Y:Action G} (f:ActionMap X Y) : is_equivariant f
   := pr2 f.
@@ -142,7 +142,7 @@ Proof.
   apply setproperty.
 Defined.
 
-Coercion underlyingIso {G:gr} {X Y:Action G} (e:ActionIso X Y) : X ≃ Y := pr1 e.
+#[reversible] Coercion underlyingIso {G:gr} {X Y:Action G} (e:ActionIso X Y) : X ≃ Y := pr1 e.
 
 Lemma underlyingIso_incl {G:gr} {X Y:Action G} :
   isincl (underlyingIso : ActionIso X Y -> X ≃ Y).
@@ -282,7 +282,7 @@ Qed.
 
 Definition Torsor (G:gr) := total2 (@is_torsor G).
 
-Coercion underlyingAction {G} (X:Torsor G) := pr1 X : Action G.
+#[reversible] Coercion underlyingAction {G} (X:Torsor G) := pr1 X : Action G.
 
 Definition is_torsor_prop {G} (X:Torsor G) := pr2 X.
 
@@ -370,7 +370,7 @@ Defined.
 
 Definition PointedTorsor (G:gr) := ∑ X:Torsor G, X.
 Definition underlyingTorsor {G} (X:PointedTorsor G) := pr1 X : Torsor G.
-Coercion underlyingTorsor : PointedTorsor >-> Torsor.
+#[reversible] Coercion underlyingTorsor : PointedTorsor >-> Torsor.
 Definition underlyingPoint {G} (X:PointedTorsor G) := pr2 X : X.
 
 Lemma is_quotient {G} (X:Torsor G) (y x:X) : ∃! g, g*x = y.

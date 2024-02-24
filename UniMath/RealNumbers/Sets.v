@@ -40,7 +40,7 @@ Definition EffectivelyOrderedSet :=
 Definition pairEffectivelyOrderedSet {X : hSet} (is : EffectiveOrder X) : EffectivelyOrderedSet
   := tpair _ X is.
 Definition pr1EffectivelyOrderedSet : EffectivelyOrderedSet → hSet := pr1.
-Coercion pr1EffectivelyOrderedSet : EffectivelyOrderedSet >-> hSet.
+#[reversible] Coercion pr1EffectivelyOrderedSet : EffectivelyOrderedSet >-> hSet.
 
 Definition EOle {X : EffectivelyOrderedSet} : po X :=
   let R := pr2 X in
@@ -272,4 +272,4 @@ Definition isCompleteSpace (X : PreorderedSet) :=
 Definition CompleteSpace  :=
   ∑ X : PreorderedSet, isCompleteSpace X.
 Definition pr1CompleteSpace : CompleteSpace → UU := pr1.
-Coercion pr1CompleteSpace : CompleteSpace >-> UU.
+#[reversible] Coercion pr1CompleteSpace : CompleteSpace >-> UU.

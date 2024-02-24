@@ -120,7 +120,7 @@ Definition make_monoidal_data
   := (T,,I,,lu,,luinv,,ru,,ruinv,,α,,αinv).
 
 Definition monoidal_tensor_data {C : category} (MD : monoidal_data C) : tensor_data C := pr1 MD.
-Coercion monoidal_tensor_data : monoidal_data >-> tensor_data.
+#[reversible] Coercion monoidal_tensor_data : monoidal_data >-> tensor_data.
 
 Definition monoidal_unit {C : category} (MD : monoidal_data C) : C := pr12 MD.
 Notation "I_{ MD }" := (monoidal_unit MD).
@@ -413,7 +413,7 @@ Definition monoidal (C : category) : UU :=
   ∑ (MD : monoidal_data C), (monoidal_laws MD).
 
 Definition monoidal_mondata {C : category} (M : monoidal C) : monoidal_data C := pr1 M.
-Coercion monoidal_mondata : monoidal >-> monoidal_data.
+#[reversible] Coercion monoidal_mondata : monoidal >-> monoidal_data.
 
 Definition monoidal_monlaws {C : category} (M : monoidal C) : monoidal_laws M := pr2 M.
 
@@ -423,7 +423,7 @@ Definition monoidal_tensor_is_bifunctor
   : is_bifunctor M
   := pr12 M.
 
-Coercion monoidal_tensor
+#[reversible] Coercion monoidal_tensor
          {C : category}
          (M : monoidal C)
   : bifunctor C C C
@@ -1308,8 +1308,8 @@ Local Open Scope moncat.
 
 Definition monoidal_cat : UU := ∑ (C : category), monoidal C.
 
-Coercion monoidal_cat_to_cat (V : monoidal_cat) : category := pr1 V.
-Coercion monoidal_cat_to_monoidal (V : monoidal_cat) : monoidal V := pr2 V.
+#[reversible] Coercion monoidal_cat_to_cat (V : monoidal_cat) : category := pr1 V.
+#[reversible] Coercion monoidal_cat_to_monoidal (V : monoidal_cat) : monoidal V := pr2 V.
 
 Definition monoidal_cat_tensor_pt
            {V : monoidal_cat}

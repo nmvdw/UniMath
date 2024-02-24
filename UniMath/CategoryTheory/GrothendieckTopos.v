@@ -160,7 +160,7 @@ Section def_grothendiecktopos.
   (** Accessor functions *)
   Definition GrothendieckTopos_category (GT : GrothendieckTopos) : category :=
     pr1 (pr1 (pr1 GT)).
-  Coercion GrothendieckTopos_category : GrothendieckTopos >-> category.
+  #[reversible] Coercion GrothendieckTopos_category : GrothendieckTopos >-> category.
 
   Definition GrothendieckTopos_GrothendieckTopology (GT : GrothendieckTopos) :
     GrothendieckTopology C := pr2 (pr1 (pr1 GT)).

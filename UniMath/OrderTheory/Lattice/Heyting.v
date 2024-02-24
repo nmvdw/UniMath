@@ -22,7 +22,7 @@ Section Def.
     exponential := tpair _ exponential_map prop.
 
   Definition exponential_map (exp : exponential) : X -> X -> X := pr1 exp.
-  Coercion exponential_map : exponential >-> Funclass.
+  #[reversible] Coercion exponential_map : exponential >-> Funclass.
 
   Definition exponential_is_exponential (exp : exponential) :
     ∏ x y z : X, z ≤ (exponential_map exp x y) <-> (z ∧ x) ≤ y := pr2 exp.

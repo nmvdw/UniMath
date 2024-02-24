@@ -42,7 +42,7 @@ Section W.
   Definition W := ∑ (X : algebra_ob F), is_initial X.
   Definition W_algebra : W → algebra_ob F := pr1.
   Definition W_is_initial : ∏ (w : W), is_initial (pr1 w) := pr2.
-  Coercion W_algebra : W >-> algebra_ob.
+  #[reversible] Coercion W_algebra : W >-> algebra_ob.
 End W.
 
 Arguments isaprop_is_initial {_ _} _.
