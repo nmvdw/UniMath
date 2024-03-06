@@ -43,7 +43,7 @@ Proof.
   apply (z_iso_is_z_isomorphism (functor_on_z_iso F (make_z_iso' f fH))).
 Defined.
 
-Coercion left_adj_from_adj_equiv (X Y : category) (K : functor X Y)
+#[reversible] Coercion left_adj_from_adj_equiv (X Y : category) (K : functor X Y)
          (HK : adj_equivalence_of_cats K) : is_left_adjoint K := pr1 HK.
 
 (** ** Equivalences *)
@@ -149,6 +149,13 @@ Section eqv_comp.
       + apply (pr2 (pr2 HF')).
   Defined.
 End eqv_comp.
+
+Definition comp_adj_equiv
+  {A B C : category}
+  (F : adj_equiv A B)
+  (G : adj_equiv B C)
+  : adj_equiv A C
+  := (F ∙ G) ,, comp_adj_equivalence_of_cats F G.
 
 (** ** Inverses *)
 
@@ -257,6 +264,12 @@ Section eqv_inv.
   Defined.
 
 End eqv_inv.
+
+Definition adj_equiv_inv
+  {A B : category}
+  (F : adj_equiv A B)
+  : adj_equiv B A
+  := adj_equivalence_inv F ,, adj_equivalence_of_cats_inv F.
 
 (** Closure under natural isomorphisms *)
 Definition nat_z_iso_equivalence_of_cats
