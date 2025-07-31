@@ -793,7 +793,6 @@ Definition comp_functor_el_map
 Proof.
   use make_functor_el_map.
   - intros Γ t.
-    cbn.
     refine (z_iso_comp
               (functor_on_z_iso G (functor_el_map_iso Fel t))
               _).
