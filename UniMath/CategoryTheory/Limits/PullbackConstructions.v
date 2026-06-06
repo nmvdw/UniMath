@@ -8,6 +8,7 @@
  1. Equalizers from pullbacks and products
  2. Equalizers from pullbacks and a terminal object
  3. Pullback of a product
+ 4. Pullback of an equalizer
 
  ***************************************************************************************)
 Require Import UniMath.Foundations.All.
@@ -257,3 +258,80 @@ Section PullbackProduct.
     - exact pb_prod_is_inverse.
   Defined.
 End PullbackProduct.
+
+(** * 4. Pullback of an equalizer *)
+Definition equalizer_subst_mor
+           {C : category}
+           (EQ : Equalizers C)
+           {Γ₁ Γ₂ A : C}
+           {t₁ t₂ : Γ₂ --> A}
+           (s : Γ₁ --> Γ₂)
+  : EQ Γ₁ A (s · t₁) (s · t₂) --> EQ Γ₂ A t₁ t₂.
+Proof.
+  use EqualizerIn.
+  - exact (EqualizerArrow _ · s).
+  - abstract
+      (rewrite !assoc' ;
+       apply EqualizerEqAr).
+Defined.
+
+Proposition equalizer_subst_sqr
+            {C : category}
+            (EQ : Equalizers C)
+            {Γ₁ Γ₂ A : C}
+            (t₁ t₂ : Γ₂ --> A)
+            (s : Γ₁ --> Γ₂)
+  : equalizer_subst_mor EQ s · EqualizerArrow (EQ Γ₂ A t₁ t₂)
+    =
+    EqualizerArrow (EQ Γ₁ A (s · t₁) (s · t₂)) · s.
+Proof.
+  apply EqualizerCommutes.
+Qed.
+
+Definition equalizer_subst_is_pullback
+           {C : category}
+           (EQ : Equalizers C)
+           {Γ₁ Γ₂ A : C}
+           (t₁ t₂ : Γ₂ --> A)
+           (s : Γ₁ --> Γ₂)
+  : isPullback (equalizer_subst_sqr EQ t₁ t₂ s).
+Proof.
+  intros w h k p.
+  use iscontraprop1.
+  - abstract
+      (use invproofirrelevance ;
+       intros φ₁ φ₂ ;
+       use subtypePath ; [ intro ; apply isapropdirprod ; apply homset_property | ] ;
+       use EqualizerInsEq ;
+       exact (pr22 φ₁ @ !(pr22 φ₂))).
+  - simple refine (_ ,, _ ,, _).
+    + use EqualizerIn.
+      * exact k.
+      * abstract
+          (rewrite !assoc ;
+           rewrite <- !p ;
+           rewrite !assoc' ;
+           apply maponpaths ;
+           apply EqualizerEqAr).
+    + abstract
+        (use EqualizerInsEq ;
+         unfold equalizer_subst_mor ;
+         rewrite !assoc' ;
+         rewrite EqualizerCommutes ;
+         rewrite !assoc ;
+         rewrite EqualizerCommutes ;
+         rewrite p ;
+         apply idpath).
+    + abstract
+        (cbn ;
+         apply EqualizerCommutes).
+Defined.
+
+Definition equalizer_subst_pullback
+           {C : category}
+           (EQ : Equalizers C)
+           {Γ₁ Γ₂ A : C}
+           (t₁ t₂ : Γ₂ --> A)
+           (s : Γ₁ --> Γ₂)
+  : Pullback (EqualizerArrow (EQ _ _ t₁ t₂)) s
+  := make_Pullback _ (equalizer_subst_is_pullback EQ t₁ t₂ s).

@@ -24,6 +24,8 @@ Require Import UniMath.CategoryTheory.Core.Functors.
 Require Import UniMath.CategoryTheory.Limits.Terminal.
 Require Import UniMath.CategoryTheory.Limits.Pullbacks.
 Require Import UniMath.CategoryTheory.Limits.BinProducts.
+Require Import UniMath.CategoryTheory.Limits.Equalizers.
+Require Import UniMath.CategoryTheory.Limits.PullbackConstructions.
 Require Import UniMath.CategoryTheory.SubobjectClassifier.SubobjectClassifier.
 Require Import UniMath.CategoryTheory.Exponentials.
 Require Import UniMath.CategoryTheory.PowerObject.
@@ -78,6 +80,13 @@ Definition Topos_Pullbacks : Pullbacks Topos_category := pr1 (pr2 C).
 Definition Topos_Terminal : Terminal Topos_category := pr1 (pr2 (pr2 C)).
 Definition Topos_SubobjectClassifier : subobject_classifier (Topos_Terminal) := pr1 (pr2 (pr2 (pr2 C))).
 Definition Topos_BinProducts : BinProducts Topos_category := BinProductsFromPullbacks (Topos_Pullbacks) (Topos_Terminal).
+Definition Topos_Equalizers : Equalizers Topos_category.
+Proof.
+  use equalizers_from_pullbacks_terminal.
+  - exact Topos_Pullbacks.
+  - exact Topos_Terminal.
+Defined.
+
 Definition Topos_PowerObject : PowerObject (Topos_BinProducts) (Topos_SubobjectClassifier) := pr2 (pr2 (pr2 (pr2 C))).
 
 End ToposAccessor.
@@ -555,3 +564,5 @@ Defined.
 End Exponentials.
 
 End Topos.
+
+#[global] Opaque Topos_Equalizers Topos_BinProducts Exponentials_from_Topos.

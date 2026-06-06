@@ -151,6 +151,7 @@ Hyperdoctrines/Hyperdoctrine.v
 Hyperdoctrines/FirstOrderHyperdoctrine.v
 Hyperdoctrines/Tripos.v
 Hyperdoctrines/GenericPredicate.v
+Hyperdoctrines/Properties.v
 
 Hyperdoctrines/PartialEqRels/PERs.v
 Hyperdoctrines/PartialEqRels/PERMorphisms.v
@@ -290,6 +291,7 @@ LatticeObject.v
 Actions.v
 PowerObject.v
 ElementaryTopos.v
+ElementaryTopos/ToposOperations.v
 Adjunctions/Restriction.v
 Adjunctions/Examples.v
 Subcategory/Reflective.v
@@ -567,6 +569,10 @@ DisplayedCats/MoreFibrations/DisplayedDisplayedCats.v
 
 SkewMonoidal/SkewMonoidalCategories.v
 SkewMonoidal/CategoriesOfMonoids.v
+
+ElementaryTopos/PredicateDispCat.v
+ElementaryTopos/ToposLogic.v
+ElementaryTopos/FunctionalCompleteness.v
 
 EnrichedCats/BenabouCosmos.v
 EnrichedCats/EnrichedRelation.v
