@@ -53,6 +53,11 @@
  that the tripos to topos construction does not necessarily give rise to a univalent category,
  and thus one needs to take its Rezk completion in order to get a univalent topos.
 
+ We also formulate the tripos to topos construction using weak triposes. This is due to the
+ fact that the Rezk completion of a tripos only gives us a weak tripos. Hence, to construct
+ realizability toposes, we need to work with weak triposes since we construct the realizability
+ tripos as a Rezk completion.
+
  References
  - "Tripos Theory in Retrospect" by Andrew Pitts
  - "Realizability: an introduction to its categorical side" by Jaap van Oosten
@@ -85,8 +90,8 @@ Require Export UniMath.CategoryTheory.Hyperdoctrines.PartialEqRels.ExponentialLa
 Require Export UniMath.CategoryTheory.Hyperdoctrines.PartialEqRels.ExponentialEqs.
 Require Export UniMath.CategoryTheory.Hyperdoctrines.PartialEqRels.PERExponentials.
 
-Definition tripos_to_topos
-           (H : tripos)
+Definition weak_tripos_to_topos
+           (H : weak_tripos)
   : Topos.
 Proof.
   use make_Topos.
@@ -100,3 +105,8 @@ Proof.
     + use PowerObject_from_exponentials.
       exact (exponentials_independent _ _ (exponentials_partial_setoid H)).
 Defined.
+
+Definition tripos_to_topos
+           (H : tripos)
+  : Topos
+  := weak_tripos_to_topos (tripos_to_weak_tripos H).

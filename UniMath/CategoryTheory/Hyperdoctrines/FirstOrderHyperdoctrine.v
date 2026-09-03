@@ -1877,6 +1877,17 @@ Proof.
     apply hyperdoctrine_hyp.
 Qed.
 
+Proposition iff_from_eq
+            {H : first_order_hyperdoctrine}
+            {Γ : ty H}
+            (Δ φ ψ : form Γ)
+            (p : φ = ψ)
+  : Δ ⊢ φ ⇔ ψ.
+Proof.
+  induction p.
+  apply iff_refl.
+Qed.
+
 Proposition iff_sym
             {H : first_order_hyperdoctrine}
             {Γ : ty H}

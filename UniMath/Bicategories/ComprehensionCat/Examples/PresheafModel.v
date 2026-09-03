@@ -665,6 +665,10 @@ Section PShCompCat.
   Defined.
 End PShCompCat.
 
+Arguments psh_comp_cat_tm_to_sec {C Γ A} t.
+Arguments psh_comp_cat_sec_to_tm_to_sec {C Γ A} t.
+Arguments psh_comp_cat_tm_weq_sec {C} Γ A.
+
 (** * 5. Functors on the presheaf model *)
 Section PShCompCatFunctor.
   Context {C₁ C₂ : category}

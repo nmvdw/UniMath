@@ -19,12 +19,20 @@
  necessarily give rise to a tripos. This would be the case if we assume the category of types to
  be Cartesian closed.
 
+ We look at both generic predicates and weak generic predicates. The difference between them
+ is that weak generic predicates are formulated using an axiom. Specifically, every formula
+ gives rise to a term of type `Ω` if we have a generic predicate, and this assignment gives
+ us an actual operation on formulas. For weak generic predicate,s we use the existential
+ quantifier instead.
+
  References
  - "Tripos Theory in Retrospect" by Andrew Pitts
 
  Content
  1. Definition of generic predicates in first-order hyperdoctrines
  2. Construction of generic predicates in triposes
+ 3. Definition of weak generic predicates in first-order hyperdoctrines
+ 4. Construction of weak generic predicates in weak triposes
 
  **********************************************************************************************)
 Require Import UniMath.Foundations.All.
@@ -43,32 +51,33 @@ Require Import UniMath.CategoryTheory.Hyperdoctrines.Tripos.
 
 Local Open Scope cat.
 Local Open Scope hd.
+Local Open Scope tripos.
 
 (** * 1. Definition of generic predicates in first-order hyperdoctrines *)
 Definition is_generic_predicate
            {H : first_order_hyperdoctrine}
-           (Ω : ty H)
-           (prf : form Ω)
+           (X : ty H)
+           (prf : form X)
   : UU
   := ∏ (Γ : ty H)
        (φ : form Γ),
-     ∑ (f : tm Γ Ω),
+     ∑ (f : tm Γ X),
      φ = prf [ f ].
 
 Definition generic_predicate
            (H : first_order_hyperdoctrine)
   : UU
-  := ∑ (Ω : ty H)
-       (prf : form Ω),
-     is_generic_predicate Ω prf.
+  := ∑ (X : ty H)
+       (prf : form X),
+     is_generic_predicate X prf.
 
 Definition make_generic_predicate
            {H : first_order_hyperdoctrine}
-           (Ω : ty H)
-           (prf : form Ω)
-           (HΩ : is_generic_predicate Ω prf)
+           (X : ty H)
+           (prf : form X)
+           (HΩ : is_generic_predicate X prf)
   : generic_predicate H
-  := Ω ,, prf ,, HΩ.
+  := X ,, prf ,, HΩ.
 
 Coercion ty_of_generic_predicate
          {H : first_order_hyperdoctrine}
@@ -136,8 +145,8 @@ Proof.
          apply hyperdoctrine_hyp).
 Defined.
 
-Notation "'Ω'" := (ty_of_generic_predicate (tripos_generic_predicate _)).
-Notation "'Prf'" := (prf_of_generic_predicate (tripos_generic_predicate _)).
+Notation "'Ω'" := (ty_of_generic_predicate (tripos_generic_predicate _)) : tripos.
+Notation "'Prf'" := (prf_of_generic_predicate (tripos_generic_predicate _)) : tripos.
 
 Definition tripos_form_to_tm
            {H : tripos}
@@ -161,3 +170,128 @@ Qed.
 #[global] Opaque ty_of_generic_predicate.
 #[global] Opaque prf_of_generic_predicate.
 #[global] Opaque mor_to_generic_predicate.
+
+Close Scope tripos.
+Local Open Scope weak_tripos.
+
+(** * 3. Definition of weak generic predicates in first-order hyperdoctrines *)
+Definition is_weak_generic_predicate
+           {H : first_order_hyperdoctrine}
+           (X : ty H)
+           (prf : form X)
+  : UU
+  := ∏ (Γ : ty H)
+       (φ : form Γ),
+     ⊤ ⊢ (∃h (φ [ π₁ (tm_var _) ] ⇔ prf [ π₂ (tm_var _) ])).
+
+Definition weak_generic_predicate
+           (H : first_order_hyperdoctrine)
+  : UU
+  := ∑ (X : ty H)
+       (prf : form X),
+     is_weak_generic_predicate X prf.
+
+Definition make_weak_generic_predicate
+           {H : first_order_hyperdoctrine}
+           (X : ty H)
+           (prf : form X)
+           (HΩ : is_weak_generic_predicate X prf)
+  : weak_generic_predicate H
+  := X ,, prf ,, HΩ.
+
+Coercion ty_of_weak_generic_predicate
+         {H : first_order_hyperdoctrine}
+         (X : weak_generic_predicate H)
+  : ty H.
+Proof.
+  exact (pr1 X).
+Defined.
+
+Definition prf_of_weak_generic_predicate
+           {H : first_order_hyperdoctrine}
+           (X : weak_generic_predicate H)
+  : form X
+  := pr12 X.
+
+Proposition mor_to_weak_generic_predicate
+            {H : first_order_hyperdoctrine}
+            (X : weak_generic_predicate H)
+            {Γ : ty H}
+            (φ : form Γ)
+  : ⊤ ⊢ (∃h (φ [ π₁ (tm_var _) ] ⇔ (prf_of_weak_generic_predicate X) [ π₂ (tm_var _) ])).
+Proof.
+  exact (pr22 X Γ φ).
+Defined.
+
+(** 4. Construction of weak generic predicates in weak triposes *)
+Definition weak_tripos_generic_predicate
+           (H : weak_tripos)
+  : weak_generic_predicate H.
+Proof.
+  use make_weak_generic_predicate.
+  - exact (ℙ 𝟙).
+  - exact (let P := tm_var (ℙ 𝟙) in
+           !! ∈ P).
+  - abstract
+      (intros Γ A ;
+       refine (exists_elim
+                 (weak_tripos_compr (A [ π₂ (tm_var (𝟙 ×h Γ)) ]) ⊤ (tm_var _))
+                 _) ;
+       cbn ;
+       use weaken_right ;
+       hypersimplify_form ;
+       use exists_intro ; [ exact (π₂ (tm_var _)) | ] ;
+       hypersimplify ;
+       unfold weak_tripos_rel_equiv ;
+       hypersimplify ;
+       refine (hyperdoctrine_cut
+                 (forall_elim (hyperdoctrine_hyp _) !!)
+                 _) ;
+       hypersimplify ;
+       use iff_sym ;
+       apply hyperdoctrine_hyp).
+Defined.
+
+Notation "'Ω'" := (ty_of_weak_generic_predicate (weak_tripos_generic_predicate _))
+    : weak_tripos.
+Notation "'Prf'" := (prf_of_weak_generic_predicate (weak_tripos_generic_predicate _))
+    : weak_tripos.
+
+Definition weak_tripos_form_to_tm
+           {H : weak_tripos}
+           {Γ X : ty H}
+           (φ : form X)
+           (Δ : form Γ)
+           (x : tm Γ X)
+  : Δ ⊢ (∃h (φ [ x [ π₁ (tm_var _) ]tm ] ⇔ Prf [ π₂ (tm_var _) ])).
+Proof.
+  refine (hyperdoctrine_cut _ _).
+  {
+    apply truth_intro.
+  }
+  refine (hyperdoctrine_cut _ _).
+  {
+    exact (mor_to_weak_generic_predicate
+             (weak_tripos_generic_predicate H)
+             (φ [ x ])).
+  }
+  refine (exists_elim _ _).
+  {
+    use hyperdoctrine_hyp.
+  }
+  use weaken_right.
+  hypersimplify_form.
+  use exists_intro.
+  {
+    exact (π₂ (tm_var _)).
+  }
+  hypersimplify.
+  apply hyperdoctrine_hyp.
+Qed.
+
+(**
+   This way the construction of the generic predicate in a tripos does not get unfolded.
+ *)
+#[global] Opaque ty_of_weak_generic_predicate.
+#[global] Opaque prf_of_weak_generic_predicate.
+#[global] Opaque mor_to_weak_generic_predicate.

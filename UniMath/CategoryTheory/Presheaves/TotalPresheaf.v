@@ -179,6 +179,34 @@ Proof.
        apply id_left).
 Defined.
 
+Definition total_psh_nat_z_iso
+           {C : category}
+           {Γ : C^op ⟶ HSET}
+           {A B : dep_psh Γ}
+           (τ : dep_psh_nat_trans A B (nat_trans_id _))
+           (Hτ : ∏ (x : C) (xx : (Γ x : hSet)), isweq (τ x xx))
+  : nat_z_iso (total_psh A) (total_psh B).
+Proof.
+  use make_nat_z_iso.
+  - exact (total_psh_nat_trans _ τ).
+  - intros x.
+    use make_is_z_isomorphism.
+    + exact (λ xx, pr1 xx ,, invmap (make_weq _ (Hτ x (pr1 xx))) (pr2 xx)).
+    + split.
+      * abstract
+          (use funextsec ; intro xx ;
+           induction xx as [ xx a ] ;
+           cbn ;
+           apply maponpaths ;
+           apply homotinvweqweq).
+      * abstract
+          (use funextsec ; intro xx ;
+           induction xx as [ xx b ] ;
+           cbn ;
+           apply maponpaths ;
+           apply (homotweqinvweq (make_weq _ (Hτ x xx)))).
+Defined.
+
 (** * 4. Sections of the projection *)
 Definition psh_term_data
            {C : category}
@@ -301,6 +329,20 @@ Proof.
   use funextsec ; intro x.
   use funextsec ; intro xx.
   exact (p x xx).
+Qed.
+
+Proposition psh_term_eq_pt
+            {C : category}
+            {Γ : C^op ⟶ HSET}
+            {A : dep_psh Γ}
+            {t₁ t₂ : psh_term A}
+            (p : t₁ = t₂)
+            {x : C}
+            (xx : (Γ x : hSet))
+  : t₁ x xx = t₂ x xx.
+Proof.
+  induction p.
+  apply idpath.
 Qed.
 
 Definition make_psh_section

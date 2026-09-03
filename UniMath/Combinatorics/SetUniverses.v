@@ -314,6 +314,61 @@ Definition set_universe_sigma_weq
     ∑ (x : set_universe_el a), set_universe_el (b x)
   := pr2 (sig a b).
 
+Definition set_universe_sigma_map
+           {u : set_universe}
+           (sig : set_universe_contains_sigma u)
+           {a : u}
+           {b : set_universe_el a → u}
+           (z : set_universe_el (set_universe_sigma_code sig a b))
+  : ∑ (x : set_universe_el a), set_universe_el (b x)
+  := set_universe_sigma_weq sig a b z.
+
+Definition set_universe_sigma_inv
+           {u : set_universe}
+           (sig : set_universe_contains_sigma u)
+           {a : u}
+           {b : set_universe_el a → u}
+           (z : ∑ (x : set_universe_el a), set_universe_el (b x))
+  : set_universe_el (set_universe_sigma_code sig a b)
+  := invmap (set_universe_sigma_weq sig a b) z.
+
+Proposition set_universe_sigma_inv_map
+            {u : set_universe}
+            (sig : set_universe_contains_sigma u)
+            {a : u}
+            {b : set_universe_el a → u}
+            (z : set_universe_el (set_universe_sigma_code sig a b))
+  : set_universe_sigma_inv sig (set_universe_sigma_map sig z) = z.
+Proof.
+  exact (homotinvweqweq (set_universe_sigma_weq sig a b) z).
+Qed.
+
+Proposition set_universe_sigma_map_inv
+            {u : set_universe}
+            (sig : set_universe_contains_sigma u)
+            {a : u}
+            {b : set_universe_el a → u}
+            (z : ∑ (x : set_universe_el a), set_universe_el (b x))
+  : set_universe_sigma_map sig (set_universe_sigma_inv sig z) = z.
+Proof.
+  exact (homotweqinvweq (set_universe_sigma_weq sig a b) z).
+Qed.
+
+Proposition set_universe_sigma_pr2_eq
+            {u : set_universe}
+            (sig : set_universe_contains_sigma u)
+            {a : u}
+            {b : set_universe_el a → u}
+            {z₁ z₂ : ∑ (x : set_universe_el a), set_universe_el (b x)}
+            (p : z₁ = z₂)
+  : pr2 z₁
+    =
+    set_universe_eq (maponpaths (λ q, b (pr1 q)) (!p)) (pr2 z₂).
+Proof.
+  induction p ; cbn.
+  apply idpath.
+Qed.
+
 Proposition set_universe_sigma_code_eq
             {u : set_universe}
             (sig : set_universe_contains_sigma u)
@@ -340,8 +395,7 @@ Proposition set_universe_sigma_weq_eq_path
             {b₂ : set_universe_el a₂ → u}
             (q : ∏ (x : set_universe_el a₁), b₁ x = b₂ (set_universe_eq p x))
             (z : set_universe_el (set_universe_sigma_code sig a₁ b₁))
-            (z' := set_universe_sigma_weq sig
-                     a₂ b₂
+            (z' := set_universe_sigma_map sig
                      (set_universe_eq (set_universe_sigma_code_eq sig p q) z))
   : b₂ (pr1 z') = b₁ (set_universe_eq (! p) (pr1 z')).
 Proof.
@@ -362,10 +416,9 @@ Proposition set_universe_sigma_weq_eq
             {b₂ : set_universe_el a₂ → u}
             (q : ∏ (x : set_universe_el a₁), b₁ x = b₂ (set_universe_eq p x))
             (z : set_universe_el (set_universe_sigma_code sig a₁ b₁))
-            (z' := set_universe_sigma_weq sig
-                     a₂ b₂
+            (z' := set_universe_sigma_map sig
                      (set_universe_eq (set_universe_sigma_code_eq sig p q) z))
-  : set_universe_sigma_weq sig a₁ b₁ z
+  : set_universe_sigma_map sig z
     =
     set_universe_eq
       (!p)
@@ -409,11 +462,11 @@ Definition set_universe_sigma_weq_eq_on_el
            (b : set_universe_el a → u)
            {z₁ z₂ : set_universe_el (set_universe_sigma_code sig a b)}
            (p : z₁ = z₂)
-  : pr2 (set_universe_sigma_weq sig a b z₁)
+  : pr2 (set_universe_sigma_map sig z₁)
     =
     set_universe_eq
-      (maponpaths (λ x, b (pr1 (set_universe_sigma_weq sig a b x))) (!p))
-      (pr2 (set_universe_sigma_weq sig a b z₂)).
+      (maponpaths (λ x, b (pr1 (set_universe_sigma_map sig x))) (!p))
+      (pr2 (set_universe_sigma_map sig z₂)).
 Proof.
   induction p ; cbn.
   apply idpath.
@@ -435,6 +488,84 @@ Proof.
   cbn in q.
   apply maponpaths.
   exact q.
+Qed.
+
+Proposition set_universe_sigma_map_eq
+            {u : set_universe}
+            (sig : set_universe_contains_sigma u)
+            {a a' : u}
+            (p : a = a')
+            {b : set_universe_el a → u}
+            {b' : set_universe_el a' → u}
+            (q : ∏ (x : set_universe_el a), b x = b' (set_universe_eq p x))
+            (r : set_universe_sigma_code sig a b = set_universe_sigma_code sig a' b')
+            (z : set_universe_el (set_universe_sigma_code sig a b))
+  : set_universe_sigma_map sig (set_universe_eq r z)
+    =
+    set_universe_eq p (pr1 (set_universe_sigma_map sig z))
+    ,,
+    set_universe_eq (q _) (pr2 (set_universe_sigma_map sig z)).
+Proof.
+  induction p.
+  cbn in *.
+  assert (b = b') as p.
+  {
+    use funextsec.
+    exact q.
+  }
+  induction p.
+  assert (q (pr1 (set_universe_sigma_map sig z)) = idpath _) as ->.
+  {
+    apply setproperty.
+  }
+  clear q.
+  cbn.
+  assert (r = idpath _) as ->.
+  {
+    apply setproperty.
+  }
+  cbn.
+  apply idpath.
+Qed.
+
+Proposition set_universe_sigma_map_inv_eq
+            {u : set_universe}
+            (sig : set_universe_contains_sigma u)
+            {a a' : u}
+            (p : a = a')
+            {b : set_universe_el a → u}
+            {b' : set_universe_el a' → u}
+            (q : ∏ (x : set_universe_el a), b x = b' (set_universe_eq p x))
+            (r : set_universe_sigma_code sig a b = set_universe_sigma_code sig a' b')
+            (z₁ : set_universe_el a)
+            (z₂ : set_universe_el (b z₁))
+  : set_universe_sigma_map sig (set_universe_eq r (set_universe_sigma_inv sig (z₁ ,, z₂)))
+    =
+    set_universe_eq p z₁
+    ,,
+    set_universe_eq (q _) z₂.
+Proof.
+  induction p.
+  cbn in *.
+  assert (b = b') as p.
+  {
+    use funextsec.
+    exact q.
+  }
+  induction p.
+  assert (q z₁ = idpath _) as ->.
+  {
+    apply setproperty.
+  }
+  clear q.
+  cbn.
+  assert (r = idpath _) as ->.
+  {
+    apply setproperty.
+  }
+  cbn.
+  rewrite set_universe_sigma_map_inv.
+  apply idpath.
 Qed.
 
 (** * 3.6. ∏-types *)

@@ -53,9 +53,10 @@ Require Import UniMath.CategoryTheory.Hyperdoctrines.PartialEqRels.PERMorphisms.
 
 Local Open Scope cat.
 Local Open Scope hd.
+Local Open Scope weak_tripos.
 
 Section ExponentialPartialSetoid.
-  Context {H : tripos}
+  Context {H : weak_tripos}
           (X Y : partial_setoid H).
 
   (** * 1. Functions of partial setoids via the powerset *)
@@ -204,7 +205,7 @@ Section ExponentialPartialSetoid.
     rewrite !forall_subst in r.
     rewrite !impl_subst in r.
     rewrite !partial_setoid_subst in r.
-    rewrite !tripos_in_subst in r.
+    rewrite !weak_tripos_in_subst in r.
     rewrite !hyperdoctrine_pr2_subst in r.
     rewrite !hyperdoctrine_pr1_subst in r.
     rewrite !hyperdoctrine_pair_subst in r.
@@ -236,7 +237,7 @@ Section ExponentialPartialSetoid.
     rewrite !forall_subst in r.
     rewrite !impl_subst in r.
     rewrite !partial_setoid_subst in r.
-    rewrite !tripos_in_subst in r.
+    rewrite !weak_tripos_in_subst in r.
     rewrite !hyperdoctrine_pr2_subst in r.
     rewrite !hyperdoctrine_pr1_subst in r.
     rewrite !hyperdoctrine_pair_subst in r.
@@ -256,7 +257,7 @@ Section ExponentialPartialSetoid.
     rewrite !forall_subst in r.
     rewrite !impl_subst in r.
     rewrite !partial_setoid_subst in r.
-    rewrite !tripos_in_subst in r.
+    rewrite !weak_tripos_in_subst in r.
     rewrite !hyperdoctrine_pr2_subst in r.
     rewrite !hyperdoctrine_pr1_subst in r.
     rewrite !hyperdoctrine_pair_subst in r.
@@ -275,7 +276,7 @@ Section ExponentialPartialSetoid.
     clear r ; rename r' into r.
     rewrite !impl_subst in r.
     rewrite !partial_setoid_subst in r.
-    rewrite !tripos_in_subst in r.
+    rewrite !weak_tripos_in_subst in r.
     rewrite !hyperdoctrine_pr2_subst in r.
     rewrite !hyperdoctrine_pair_subst in r.
     rewrite !hyperdoctrine_pr2_subst in r.

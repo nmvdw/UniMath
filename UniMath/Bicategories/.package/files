@@ -545,6 +545,7 @@ ComprehensionCat/Examples/SetModel.v
 ComprehensionCat/Examples/SetModelUniverse.v
 ComprehensionCat/Examples/SetUniverseTypes.v
 ComprehensionCat/Examples/PresheafModel.v
+ComprehensionCat/Examples/PresheafModelUniverse.v
 ComprehensionCat/Examples/SheafModel.v
 ComprehensionCat/Examples/SetGroupoidModel.v
 

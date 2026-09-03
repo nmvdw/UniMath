@@ -154,6 +154,8 @@ Hyperdoctrines/FirstOrderHyperdoctrine.v
 Hyperdoctrines/FirstOrderHyperdoctrineChosen.v
 Hyperdoctrines/Tripos.v
 Hyperdoctrines/GenericPredicate.v
+Hyperdoctrines/Completion/WeakEquivs.v
+Hyperdoctrines/Completion/Construction.v
 
 Hyperdoctrines/PartialEqRels/PERs.v
 Hyperdoctrines/PartialEqRels/PERMorphisms.v
@@ -297,6 +299,7 @@ Adjunctions/Restriction.v
 Adjunctions/Examples.v
 Subcategory/Reflective.v
 
+Categories/UniverseToCat.v
 Categories/PrecategoryOfCategories.v
 Categories/CategoryOfSetCategories.v
 Categories/CategoryOfSetGroupoids.v
@@ -760,7 +763,10 @@ Presheaves/PiTypes.v
 Presheaves/PiTypesStable.v
 Presheaves/SubobjectClassifier.v
 Presheaves/NaturalNumbers.v
+Presheaves/PiConstant.v
 Presheaves/Precomposition.v
+Presheaves/UniverseLifting.v
+Presheaves/UniverseTerms.v
 Presheaves/Sites.v
 Presheaves/ExamplesSites.v
 Presheaves/Sheaves.v

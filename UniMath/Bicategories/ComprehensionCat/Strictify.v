@@ -314,9 +314,16 @@ Proof.
 Defined.
 
 (** * 2.3. Closure under ∑-types *)
+
+(**
+   Note: for ∑-types we provide a version where we only require stability for the code.
+   In case, one is only interested in the strictification, this version is sufficient,
+   because then one has to verify less coherences.
+ *)
 Section ClosedSigma.
   Context (C : dfl_full_comp_cat_with_univ)
-          (sig : stable_sigma_in_comp_cat_univ C).
+          (sig : sigma_in_comp_cat_univ C)
+          (p : sigma_in_comp_cat_univ_code_is_stable C sig).
 
   Definition dfl_comp_cat_univ_to_comp_cat_universe_closed_sigma_form
     : CompCatUniverse.univ_sigma_form
@@ -336,7 +343,7 @@ Section ClosedSigma.
         dfl_comp_cat_univ_to_comp_cat_universe_closed_sigma_form.
   Proof.
     intros Γ Δ s a b.
-    refine (stable_sigma_in_comp_cat_univ_code_stable sig s a b @ _).
+    refine (p _ _ s a b @ _).
     apply maponpaths.
     refine (!_).
     etrans.
@@ -352,7 +359,7 @@ Section ClosedSigma.
     exact (dfl_comp_cat_univ_to_comp_cat_with_universe_sub_univ_iso _).
   Qed.
 
-  Definition dfl_comp_cat_univ_to_comp_cat_universe_closed_sigma
+  Definition dfl_comp_cat_univ_to_comp_cat_universe_closed_sigma_code
     : CompCatUniverse.comp_cat_universe_closed_sigma
         (dfl_comp_cat_univ_to_comp_cat_with_universe C)
         (comp_cat_to_comp_cat_sigma _).
@@ -363,6 +370,18 @@ Section ClosedSigma.
     - exact dfl_comp_cat_univ_to_comp_cat_universe_closed_sigma_law.
   Defined.
 End ClosedSigma.
+
+Definition dfl_comp_cat_univ_to_comp_cat_universe_closed_sigma
+           (C : dfl_full_comp_cat_with_univ)
+           (sig : stable_sigma_in_comp_cat_univ C)
+  : CompCatUniverse.comp_cat_universe_closed_sigma
+      (dfl_comp_cat_univ_to_comp_cat_with_universe C)
+      (comp_cat_to_comp_cat_sigma _).
+Proof.
+  refine (dfl_comp_cat_univ_to_comp_cat_universe_closed_sigma_code C sig _).
+  intros Γ Δ s a b.
+  exact (stable_sigma_in_comp_cat_univ_code_stable sig s a b).
+Defined.
 
 (** * 2.4. Closure under ∏-types *)
 Section ClosedPi.
@@ -417,6 +436,18 @@ Section ClosedPi.
 End ClosedPi.
 
 (** * 3. Strictification *)
+Definition strictify_dfl_full_comp_cat_univ_code
+           (C : dfl_full_comp_cat_with_univ)
+           (un : unit_in_comp_cat_univ C)
+           (sig : sigma_in_comp_cat_univ C)
+           (p : sigma_in_comp_cat_univ_code_is_stable C sig)
+  : cwf
+  := CwfFromCompCatWithUniv.cwf_from_comp_cat_with_u
+       _
+       (dfl_comp_cat_univ_to_comp_cat_universe_closed_sigma_code C sig p)
+       _
+       (dfl_comp_cat_univ_to_comp_cat_universe_closed_unit C un).
+
 Definition strictify_dfl_full_comp_cat_univ
            (C : dfl_full_comp_cat_with_univ)
            (un : unit_in_comp_cat_univ C)

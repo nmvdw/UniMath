@@ -26,6 +26,7 @@ Require Import UniMath.CategoryTheory.Core.Prelude.
 Require Import UniMath.CategoryTheory.Limits.Terminal.
 Require Import UniMath.CategoryTheory.Categories.HSET.All.
 Require Import UniMath.CategoryTheory.DisplayedCats.Core.
+Require Import UniMath.CategoryTheory.DisplayedCats.Univalence.
 Require Import UniMath.CategoryTheory.DisplayedCats.Fiber.
 Require Import UniMath.CategoryTheory.DisplayedCats.Examples.SetFams.
 Require Import UniMath.Bicategories.ComprehensionCat.BicatOfCompCat.
@@ -66,7 +67,7 @@ Section SetUniverseToUniverse.
         (γ : (Γ : hSet))
     : set_comp_cat_tm_to_sec t (s γ)
       =
-      set_comp_cat_tm_to_sec (t [[s ]]tm ↑ sub_comp_cat_univ s) γ.
+      set_comp_cat_tm_to_sec (t [[ s ]]tm ↑ sub_comp_cat_univ s) γ.
   Proof.
     rewrite set_comp_cat_tm_coerce.
     rewrite set_comp_cat_sec_to_tm_to_sec.
