@@ -40,7 +40,6 @@
  9. Dependent sums in the completion
  10. Dependent products in the completion
 
-
  *)
 Require Import UniMath.MoreFoundations.All.
 Require Import UniMath.CategoryTheory.Core.Prelude.
@@ -255,6 +254,13 @@ Section HyperdoctrineWeakEquiv.
       apply disp_functor_weak_equivalence_locally_propositional.
   Qed.
 
+  Definition weak_equivalence_cartesian_disp_functor
+             (H : cleaving D₁)
+    : cartesian_disp_functor (functor_identity _) D₁ D₂
+    := make_cartesian_disp_functor
+         _
+         (is_cartesian_disp_functor_weak_equivalence_cleaving H).
+
   Proposition disp_functor_weak_equivalence_preserves_lift
               (H : cleaving D₁)
               {x y : C}
@@ -306,9 +312,7 @@ Section HyperdoctrineWeakEquiv.
   Proof.
     exact (fiber_functor_natural_nat_z_iso
              _ _
-             (make_cartesian_disp_functor
-                _
-                (is_cartesian_disp_functor_weak_equivalence_cleaving H))
+             (weak_equivalence_cartesian_disp_functor H)
              f).
   Defined.
 
@@ -353,6 +357,14 @@ Section HyperdoctrineWeakEquiv.
           apply disp_functor_weak_equivalence_fiber.
   Defined.
 
+  Proposition preserves_terminal_fiber_functor_weak_equiv
+              (x : C)
+    : preserves_terminal (fiber_functor FF x).
+  Proof.
+    use weak_equiv_preserves_terminal.
+    apply disp_functor_weak_equivalence_fiber.
+  Qed.
+
   (** * 5. Fiberwise initial object in the completion *)
   Definition disp_functor_weak_equivalence_initial_fib
              {x : C}
@@ -382,6 +394,14 @@ Section HyperdoctrineWeakEquiv.
         * use weak_equiv_preserves_initial.
           apply disp_functor_weak_equivalence_fiber.
   Defined.
+
+  Proposition preserves_initial_fiber_functor_weak_equiv
+              (x : C)
+    : preserves_initial (fiber_functor FF x).
+  Proof.
+    use weak_equiv_preserves_initial.
+    apply disp_functor_weak_equivalence_fiber.
+  Qed.
 
   (** * 6. Fiberwise binary products in the completion *)
   Definition disp_functor_weak_equivalence_binproducts_fib
@@ -414,6 +434,14 @@ Section HyperdoctrineWeakEquiv.
         * apply BP.
         * use weak_equiv_preserves_binproducts.
           apply disp_functor_weak_equivalence_fiber.
+  Defined.
+
+  Proposition preserves_binproduct_fiber_functor_weak_equiv
+              (x : C)
+    : preserves_binproduct (fiber_functor FF x).
+  Proof.
+    use weak_equiv_preserves_binproducts.
+    apply disp_functor_weak_equivalence_fiber.
   Defined.
 
   (** * 7. Fiberwise binary coproducts in the completion *)
@@ -454,6 +482,14 @@ Section HyperdoctrineWeakEquiv.
         * use weak_equiv_preserves_bincoproducts.
           apply disp_functor_weak_equivalence_fiber.
   Defined.
+
+  Proposition preserves_bincoproduct_fiber_functor_weak_equiv
+              (x : C)
+    : preserves_bincoproduct (fiber_functor FF x).
+  Proof.
+    use weak_equiv_preserves_bincoproducts.
+    apply disp_functor_weak_equivalence_fiber.
+  Qed.
 
   (** * 8. Fiberwise exponentials in the completion *)
   Definition disp_functor_weak_equivalence_exponentials_fib
@@ -509,7 +545,86 @@ Section HyperdoctrineWeakEquiv.
         * apply weak_equiv_preserves_exponentials.
   Defined.
 
+  Proposition preserves_exponential_fiber_functor_weak_equiv
+              {x : C}
+              (BP₁ : BinProducts (D₁[{x}]))
+              (E₁ : Exponentials BP₁)
+              (BP₂ : BinProducts (D₂[{x}]))
+              (E₂ : Exponentials BP₂)
+    : preserves_exponentials
+        E₁
+        E₂
+        (preserves_binproduct_fiber_functor_weak_equiv x).
+  Proof.
+    assert (E₂
+            =
+            exponentials_independent
+              _ _
+              (disp_functor_weak_equivalence_exponentials_fib BP₁ E₁))
+      as ->.
+    {
+      apply isaprop_Exponentials.
+      use is_univalent_fiber.
+      exact HD₂.
+    }
+    use preserves_exponentials_independent_cod.
+    apply weak_equiv_preserves_exponentials.
+  Qed.
+
   (** * 9. Dependent sums in the completion *)
+  Definition disp_functor_weak_equivalence_dependent_sum_reflection
+             (H₁ : cleaving D₁)
+             (H₂ : cleaving D₂)
+             {x y : C}
+             (f : x --> y)
+             (S : dependent_sum H₁ f)
+             (xx : D₁ x)
+    : reflection (D := D₂ [{x}]) (FF x xx) (fiber_functor_from_cleaving D₂ H₂ f).
+  Proof.
+    use make_reflection.
+    - simple refine (_ ,, _).
+      + exact (FF _ (left_adjoint S xx)).
+      + refine (#(fiber_functor FF _) (unit_from_right_adjoint S xx) · _).
+        refine (nat_z_iso_inv
+                  (disp_functor_weak_cleaving_nat_z_iso H₁ f)
+                  (left_adjoint S xx)
+                · _).
+        apply cartesian_lifts_iso.
+    - intros f'.
+      induction f' as [ yy' gg ].
+      pose proof (HFF₂ y yy') as yy.
+      revert yy.
+      use factor_through_squash.
+      {
+        intro.
+        apply isapropiscontr.
+      }
+      intros (yy & hh).
+      use make_iscontr.
+      + simple refine (_ ,, _).
+        * refine (_  · z_iso_fiber_from_z_iso_disp _ _ _ _ hh).
+          refine (#(fiber_functor FF _) _).
+          refine (_ · counit_from_right_adjoint S yy).
+          refine (#(left_adjoint S) _).
+          use (cartesian_factorisation (H₁ y x f yy)).
+          use (disp_functor_ff_inv FF HFF₁).
+          refine (transportf
+                    (λ z, _ -->[ z ] _)
+                    _
+                    (gg
+                     ;; H₂ y x f yy'
+                     ;; inv_mor_disp_from_z_iso hh)).
+          abstract
+            (cbn ;
+             rewrite !id_left, id_right ;
+             apply idpath).
+        * apply disp_functor_weak_equivalence_locally_propositional.
+      + abstract
+          (intro ;
+           use subtypePath ; [ intro ; apply homsets_disp | ] ;
+           apply disp_functor_weak_equivalence_locally_propositional).
+  Defined.
+
   Definition disp_functor_weak_equivalence_dependent_sum
              (H : cleaving D₁)
              {x y : C}
@@ -528,52 +643,32 @@ Section HyperdoctrineWeakEquiv.
       exact HD₂.
     }
     intros (xx & ff).
-    use make_reflection.
-    - simple refine (_ ,, _).
-      + exact (FF _ (left_adjoint S xx)).
-      + refine (inv_from_z_iso (z_iso_fiber_from_z_iso_disp _ _ _ _ ff) · _).
-        refine (#(fiber_functor FF _) (unit_from_right_adjoint S xx) · _).
-        exact (nat_z_iso_inv
-                 (disp_functor_weak_cleaving_nat_z_iso H f)
-                 (left_adjoint S xx)).
-    - intros f'.
-      induction f' as [ yy' gg ].
-      pose proof (HFF₂ y yy') as yy.
-      revert yy.
-      use factor_through_squash.
-      {
-        intro.
-        apply isapropiscontr.
-      }
-      intros (yy & hh).
-      use make_iscontr.
-      + simple refine (_ ,, _).
-        * refine (_  · z_iso_fiber_from_z_iso_disp _ _ _ _ hh).
-          refine (#(fiber_functor FF _) _).
-          refine (_ · counit_from_right_adjoint S yy).
-          refine (#(left_adjoint S) _).
-          use (cartesian_factorisation (H y x f yy)).
-          use (disp_functor_ff_inv FF HFF₁).
-          refine (transportf
-                    (λ z, _ -->[ z ] _)
-                    _
-                    (ff
-                     ;; gg
-                     ;; disp_functor_weak_equivalence_cleaving H y x f yy'
-                     ;; inv_mor_disp_from_z_iso hh)).
-          abstract
-            (cbn ;
-             rewrite !id_left, id_right ;
-             apply idpath).
-        * apply disp_functor_weak_equivalence_locally_propositional.
-      + abstract
-          (intro ;
-           use subtypePath ; [ intro ; apply homsets_disp | ] ;
-           apply disp_functor_weak_equivalence_locally_propositional).
+    refine (reflection_transport_along_iso_ob
+              (z_iso_fiber_from_z_iso_disp _ _ _ _ ff)
+              _).
+    clear ff xx'.
+    exact (disp_functor_weak_equivalence_dependent_sum_reflection H _ _ S xx).
+  Defined.
+
+  Proposition disp_functor_weak_equivalence_preserves_dependent_sum
+              {H₁ : cleaving D₁}
+              {H₂ : cleaving D₂}
+              {x y : C}
+              (f : x --> y)
+              (S₁ : dependent_sum H₁ f)
+              (S₂ : dependent_sum H₂ f)
+              (xx : D₁ x)
+    : z_iso
+        (left_adjoint S₂ (FF x xx))
+        (FF y (left_adjoint S₁ xx)).
+  Proof.
+    exact (reflection_uniqueness_iso
+             (left_adjoint_to_reflection S₂ (FF x xx))
+             (disp_functor_weak_equivalence_dependent_sum_reflection H₁ H₂ f S₁ xx)).
   Defined.
 
   (**
-     We also verify the Beck-Chevalley condition for dependent prosumucts
+     We also verify the Beck-Chevalley condition for dependent sums
    *)
   Definition disp_functor_weak_equivalence_fiber_dep_sum
              (H : cleaving D₁)
@@ -676,31 +771,21 @@ Section HyperdoctrineWeakEquiv.
   Qed.
 
   (** * 10. Dependent products in the completion *)
-  Definition disp_functor_weak_equivalence_dependent_product
-             (H : cleaving D₁)
+  Definition disp_functor_weak_equivalence_dependent_product_coreflection
+             (H₁ : cleaving D₁)
+             (H₂ : cleaving D₂)
              {x y : C}
              (f : x --> y)
-             (P : dependent_product H f)
-    : dependent_product (disp_functor_weak_equivalence_cleaving H) f.
+             (P : dependent_product H₁ f)
+             (xx : D₁ x)
+    : coreflection (D := D₂ [{x}]) (FF x xx) (fiber_functor_from_cleaving D₂ H₂ f).
   Proof.
-    use coreflections_to_is_left_adjoint.
-    intros xx'.
-    pose proof (HFF₂ x xx') as xx.
-    revert xx.
-    use factor_through_squash.
-    {
-      use isaprop_coreflection.
-      use is_univalent_fiber.
-      exact HD₂.
-    }
-    intros (xx & ff).
     use make_coreflection.
     - simple refine (_ ,, _).
       + exact (FF _ (right_adjoint P xx)).
-      + refine (_ · z_iso_fiber_from_z_iso_disp _ _ _ _ ff).
-        refine (disp_functor_weak_cleaving_nat_z_iso H f (right_adjoint P xx) · _).
-        refine (#(fiber_functor FF _) _).
-        exact (counit_from_left_adjoint P xx).
+      + refine (_ · disp_functor_weak_cleaving_nat_z_iso H₁ f (right_adjoint P xx)
+                  · #(fiber_functor FF _) (counit_from_left_adjoint P xx)).
+        apply cartesian_lifts_iso.
     - intros f'.
       induction f' as [ yy' gg ].
       pose proof (HFF₂ y yy') as yy.
@@ -720,16 +805,14 @@ Section HyperdoctrineWeakEquiv.
           use (disp_functor_ff_inv FF HFF₁).
           refine (transportf
                     (λ z, _ -->[ z ] _)
-                    (id_right _ @ id_right _)
-                    (_
-                     ;; gg
-                     ;; inv_mor_disp_from_z_iso ff)).
-          use (cartesian_factorisation (disp_functor_weak_equivalence_cleaving H y x f yy')).
+                    (id_right _)
+                    (cartesian_factorisation (H₂ y x f yy') _ _
+                     ;; gg)).
           cbn.
           refine (transportf
                     (λ z, _ -->[ z ] _)
                     _
-                    (♯FF (H y x f yy) ;; hh)).
+                    (♯FF (H₁ y x f yy) ;; hh)).
           cbn.
           abstract
             (rewrite id_left, id_right ;
@@ -739,6 +822,48 @@ Section HyperdoctrineWeakEquiv.
           (intro ;
            use subtypePath ; [ intro ; apply homsets_disp | ] ;
            apply disp_functor_weak_equivalence_locally_propositional).
+  Defined.
+
+  Definition disp_functor_weak_equivalence_dependent_product
+             (H : cleaving D₁)
+             {x y : C}
+             (f : x --> y)
+             (P : dependent_product H f)
+    : dependent_product (disp_functor_weak_equivalence_cleaving H) f.
+  Proof.
+    use coreflections_to_is_left_adjoint.
+    intros xx'.
+    pose proof (HFF₂ x xx') as xx.
+    revert xx.
+    use factor_through_squash.
+    {
+      use isaprop_coreflection.
+      use is_univalent_fiber.
+      exact HD₂.
+    }
+    intros (xx & ff).
+    refine (coreflection_transport_along_iso_ob
+              (z_iso_fiber_from_z_iso_disp _ _ _ _ ff)
+              _).
+    apply (disp_functor_weak_equivalence_dependent_product_coreflection H).
+    exact P.
+  Defined.
+
+  Proposition disp_functor_weak_equivalence_preserves_dependent_product
+              {H₁ : cleaving D₁}
+              {H₂ : cleaving D₂}
+              {x y : C}
+              (f : x --> y)
+              (P₁ : dependent_product H₁ f)
+              (P₂ : dependent_product H₂ f)
+              (xx : D₁ x)
+    : z_iso
+        (right_adjoint P₂ (FF x xx))
+        (FF y (right_adjoint P₁ xx)).
+  Proof.
+    exact (coreflection_uniqueness_iso
+             (right_adjoint_to_coreflection P₂ (FF x xx))
+             (disp_functor_weak_equivalence_dependent_product_coreflection H₁ H₂ f P₁ xx)).
   Defined.
 
   (**

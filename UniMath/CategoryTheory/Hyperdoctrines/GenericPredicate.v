@@ -31,8 +31,9 @@
  Content
  1. Definition of generic predicates in first-order hyperdoctrines
  2. Construction of generic predicates in triposes
- 3. Definition of weak generic predicates in first-order hyperdoctrines
- 4. Construction of weak generic predicates in weak triposes
+ 3. Construction of power objects from generic predicates
+ 4. Definition of weak generic predicates in first-order hyperdoctrines
+ 5. Construction of weak generic predicates in weak triposes
 
  **********************************************************************************************)
 Require Import UniMath.Foundations.All.
@@ -48,6 +49,9 @@ Require Import UniMath.CategoryTheory.DisplayedCats.Projection.
 Require Import UniMath.CategoryTheory.Hyperdoctrines.Hyperdoctrine.
 Require Import UniMath.CategoryTheory.Hyperdoctrines.FirstOrderHyperdoctrine.
 Require Import UniMath.CategoryTheory.Hyperdoctrines.Tripos.
+Require Import UniMath.CategoryTheory.Limits.BinProducts.
+Require Import UniMath.CategoryTheory.Exponentials.
+
 
 Local Open Scope cat.
 Local Open Scope hd.
@@ -171,10 +175,48 @@ Qed.
 #[global] Opaque prf_of_generic_predicate.
 #[global] Opaque mor_to_generic_predicate.
 
+(** * 3. Construction of power objects from generic predicates *)
+Definition is_tripos_from_generic_predicate
+           {H : first_order_hyperdoctrine}
+           (ΩP : generic_predicate H)
+           (E : Exponentials (hyperdoctrine_binproducts H))
+  : is_tripos H.
+Proof.
+  intros X.
+  simple refine (_ ,, _ ,, _).
+  - exact (exp (E X) (ΩP : ty H)).
+  - exact ((prf_of_generic_predicate ΩP) [ exp_eval (E X) (ΩP : ty H) ]).
+  - intros Γ R.
+    simple refine (_ ,, _).
+    + exact (exp_lam (E X) (mor_to_generic_predicate ΩP R)).
+    + abstract
+        (cbn ;
+         rewrite (mor_to_generic_predicate_eq ΩP R) ;
+         hypersimplify ;
+         apply maponpaths ;
+         unfold tm_subst, hyperdoctrine_pair ;
+         unfold tm_var, hyperdoctrine_pr1, hyperdoctrine_pr2 ;
+         cbn ;
+         rewrite !id_left ;
+         refine (!(exp_beta (E X) (mor_to_generic_predicate ΩP R)) @ _) ;
+         apply maponpaths_2 ;
+         unfold BinProductOfArrows ;
+         rewrite id_right ;
+         do 4 apply maponpaths ;
+         apply mor_to_generic_predicate_eq).
+Defined.
+
+Definition tripos_from_generic_predicate
+           {H : first_order_hyperdoctrine}
+           (ΩP : generic_predicate H)
+           (E : Exponentials (hyperdoctrine_binproducts H))
+  : tripos
+  := H ,, is_tripos_from_generic_predicate ΩP E.
+
 Close Scope tripos.
 Local Open Scope weak_tripos.
 
-(** * 3. Definition of weak generic predicates in first-order hyperdoctrines *)
+(** * 4. Definition of weak generic predicates in first-order hyperdoctrines *)
 Definition is_weak_generic_predicate
            {H : first_order_hyperdoctrine}
            (X : ty H)
@@ -223,7 +265,7 @@ Proof.
   exact (pr22 X Γ φ).
 Defined.
 
-(** 4. Construction of weak generic predicates in weak triposes *)
+(** 5. Construction of weak generic predicates in weak triposes *)
 Definition weak_tripos_generic_predicate
            (H : weak_tripos)
   : weak_generic_predicate H.

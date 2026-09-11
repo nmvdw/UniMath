@@ -73,10 +73,14 @@ Require Import UniMath.CategoryTheory.SubobjectClassifier.SubobjectClassifier.
 Require Import UniMath.CategoryTheory.Exponentials.
 Require Import UniMath.CategoryTheory.PowerObject.
 Require Import UniMath.CategoryTheory.ElementaryTopos.
+Require Import UniMath.CategoryTheory.Arithmetic.NNO.
 Require Import UniMath.CategoryTheory.Hyperdoctrines.Hyperdoctrine.
 Require Import UniMath.CategoryTheory.Hyperdoctrines.FirstOrderHyperdoctrine.
 Require Import UniMath.CategoryTheory.Hyperdoctrines.Tripos.
 Require Import UniMath.CategoryTheory.Hyperdoctrines.GenericPredicate.
+Require Import UniMath.CategoryTheory.Hyperdoctrines.HyperdoctrineNat.
+Require Import UniMath.CategoryTheory.Hyperdoctrines.Completion.Construction.
+Require Import UniMath.CategoryTheory.Hyperdoctrines.Completion.Naturals.
 Require Export UniMath.CategoryTheory.Hyperdoctrines.PartialEqRels.PERs.
 Require Export UniMath.CategoryTheory.Hyperdoctrines.PartialEqRels.PERMorphisms.
 Require Export UniMath.CategoryTheory.Hyperdoctrines.PartialEqRels.PERCategory.
@@ -89,6 +93,7 @@ Require Export UniMath.CategoryTheory.Hyperdoctrines.PartialEqRels.ExponentialEv
 Require Export UniMath.CategoryTheory.Hyperdoctrines.PartialEqRels.ExponentialLam.
 Require Export UniMath.CategoryTheory.Hyperdoctrines.PartialEqRels.ExponentialEqs.
 Require Export UniMath.CategoryTheory.Hyperdoctrines.PartialEqRels.PERExponentials.
+Require Export UniMath.CategoryTheory.Hyperdoctrines.PartialEqRels.PERNaturals.
 
 Definition weak_tripos_to_topos
            (H : weak_tripos)
@@ -106,7 +111,34 @@ Proof.
       exact (exponentials_independent _ _ (exponentials_partial_setoid H)).
 Defined.
 
+Definition weak_tripos_to_topos_NNO
+           (H : weak_tripos)
+           (N : first_order_hyperdoctrine_nats H)
+  : NNO (Topos_Terminal (weak_tripos_to_topos H))
+  := category_of_partial_setoids_NNO N.
+
 Definition tripos_to_topos
            (H : tripos)
   : Topos
   := weak_tripos_to_topos (tripos_to_weak_tripos H).
+
+Definition tripos_to_topos_NNO
+           (H : tripos)
+           (N : first_order_hyperdoctrine_nats H)
+  : NNO (Topos_Terminal (tripos_to_topos H))
+  := weak_tripos_to_topos_NNO
+       (tripos_to_weak_tripos H)
+       (tripos_to_weak_tripos_nats H N).
+
+Definition preorder_tripos_to_topos
+           (H : preorder_tripos)
+  : Topos
+  := weak_tripos_to_topos (tripos_completion H).
+
+Definition preorder_tripos_to_topos_NNO
+           (H : preorder_tripos)
+           (N : first_order_preorder_hyperdoctrine_nats H)
+  : NNO (Topos_Terminal (preorder_tripos_to_topos H))
+  := weak_tripos_to_topos_NNO
+       (tripos_completion H)
+       (first_order_preorder_hyperdoctrine_completion_nats N).

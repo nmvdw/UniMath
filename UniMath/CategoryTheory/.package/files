@@ -154,8 +154,10 @@ Hyperdoctrines/FirstOrderHyperdoctrine.v
 Hyperdoctrines/FirstOrderHyperdoctrineChosen.v
 Hyperdoctrines/Tripos.v
 Hyperdoctrines/GenericPredicate.v
+Hyperdoctrines/HyperdoctrineNat.v
 Hyperdoctrines/Completion/WeakEquivs.v
 Hyperdoctrines/Completion/Construction.v
+Hyperdoctrines/Completion/Naturals.v
 
 Hyperdoctrines/PartialEqRels/PERs.v
 Hyperdoctrines/PartialEqRels/PERMorphisms.v
@@ -172,6 +174,9 @@ Hyperdoctrines/PartialEqRels/ExponentialEval.v
 Hyperdoctrines/PartialEqRels/ExponentialLam.v
 Hyperdoctrines/PartialEqRels/ExponentialEqs.v
 Hyperdoctrines/PartialEqRels/PERExponentials.v
+Hyperdoctrines/PartialEqRels/InductivePER.v
+Hyperdoctrines/PartialEqRels/NNORecursiveMap.v
+Hyperdoctrines/PartialEqRels/PERNaturals.v
 Hyperdoctrines/PartialEqRels/Logic/SubobjectDispCat.v
 Hyperdoctrines/PartialEqRels/Logic/MonoEquiv.v
 Hyperdoctrines/PartialEqRels/Logic/Truth.v
@@ -181,6 +186,7 @@ Hyperdoctrines/PartialEqRels/Logic/Disjunction.v
 Hyperdoctrines/PartialEqRels/Logic/Implication.v
 Hyperdoctrines/PartialEqRels/Logic/Existential.v
 Hyperdoctrines/PartialEqRels/Logic/Universal.v
+Hyperdoctrines/PartialEqRels/Logic/Equality.v
 Hyperdoctrines/PartialEqRels/InternalLogic.v
 Hyperdoctrines/TriposToTopos.v
 

@@ -130,22 +130,15 @@ Qed.
    comprehension categories generalises the way type formers are interpreted in full
    comprehension categories
  *)
-Definition TODO { A : UU } : A.
-Admitted.
-
 Definition comp_cat_to_comp_cat_unit
            (C : dfl_full_comp_cat)
   : CompCatTypeFormers.comp_cat_unit (comp_cat_to_cat_comp_cat C).
 Proof.
-  simple refine (_ ,, _ ,, _ ,, _ ,, _ ,, _ ,, _ ,, _).
+  simple refine (_ ,, _ ,, _ ,, _).
   - exact (λ Γ, dfl_full_comp_cat_unit (C := C) Γ).
   - exact (λ Γ, dfl_unit_tt (C := C) Γ).
-  - apply TODO.
-  - apply TODO.
   - exact (λ Γ t, dfl_unit_unique (C := C) t).
   - exact (λ Γ Δ s, dfl_comp_cat_unit_subst (C := C) s).
-  - apply TODO.
-  - apply TODO.
 Defined.
 
 Definition comp_cat_to_comp_cat_sigma

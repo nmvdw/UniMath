@@ -30,7 +30,8 @@
  3. The weak equivalence
  4. The completion of preorder hyperdoctrines
  5. The completion of first-order hyperdoctrines
- 6. The completion of triposes
+ 6. Preservation
+ 7. The completion of triposes
 
  *)
 Require Import UniMath.MoreFoundations.All.
@@ -342,7 +343,7 @@ Proof.
   - refine (hyperdoctrine_completion_disp_cat
               (hyperdoctrine_formula_disp_cat H)
               _).
-    exact (pr22 (pr222 H)).
+    exact (locally_propositional_preorder_hyperdoctrine H).
   - exact (hyperdoctrine_terminal_type H).
   - exact (hyperdoctrine_binproducts H).
   - refine (disp_functor_weak_equivalence_cleaving
@@ -454,7 +455,190 @@ Proof.
            φ).
 Qed.
 
-(** * 6. The completion of triposes *)
+(** * 6. Preservation *)
+Section Preservation.
+  Context (H : first_order_preorder_hyperdoctrine).
+
+  Let Hc : first_order_hyperdoctrine
+    := first_order_preorder_hyperdoctrine_completion H.
+  Let FF : disp_functor
+             (functor_identity _)
+             (hyperdoctrine_formula_disp_cat H)
+             (hyperdoctrine_formula_disp_cat Hc)
+    := hyperdoctrine_completion_disp_cat_functor
+         (hyperdoctrine_formula_disp_cat H)
+         (locally_propositional_preorder_hyperdoctrine H).
+
+  Let H₁ : disp_functor_ff FF
+    := disp_functor_ff_hyperdoctrine_completion_disp_cat_functor
+         (hyperdoctrine_formula_disp_cat H)
+         (locally_propositional_preorder_hyperdoctrine H).
+  Let H₂ : disp_functor_disp_ess_surj FF
+    := disp_functor_disp_ess_surj_hyperdoctrine_completion_disp_cat_functor
+         (hyperdoctrine_formula_disp_cat H)
+         (locally_propositional_preorder_hyperdoctrine H).
+
+  Proposition to_completion_proof
+              {Γ : ty H}
+              {Δ φ : form Γ}
+              (p : Δ ⊢ φ)
+    : FF Γ Δ ⊢ FF Γ φ.
+  Proof.
+    exact (♯FF p)%mor_disp.
+  Qed.
+
+  Proposition to_completion_subst
+              {Γ₁ Γ₂ : ty H}
+              (φ : form Γ₂)
+              (s : tm Γ₁ Γ₂)
+    : FF Γ₁ (φ [ s ]) = (FF Γ₂ φ) [ s ].
+  Proof.
+    use (isotoid_disp (is_univalent_disp_hyperdoctrine Hc) (idpath _)).
+    pose (weak_equivalence_cartesian_disp_functor
+            FF
+            H₁ H₂
+            (locally_propositional_preorder_hyperdoctrine H)
+            (hyperdoctrine_cleaving H))
+      as Hp.
+    exact (cartesian_disp_functor_disp_z_iso Hp _ _ s φ).
+  Qed.
+
+  Proposition to_completion_truth
+              (Γ : ty H)
+    : FF Γ first_order_preorder_hyperdoctrine_truth
+      =
+      (⊤ : form (Γ : ty Hc)).
+  Proof.
+    use (isotoid_disp (is_univalent_disp_hyperdoctrine Hc) (idpath _)).
+    use z_iso_disp_from_z_iso_fiber.
+    apply (preserves_terminal_to_z_iso
+             _
+             (preserves_terminal_fiber_functor_weak_equiv FF H₁ H₂ Γ)).
+  Qed.
+
+  Proposition to_completion_false
+              (Γ : ty H)
+    : FF Γ first_order_preorder_hyperdoctrine_false
+      =
+      (⊥ : form (Γ : ty Hc)).
+  Proof.
+    use (isotoid_disp (is_univalent_disp_hyperdoctrine Hc) (idpath _)).
+    use z_iso_disp_from_z_iso_fiber.
+    apply (preserves_initial_to_z_iso
+             _
+             (preserves_initial_fiber_functor_weak_equiv FF H₁ H₂ Γ)).
+  Qed.
+
+  Proposition to_completion_conj
+              {Γ : ty H}
+              (φ ψ : form Γ)
+    : FF Γ (first_order_preorder_hyperdoctrine_conj φ ψ)
+      =
+      (FF Γ φ ∧ FF Γ ψ).
+  Proof.
+    use (isotoid_disp (is_univalent_disp_hyperdoctrine Hc) (idpath _)).
+    use z_iso_disp_from_z_iso_fiber.
+    exact (preserves_binproduct_to_z_iso
+             _
+             (preserves_binproduct_fiber_functor_weak_equiv FF H₁ H₂ Γ)
+             _ _).
+  Qed.
+
+  Proposition to_completion_disj
+              {Γ : ty H}
+              (φ ψ : form Γ)
+    : FF Γ (first_order_preorder_hyperdoctrine_disj φ ψ)
+      =
+      (FF Γ φ ∨ FF Γ ψ).
+  Proof.
+    use (isotoid_disp (is_univalent_disp_hyperdoctrine Hc) (idpath _)).
+    use z_iso_disp_from_z_iso_fiber.
+    exact (preserves_bincoproduct_to_z_iso
+             _
+             (preserves_bincoproduct_fiber_functor_weak_equiv FF H₁ H₂ Γ)
+             _ _).
+  Qed.
+
+  Proposition to_completion_impl
+              {Γ : ty H}
+              (φ ψ : form Γ)
+    : FF Γ (first_order_preorder_hyperdoctrine_impl φ ψ)
+      =
+      (FF Γ φ ⇒ FF Γ ψ).
+  Proof.
+    use (isotoid_disp (is_univalent_disp_hyperdoctrine Hc) (idpath _)).
+    use z_iso_disp_from_z_iso_fiber.
+    refine (_ ,, preserves_exponential_fiber_functor_weak_equiv FF H₁ H₂ _ _ _ _ _ _ _).
+    apply is_univalent_disp_hyperdoctrine_completion_disp_cat.
+  Qed.
+
+  Proposition to_completion_forall
+              {Γ A : ty H}
+              (φ : form (Γ ×h A))
+    : FF Γ (first_order_preorder_hyperdoctrine_forall φ)
+      =
+      (∀h (FF (Γ ×h A) φ)).
+  Proof.
+    use (isotoid_disp (is_univalent_disp_hyperdoctrine Hc) (idpath _)).
+    use z_iso_disp_from_z_iso_fiber.
+    use z_iso_inv.
+    refine (disp_functor_weak_equivalence_preserves_dependent_product
+              FF
+              H₁ H₂
+              _ _ _ _ _
+              φ).
+    - exact (locally_propositional_preorder_hyperdoctrine H).
+    - exact (is_univalent_disp_hyperdoctrine Hc).
+  Qed.
+
+  Proposition to_completion_exists
+              {Γ A : ty H}
+              (φ : form (Γ ×h A))
+    : FF Γ (first_order_preorder_hyperdoctrine_exists φ)
+      =
+      (∃h (FF (Γ ×h A) φ)).
+  Proof.
+    use (isotoid_disp (is_univalent_disp_hyperdoctrine Hc) (idpath _)).
+    use z_iso_disp_from_z_iso_fiber.
+    use z_iso_inv.
+    refine (disp_functor_weak_equivalence_preserves_dependent_sum
+              FF
+              H₁ H₂
+              _ _ _ _ _
+              φ).
+    - exact (locally_propositional_preorder_hyperdoctrine H).
+    - exact (is_univalent_disp_hyperdoctrine Hc).
+  Qed.
+
+  Proposition to_completion_equal
+              {Γ A : ty H}
+              (t₁ t₂ : tm Γ A)
+    : FF Γ (first_order_preorder_hyperdoctrine_equal t₁ t₂)
+      =
+      (first_order_hyperdoctrine_equal (H := Hc) t₁ t₂).
+  Proof.
+    use (isotoid_disp (is_univalent_disp_hyperdoctrine Hc) (idpath _)).
+    use z_iso_disp_from_z_iso_fiber.
+    unfold first_order_hyperdoctrine_equal.
+    unfold first_order_preorder_hyperdoctrine_equal.
+    rewrite to_completion_subst.
+    use (functor_on_z_iso
+           (fiber_functor_from_cleaving
+              _
+              (hyperdoctrine_cleaving Hc)
+              ⟨ t₁ , t₂ ⟩)).
+    use z_iso_inv.
+    refine (disp_functor_weak_equivalence_preserves_dependent_sum
+              FF
+              H₁ H₂
+              _ _ _ _ _
+              _).
+    - exact (locally_propositional_preorder_hyperdoctrine H).
+    - exact (is_univalent_disp_hyperdoctrine Hc).
+  Qed.
+End Preservation.
+
+(** * 7. The completion of triposes *)
 Section TriposCompletion.
   Context (H : preorder_tripos).
 

@@ -607,11 +607,17 @@ Proof.
 Defined.
 
 (** * 2. The truth formula *)
+Definition first_order_preorder_hyperdoctrine_truth
+           {H : first_order_preorder_hyperdoctrine}
+           {Γ : ty H}
+  : form Γ
+  := terminal_obj_in_fib (pr12 H) Γ.
+
 Definition first_order_hyperdoctrine_truth
            {H : first_order_hyperdoctrine}
            {Γ : ty H}
   : form Γ
-  := terminal_obj_in_fib (pr12 H) Γ.
+  := @first_order_preorder_hyperdoctrine_truth H Γ.
 
 Notation "'⊤'" := first_order_hyperdoctrine_truth : hyperdoctrine.
 
@@ -637,11 +643,17 @@ Proof.
 Qed.
 
 (** * 3. The falsity formula *)
+Definition first_order_preorder_hyperdoctrine_false
+           {H : first_order_preorder_hyperdoctrine}
+           {Γ : ty H}
+  : form Γ
+  := initial_obj_in_fib (pr122 H) Γ.
+
 Definition first_order_hyperdoctrine_false
            {H : first_order_hyperdoctrine}
            {Γ : ty H}
   : form Γ
-  := initial_obj_in_fib (pr122 H) Γ.
+  := @first_order_preorder_hyperdoctrine_false H Γ.
 
 Notation "'⊥'" := first_order_hyperdoctrine_false : hyperdoctrine.
 
@@ -669,12 +681,19 @@ Proof.
 Qed.
 
 (** * 4. Conjunction *)
+Definition first_order_preorder_hyperdoctrine_conj
+           {H : first_order_preorder_hyperdoctrine}
+           {Γ : ty H}
+           (φ ψ : form Γ)
+  : form Γ
+  := BinProductObject _ (binprod_in_fib (pr1 (pr222 H)) φ ψ).
+
 Definition first_order_hyperdoctrine_conj
            {H : first_order_hyperdoctrine}
            {Γ : ty H}
            (φ ψ : form Γ)
   : form Γ
-  := BinProductObject _ (binprod_in_fib (pr1 (pr222 H)) φ ψ).
+  := @first_order_preorder_hyperdoctrine_conj H Γ φ ψ.
 
 Notation "φ ∧ ψ" := (first_order_hyperdoctrine_conj φ ψ) : hyperdoctrine.
 
@@ -846,12 +865,19 @@ Proof.
 Qed.
 
 (** * 6. Disjunction *)
+Definition first_order_preorder_hyperdoctrine_disj
+           {H : first_order_preorder_hyperdoctrine}
+           {Γ : ty H}
+           (φ ψ : form Γ)
+  : form Γ
+  := BinCoproductObject (bincoprod_in_fib (pr12 (pr222 H)) φ ψ).
+
 Definition first_order_hyperdoctrine_disj
            {H : first_order_hyperdoctrine}
            {Γ : ty H}
            (φ ψ : form Γ)
   : form Γ
-  := BinCoproductObject (bincoprod_in_fib (pr12 (pr222 H)) φ ψ).
+  := @first_order_preorder_hyperdoctrine_disj H Γ φ ψ.
 
 Notation "φ ∨ ψ" := (first_order_hyperdoctrine_disj φ ψ) : hyperdoctrine.
 
@@ -919,12 +945,19 @@ Proof.
 Qed.
 
 (** * 7. Implication *)
+Definition first_order_preorder_hyperdoctrine_impl
+           {H : first_order_preorder_hyperdoctrine}
+           {Γ : ty H}
+           (φ ψ : form Γ)
+  : form Γ
+  := exp_in_fib (pr122 (pr222 H)) φ ψ.
+
 Definition first_order_hyperdoctrine_impl
            {H : first_order_hyperdoctrine}
            {Γ : ty H}
            (φ ψ : form Γ)
   : form Γ
-  := exp_in_fib (pr122 (pr222 H)) φ ψ.
+  := @first_order_preorder_hyperdoctrine_impl H Γ φ ψ.
 
 Notation "φ ⇒ ψ" := (first_order_hyperdoctrine_impl φ ψ) : hyperdoctrine.
 
@@ -980,12 +1013,19 @@ Proof.
 Qed.
 
 (** * 8. Universal quantification *)
+Definition first_order_preorder_hyperdoctrine_forall
+           {H : first_order_preorder_hyperdoctrine}
+           {Γ A : ty H}
+           (φ : form (Γ ×h A))
+  : form Γ
+  := right_adjoint (pr11 (pr222 (pr222 H)) Γ A) φ.
+
 Definition first_order_hyperdoctrine_forall
            {H : first_order_hyperdoctrine}
            {Γ A : ty H}
            (φ : form (Γ ×h A))
   : form Γ
-  := right_adjoint (pr11 (pr222 (pr222 H)) Γ A) φ.
+  := @first_order_preorder_hyperdoctrine_forall H Γ A φ.
 
 Notation "'∀h' φ" := (first_order_hyperdoctrine_forall φ) (at level 10)
     : hyperdoctrine.
@@ -1117,12 +1157,19 @@ Proof.
 Qed.
 
 (** * 9. Existential quantification *)
+Definition first_order_preorder_hyperdoctrine_exists
+           {H : first_order_preorder_hyperdoctrine}
+           {Γ A : ty H}
+           (φ : form (Γ ×h A))
+  : form Γ
+  := left_adjoint (pr112 (pr222 (pr222 H)) Γ A) φ.
+
 Definition first_order_hyperdoctrine_exists
            {H : first_order_hyperdoctrine}
            {Γ A : ty H}
            (φ : form (Γ ×h A))
   : form Γ
-  := left_adjoint (pr112 (pr222 (pr222 H)) Γ A) φ.
+  := @first_order_preorder_hyperdoctrine_exists H Γ A φ.
 
 Notation "'∃h' φ" := (first_order_hyperdoctrine_exists φ) (at level 10)
     : hyperdoctrine.
@@ -1243,12 +1290,22 @@ Proof.
 Qed.
 
 (** * 10. Equality *)
+Definition first_order_preorder_hyperdoctrine_equal
+           {H : first_order_preorder_hyperdoctrine}
+           {Γ A : ty H}
+           (t₁ t₂ : tm Γ A)
+  : form Γ
+  := (left_adjoint
+        (pr22 (pr222 (pr222 H)) A)
+        first_order_preorder_hyperdoctrine_truth)
+       [ ⟨ t₁ , t₂ ⟩ ].
+
 Definition first_order_hyperdoctrine_equal
            {H : first_order_hyperdoctrine}
            {Γ A : ty H}
            (t₁ t₂ : tm Γ A)
   : form Γ
-  := (left_adjoint (pr22 (pr222 (pr222 H)) A) ⊤) [ ⟨ t₁ , t₂ ⟩ ].
+  := @first_order_preorder_hyperdoctrine_equal H Γ A t₁ t₂.
 
 Notation "t₁ ≡ t₂" := (first_order_hyperdoctrine_equal t₁ t₂)
     : hyperdoctrine.
@@ -1260,7 +1317,8 @@ Proposition equal_subst
             (t₁ t₂ : tm Γ₂ A)
   : (t₁ ≡ t₂) [ s ] = (t₁ [ s ]tm ≡ t₂ [ s ]tm).
 Proof.
-  unfold first_order_hyperdoctrine_equal.
+  unfold first_order_hyperdoctrine_equal, first_order_preorder_hyperdoctrine_equal.
+  cbn.
   rewrite hyperdoctrine_comp_subst.
   apply maponpaths.
   apply hyperdoctrine_pair_subst.
